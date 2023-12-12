@@ -10,7 +10,7 @@ variable "name" {
 variable "namespace" {
   type        = string
   description = "Namespace of the workload protection agent."
-  default     = "scc-wp"
+  default     = "ibm-scc-wp"
 }
 
 variable "cluster_name" {
