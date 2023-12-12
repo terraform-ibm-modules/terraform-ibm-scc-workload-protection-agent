@@ -128,7 +128,7 @@ No modules.
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Cluster name to add agent to. | `string` | n/a | yes |
 | <a name="input_ingestion_endpoint"></a> [ingestion\_endpoint](#input\_ingestion\_endpoint) | Workload Protection instance ingestion endpoint.  More info: https://cloud.ibm.com/docs/workload-protection?topic=workload-protection-agent-deploy-openshift-helm#agent-deploy-openshift-helm-install-step3 | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | Name of the workload protection agent. | `string` | n/a | yes |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace of the workload protection agent. | `string` | `"scc-wp"` | no |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace of the workload protection agent. | `string` | `"ibm-scc-wp"` | no |
 
 ### Outputs
 
