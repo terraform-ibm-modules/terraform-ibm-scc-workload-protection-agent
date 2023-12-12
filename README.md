@@ -6,7 +6,7 @@ Update status and "latest release" badges:
   1. For the status options, see https://github.ibm.com/GoldenEye/documentation/blob/master/status.md
   2. Update the "latest release" badge to point to the correct module's repo. Replace "module-template" in two places.
 -->
-[![Incubating (Not yet consumable)](https://img.shields.io/badge/status-Incubating%20(Not%20yet%20consumable)-red)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
+[![Stable (With quality checks)](https://img.shields.io/badge/Status-Stable%20(With%20quality%20checks)-green)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
 [![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/releases/latest)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
@@ -40,12 +40,15 @@ https://terraform-ibm-modules.github.io/documentation/#/implementation-guideline
 <!-- This heading should always match the name of the root level module (aka the repo name) -->
 ## terraform-ibm-scc-workload-protection-agent
 
+### Prerequisite
+[Security and Compliance Center Workload Protection Instance](https://cloud.ibm.com/docs/workload-protection?topic=workload-protection-getting-started#getting-started-step2) must be provision beforehand. Instance can be deployed with [terraform-ibm-scc-workload-protection](https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection) module.
+
 ### Known limitations
 
 The SCC Workload Protection Agent module has the following limitations:
 
-- SCC WPA can not be used inside private VPC, because it uses `public` and `private` endpoints only, while private VPC uses `direct` endpoint. Therefore, to use SCC WPA with VPC, the public gateway must be attached to a subnet.
-
+- Runtime Scanner (part of a Node Analyzer) makes a call to Cloud Object Storage to pull a vulnerability database. The Cloud Object Storage endpoint is constructed based on the `api_endpoint` value (private or public). Inside private VPC only `direct` endpoint can be used for Cloud Object Storage connection, which Runtime Scanner currently doesn't support. Therefore, to make SCC WPA work inside a VPC a subnet with public access (attached public gateway) must be used.
+Work is underway to remove the requirement to pull the database from Cloud Object Storage.
 
 ### Usage
 
@@ -57,14 +60,13 @@ unless real values don't help users know what to change.
 -->
 
 ```hcl
-    source                    = "terraform-ibm-modules/scc-workload-protection-agent/ibm"
-    version                   = "X.X.X" # Replace "X.X.X" with a release version to lock into a specific release
-    cluster_id                = "xxXXxxXXXxXXXXX"
-    access_key                = "xxXXxxXXxXxXXXXxxXxxxXXXXxXXXXX"
-    cluster_resource_group_id = "xxXXxxXXxXxXXXXxxXxxxXXXXxXXXXX"
-    api_endpoint              = "<region>.security-compliance-secure.cloud.ibm.com"
-    ingestion_endpoint        = "private.<region>.security-compliance-secure.cloud.ibm.com"
-    name                      = "ingest.<region>.security-compliance-secure.cloud.ibm.com"
+    source             = "terraform-ibm-modules/scc-workload-protection-agent/ibm"
+    version            = "X.X.X" # Replace "X.X.X" with a release version to lock into a specific release
+    access_key         = "xxXXxxXXxXxXXXXxxXxxxXXXXxXXXXX"
+    cluster_name       = "example-cluster-name"
+    api_endpoint       = "<region>.security-compliance-secure.cloud.ibm.com"
+    ingestion_endpoint = "private.<region>.security-compliance-secure.cloud.ibm.com"
+    name               = "ingest.<region>.security-compliance-secure.cloud.ibm.com"
 }
 ```
 
@@ -106,7 +108,6 @@ statement instead the previous block.
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0, < 1.6.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.8.0 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.59.0, < 2.0.0 |
 
 ### Modules
 
@@ -117,20 +118,17 @@ No modules.
 | Name | Type |
 |------|------|
 | [helm_release.scc_wp_agent](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [ibm_container_vpc_cluster.cluster](https://registry.terraform.io/providers/ibm-cloud/ibm/latest/docs/data-sources/container_vpc_cluster) | data source |
 
 ### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_access_key"></a> [access\_key](#input\_access\_key) | Workload Protection instance access key. | `string` | `null` | no |
-| <a name="input_api_endpoint"></a> [api\_endpoint](#input\_api\_endpoint) | Workload Protection instance api endpoint. | `string` | n/a | yes |
-| <a name="input_cluster_id"></a> [cluster\_id](#input\_cluster\_id) | Cluster id to add agent to. | `string` | n/a | yes |
-| <a name="input_cluster_resource_group_id"></a> [cluster\_resource\_group\_id](#input\_cluster\_resource\_group\_id) | Resource group of the cluster | `string` | n/a | yes |
-| <a name="input_ingestion_endpoint"></a> [ingestion\_endpoint](#input\_ingestion\_endpoint) | Workload Protection instance ingestion endpoint. | `string` | n/a | yes |
-| <a name="input_is_private_endpoint"></a> [is\_private\_endpoint](#input\_is\_private\_endpoint) | Do you want to use private endpoint | `bool` | `true` | no |
+| <a name="input_access_key"></a> [access\_key](#input\_access\_key) | Workload Protection instance access key. | `string` | n/a | yes |
+| <a name="input_api_endpoint"></a> [api\_endpoint](#input\_api\_endpoint) | Workload Protection instance api endpoint. More info: https://cloud.ibm.com/docs/workload-protection?topic=workload-protection-agent-deploy-openshift-helm#agent-deploy-openshift-helm-install-step3 | `string` | n/a | yes |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Cluster name to add agent to. | `string` | n/a | yes |
+| <a name="input_ingestion_endpoint"></a> [ingestion\_endpoint](#input\_ingestion\_endpoint) | Workload Protection instance ingestion endpoint.  More info: https://cloud.ibm.com/docs/workload-protection?topic=workload-protection-agent-deploy-openshift-helm#agent-deploy-openshift-helm-install-step3 | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | Name of the workload protection agent. | `string` | n/a | yes |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace of the workload protection agent. | `string` | `"ibm-observe"` | no |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace of the workload protection agent. | `string` | `"scc-wp"` | no |
 
 ### Outputs
 

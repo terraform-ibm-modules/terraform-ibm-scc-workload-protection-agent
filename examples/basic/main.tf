@@ -39,24 +39,6 @@ resource "ibm_is_subnet" "subnet_zone_1" {
 }
 
 ##############################################################################
-# Key Protect
-##############################################################################
-
-module "kp_all_inclusive" {
-  source                    = "terraform-ibm-modules/key-protect-all-inclusive/ibm"
-  version                   = "4.4.1"
-  key_protect_instance_name = "${var.prefix}-kp-instance"
-  resource_group_id         = module.resource_group.resource_group_id
-  region                    = var.region
-  resource_tags             = var.resource_tags
-  key_map = { "ocp" = [
-    "${var.prefix}-cluster-key",
-    "${var.prefix}-default-pool-boot-volume-encryption-key",
-    "${var.prefix}-other-pool-boot-volume-encryption-key"
-  ] }
-}
-
-##############################################################################
 # Base OCP Cluster in single zone
 ##############################################################################
 locals {
@@ -78,10 +60,6 @@ locals {
       workers_per_zone  = 2
       labels            = {}
       resource_group_id = module.resource_group.resource_group_id
-      boot_volume_encryption_kms_config = {
-        crk             = module.kp_all_inclusive.keys["ocp.${var.prefix}-default-pool-boot-volume-encryption-key"].key_id
-        kms_instance_id = module.kp_all_inclusive.key_protect_guid
-      }
     }
   ]
 }
@@ -96,14 +74,9 @@ module "ocp_base" {
   force_delete_storage = true
   vpc_id               = ibm_is_vpc.vpc.id
   vpc_subnets          = local.cluster_vpc_subnets
-  worker_pools         = length(var.worker_pools) > 0 ? var.worker_pools : local.worker_pools
-  ocp_version          = var.ocp_version
+  worker_pools         = local.worker_pools
   tags                 = var.resource_tags
-  kms_config = {
-    instance_id = module.kp_all_inclusive.key_protect_guid
-    crk_id      = module.kp_all_inclusive.keys["ocp.${var.prefix}-cluster-key"].key_id
-  }
-  access_tags = var.access_tags
+  access_tags          = var.access_tags
 }
 
 ##############################################################################
@@ -125,13 +98,12 @@ module "scc_wp" {
 ##############################################################################
 
 module "scc_wp_agent" {
-  source                    = "../.."
-  cluster_id                = module.ocp_base.cluster_id
-  access_key                = module.scc_wp.access_key
-  cluster_resource_group_id = module.resource_group.resource_group_id
-  api_endpoint              = module.scc_wp.api_endpoint
-  ingestion_endpoint        = module.scc_wp.ingestion_endpoint
-  name                      = "${var.prefix}-scc-wp-agent"
+  source             = "../.."
+  cluster_name       = module.ocp_base.cluster_name
+  access_key         = module.scc_wp.access_key
+  api_endpoint       = replace(module.scc_wp.api_endpoint, "https://", "")
+  ingestion_endpoint = replace(module.scc_wp.ingestion_endpoint, "https://", "")
+  name               = "${var.prefix}-scc-wp-agent"
 }
 
 ##############################################################################

@@ -2,14 +2,6 @@
 # SCC Workload Protection Agent
 ##############################################################################
 locals {
-  scc_wp_agent_namespace = var.namespace
-  cluster_name           = data.ibm_container_vpc_cluster.cluster.name
-
-  api_endpoint_clean       = replace(var.api_endpoint, "https://", "")
-  api_endpoint             = var.is_private_endpoint ? "private.${local.api_endpoint_clean}" : local.api_endpoint_clean
-  ingestion_endpoint_clean = replace(var.ingestion_endpoint, "https://", "")
-  ingestion_endpoint       = var.is_private_endpoint ? replace(var.ingestion_endpoint, "ingest", "ingest.private") : local.ingestion_endpoint_clean
-
   kspm_analyzer_image_repo              = "kspm-analyzer"
   kspm_analyzer_image_tag_digest        = "1.35.0@sha256:51a1e962ba5222ebec50353cfeff34824135ac877646e517cf39aadcefbfc629" # datasource: icr.io/ibm-iac/kspm-analyzer
   agent_kmodule_image_repo              = "agent-kmodule"
@@ -26,16 +18,11 @@ locals {
   image_namespace                       = "ibm-iac"
 }
 
-data "ibm_container_vpc_cluster" "cluster" {
-  name              = var.cluster_id
-  resource_group_id = var.cluster_resource_group_id
-}
-
 resource "helm_release" "scc_wp_agent" {
   name             = var.name
   chart            = "oci://icr.io/ibm-iac-charts/sysdig-deploy"
   version          = "1.30.0"
-  namespace        = local.scc_wp_agent_namespace
+  namespace        = var.namespace
   create_namespace = true
   timeout          = 12000
   wait             = true
@@ -52,13 +39,13 @@ resource "helm_release" "scc_wp_agent" {
   set {
     name  = "agent.collectorSettings.collectorHost"
     type  = "string"
-    value = local.ingestion_endpoint
+    value = var.ingestion_endpoint
   }
 
   set {
     name  = "nodeAnalyzer.nodeAnalyzer.apiEndpoint"
     type  = "string"
-    value = local.api_endpoint
+    value = var.api_endpoint
   }
 
   set {
@@ -89,13 +76,13 @@ resource "helm_release" "scc_wp_agent" {
   set {
     name  = "global.clusterConfig.name"
     type  = "string"
-    value = local.cluster_name
+    value = var.cluster_name
   }
 
   set {
     name  = "kspmCollector.apiEndpoint"
     type  = "string"
-    value = local.api_endpoint
+    value = var.api_endpoint
   }
 
   set {

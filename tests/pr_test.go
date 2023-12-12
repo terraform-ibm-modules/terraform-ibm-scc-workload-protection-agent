@@ -33,8 +33,6 @@ func TestRunBasicExample(t *testing.T) {
 }
 
 func TestRunBasicUpgradeExample(t *testing.T) {
-	// TODO: remove when code will be on github
-	t.Skip()
 	t.Parallel()
 
 	options := setupOptions(t, "scc-wp-a-upg", basicExampleDir)
