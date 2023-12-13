@@ -98,12 +98,12 @@ module "scc_wp" {
 ##############################################################################
 
 module "scc_wp_agent" {
-  source             = "../.."
-  cluster_name       = module.ocp_base.cluster_name
-  access_key         = module.scc_wp.access_key
-  api_endpoint       = replace(module.scc_wp.api_endpoint, "https://", "")
-  ingestion_endpoint = replace(module.scc_wp.ingestion_endpoint, "https://", "")
-  name               = "${var.prefix}-scc-wp-agent"
+  source        = "../.."
+  cluster_name  = module.ocp_base.cluster_name
+  access_key    = module.scc_wp.access_key
+  region        = var.region
+  endpoint_type = "public"
+  name          = "${var.prefix}-scc-wp-agent"
 }
 
 ##############################################################################

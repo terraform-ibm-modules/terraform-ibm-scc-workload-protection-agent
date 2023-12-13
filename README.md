@@ -64,9 +64,9 @@ unless real values don't help users know what to change.
     version            = "X.X.X" # Replace "X.X.X" with a release version to lock into a specific release
     access_key         = "xxXXxxXXxXxXXXXxxXxxxXXXXxXXXXX"
     cluster_name       = "example-cluster-name"
-    api_endpoint       = "<region>.security-compliance-secure.cloud.ibm.com"
-    ingestion_endpoint = "private.<region>.security-compliance-secure.cloud.ibm.com"
-    name               = "ingest.<region>.security-compliance-secure.cloud.ibm.com"
+    region             = "example-region"
+    endpoint_type      = "public"
+    name               = "example-name"
 }
 ```
 
@@ -80,17 +80,15 @@ information in the console at
 Manage > Access (IAM) > Access groups > Access policies.
 -->
 
-<!--
 You need the following permissions to run this module.
 
 - Account Management
-    - **Sample Account Service** service
-        - `Editor` platform access
-        - `Manager` service access
     - IAM Services
-        - **Sample Cloud Service** service
-            - `Administrator` platform access
--->
+        - **IBM Cloud Security and Compliance Center Workload Protection** service
+            - `Editor` platform access
+    - **Kubernetes** service
+        - `Viewer` platform access
+        - `Manager` service access
 
 <!-- NO PERMISSIONS FOR MODULE
 If no permissions are required for the module, uncomment the following
@@ -123,19 +121,18 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_access_key"></a> [access\_key](#input\_access\_key) | Workload Protection instance access key. | `string` | n/a | yes |
-| <a name="input_api_endpoint"></a> [api\_endpoint](#input\_api\_endpoint) | Workload Protection instance api endpoint. More info: https://cloud.ibm.com/docs/workload-protection?topic=workload-protection-agent-deploy-openshift-helm#agent-deploy-openshift-helm-install-step3 | `string` | n/a | yes |
-| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Cluster name to add agent to. | `string` | n/a | yes |
-| <a name="input_ingestion_endpoint"></a> [ingestion\_endpoint](#input\_ingestion\_endpoint) | Workload Protection instance ingestion endpoint.  More info: https://cloud.ibm.com/docs/workload-protection?topic=workload-protection-agent-deploy-openshift-helm#agent-deploy-openshift-helm-install-step3 | `string` | n/a | yes |
-| <a name="input_name"></a> [name](#input\_name) | Name of the workload protection agent. | `string` | n/a | yes |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace of the workload protection agent. | `string` | `"ibm-scc-wp"` | no |
+| <a name="input_access_key"></a> [access\_key](#input\_access\_key) | Security and Compliance Workload Protection instance access key. | `string` | n/a | yes |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Cluster name to add Security and Compliance Workload Protection agent to. | `string` | n/a | yes |
+| <a name="input_endpoint_type"></a> [endpoint\_type](#input\_endpoint\_type) | Specify the endpoint (public and private) for the IBM Cloud Security and Compliance Center Workload Protection service. | `string` | `"private"` | no |
+| <a name="input_name"></a> [name](#input\_name) | Helm release name. | `string` | n/a | yes |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace of the Security and Compliance Workload Protection agent. | `string` | `"ibm-scc-wp"` | no |
+| <a name="input_region"></a> [region](#input\_region) | Region where Security and Compliance Workload Protection instance is created. | `string` | n/a | yes |
 
 ### Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_id"></a> [id](#output\_id) | ID of provisioned SCC WP agent. |
-| <a name="output_name"></a> [name](#output\_name) | Name of provisioned SCC WP agent. |
+| <a name="output_name"></a> [name](#output\_name) | Helm chart release name. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 <!-- Leave this section as is so that your module has a link to local development environment set up steps for contributors to follow -->

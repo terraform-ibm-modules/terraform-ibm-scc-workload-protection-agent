@@ -2,6 +2,10 @@
 # SCC Workload Protection Agent
 ##############################################################################
 locals {
+  scc_domain         = "security-compliance-secure.cloud.ibm.com"
+  api_endpoint       = var.endpoint_type == "private" ? "private.${var.region}.${local.scc_domain}" : "${var.region}.${local.scc_domain}"
+  ingestion_endpoint = var.endpoint_type == "private" ? "ingest.private.${var.region}.${local.scc_domain}" : "ingest.${var.region}.${local.scc_domain}"
+
   kspm_analyzer_image_repo              = "kspm-analyzer"
   kspm_analyzer_image_tag_digest        = "1.35.0@sha256:51a1e962ba5222ebec50353cfeff34824135ac877646e517cf39aadcefbfc629" # datasource: icr.io/ibm-iac/kspm-analyzer
   agent_kmodule_image_repo              = "agent-kmodule"
@@ -39,13 +43,13 @@ resource "helm_release" "scc_wp_agent" {
   set {
     name  = "agent.collectorSettings.collectorHost"
     type  = "string"
-    value = var.ingestion_endpoint
+    value = local.ingestion_endpoint
   }
 
   set {
     name  = "nodeAnalyzer.nodeAnalyzer.apiEndpoint"
     type  = "string"
-    value = var.api_endpoint
+    value = local.api_endpoint
   }
 
   set {
@@ -82,7 +86,7 @@ resource "helm_release" "scc_wp_agent" {
   set {
     name  = "kspmCollector.apiEndpoint"
     type  = "string"
-    value = var.api_endpoint
+    value = local.api_endpoint
   }
 
   set {

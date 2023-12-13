@@ -15,7 +15,7 @@ data "ibm_container_cluster_config" "cluster_config" {
   endpoint_type = "private"
 }
 
-# Helm provider used to deploy cluster-proxy and observability agents
+# Helm provider used to deploy workload protection agent
 provider "helm" {
   kubernetes {
     host  = data.ibm_container_cluster_config.cluster_config.host
@@ -23,7 +23,6 @@ provider "helm" {
   }
 }
 
-# Kubernetes provider used to create kube namespace(s)
 provider "kubernetes" {
   host  = data.ibm_container_cluster_config.cluster_config.host
   token = data.ibm_container_cluster_config.cluster_config.token
