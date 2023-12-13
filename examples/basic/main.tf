@@ -19,7 +19,6 @@ resource "ibm_is_vpc" "vpc" {
   resource_group            = module.resource_group.resource_group_id
   address_prefix_management = "auto"
   tags                      = var.resource_tags
-  access_tags               = var.access_tags
 }
 
 resource "ibm_is_public_gateway" "gateway" {
@@ -76,7 +75,6 @@ module "ocp_base" {
   vpc_subnets          = local.cluster_vpc_subnets
   worker_pools         = local.worker_pools
   tags                 = var.resource_tags
-  access_tags          = var.access_tags
 }
 
 ##############################################################################

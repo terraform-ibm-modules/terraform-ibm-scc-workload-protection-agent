@@ -36,10 +36,4 @@ variable "resource_tags" {
   default     = []
 }
 
-variable "access_tags" {
-  type        = list(string)
-  description = "Optional list of access management tags to be added to the created resources."
-  default     = []
-}
-
 ##############################################################################
