@@ -10,7 +10,6 @@
       "datasourceTemplate": "docker"
     }
   ],
-  "labels": ["renovate"],
   "packageRules": [
     {
       "matchManagers": ["helmv3"],

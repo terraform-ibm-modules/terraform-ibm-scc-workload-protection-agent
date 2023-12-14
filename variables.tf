@@ -31,7 +31,7 @@ variable "region" {
 
 variable "endpoint_type" {
   type        = string
-  description = "Specify the endpoint (public and private) for the IBM Cloud Security and Compliance Center Workload Protection service."
+  description = "Specify the endpoint (public or private) for the IBM Cloud Security and Compliance Center Workload Protection service."
   default     = "private"
   validation {
     error_message = "The specified endpoint_type can be private or public only."
