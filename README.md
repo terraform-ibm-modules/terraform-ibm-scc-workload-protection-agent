@@ -60,6 +60,7 @@ unless real values don't help users know what to change.
 -->
 
 ```hcl
+module "scc_wp_agent {
     source             = "terraform-ibm-modules/scc-workload-protection-agent/ibm"
     version            = "X.X.X" # Replace "X.X.X" with a release version to lock into a specific release
     access_key         = "xxXXxxXXxXxXXXXxxXxxxXXXXxXXXXX"
