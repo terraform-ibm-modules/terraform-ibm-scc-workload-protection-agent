@@ -2,7 +2,7 @@
 # Outputs
 ########################################################################################################################
 
-#output "myoutput" {
-#  description = "Description of my output"
-#  value       = "value"
-#}
+output "name" {
+  description = "Helm chart release name."
+  value       = resource.helm_release.scc_wp_agent.name
+}
