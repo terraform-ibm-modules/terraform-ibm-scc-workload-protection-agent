@@ -16,6 +16,7 @@ var ignoreUpdates = []string{
 	"module.scc_wp_agent.helm_release.scc_wp_agent.set",
 	"module.scc_wp_agent.helm_release.scc_wp_agent.metadata",
 	"module.scc_wp_agent.helm_release.scc_wp_agent.metadata[0]",
+	"module.scc_wp_agent.helm_release.scc_wp_agent.version",
 }
 
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
