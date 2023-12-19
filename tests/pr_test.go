@@ -11,6 +11,10 @@ import (
 // const resourceGroup = "geretain-test-resources"
 const basicExampleDir = "examples/basic"
 
+var ignoreUpdates = []string{
+	"module.scc_wp_agent.helm_release.scc_wp_agent",
+}
+
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:      t,
@@ -18,6 +22,9 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		Prefix:       prefix,
 		// only one `lite` wp instance can be provisioned for each RG. Always create a new RG.
 		// ResourceGroup: resourceGroup,
+		IgnoreUpdates: testhelper.Exemptions{
+			List: ignoreUpdates,
+		},
 	})
 	return options
 }
