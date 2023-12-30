@@ -65,7 +65,7 @@ locals {
 
 module "ocp_base" {
   source               = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version              = "3.14.2"
+  version              = "3.14.3"
   cluster_name         = var.prefix
   ibmcloud_api_key     = var.ibmcloud_api_key
   resource_group_id    = module.resource_group.resource_group_id
