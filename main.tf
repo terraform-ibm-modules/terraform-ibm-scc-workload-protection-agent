@@ -13,7 +13,7 @@ locals {
   vuln_runtime_scanner_image_repo       = "vuln-runtime-scanner"
   vuln_runtime_scanner_image_tag_digest = "1.6.7@sha256:c7f48c12eeacce33969f69c31b9e851c86ffe2c7aaf661d4d253f1a65c40268f" # datasource: icr.io/ibm-iac/vuln-runtime-scanner
   vuln_host_scanner_image_repo          = "vuln-host-scanner"
-  vuln_host_scanner_image_tag_digest    = "0.7.2@sha256:e5e8b8ec7700d0da27fba02f1adda221b8e9a2d5def620e09149578f1aa78d7e" # datasource: icr.io/ibm-iac/vuln-host-scanner
+  vuln_host_scanner_image_tag_digest    = "0.7.4@sha256:25ac73208456d7fb1f0291ef0e5a42dba98c7001c286e2b70e00ed79592a336d" # datasource: icr.io/ibm-iac/vuln-host-scanner
   agent_slim_image_repo                 = "agent-slim"
   agent_slim_image_tag_digest           = "12.19.0@sha256:4683901b1cb505f0896ef8ba0512b2edff9d2c0153178ed7f5f27ccd0d356c43" # datasource: icr.io/ibm-iac/agent-slim
   kspm_collector_image_repo             = "kspm-collector"
@@ -25,7 +25,7 @@ locals {
 resource "helm_release" "scc_wp_agent" {
   name             = var.name
   chart            = "oci://icr.io/ibm-iac-charts/sysdig-deploy"
-  version          = "1.37.3"
+  version          = "1.37.6"
   namespace        = var.namespace
   create_namespace = true
   timeout          = 12000
