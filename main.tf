@@ -32,7 +32,7 @@ resource "helm_release" "scc_wp_agent" {
   version          = "1.37.16"
   namespace        = var.namespace
   create_namespace = true
-  timeout          = 900
+  timeout          = 2700
   wait             = true
   recreate_pods    = true
   force_update     = true
