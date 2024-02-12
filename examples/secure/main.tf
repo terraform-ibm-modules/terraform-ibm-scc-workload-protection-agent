@@ -90,7 +90,7 @@ module "ocp_base" {
   vpc_id               = module.slz_vpc.vpc_id
   vpc_subnets          = local.cluster_vpc_subnets
   worker_pools         = local.worker_pools
-  ocp_version          = var.ocp_version
+  ocp_version          = null
   tags                 = var.resource_tags
   kms_config = {
     instance_id = module.kp_all_inclusive.key_protect_guid
@@ -116,8 +116,12 @@ module "slz_vpc" {
   create_authorization_policy_vpc_to_cos = true
   existing_cos_instance_guid             = ibm_resource_instance.cos_instance.guid
   existing_storage_bucket_name           = ibm_cos_bucket.cos_bucket.bucket_name
-  address_prefixes                       = var.address_prefixes
-  network_cidrs                          = var.network_cidrs
+  address_prefixes = {
+    zone-1 = ["10.10.10.0/24"]
+    zone-2 = ["10.20.10.0/24"]
+    zone-3 = ["10.30.10.0/24"]
+  }
+  network_cidrs = ["10.0.0.0/8", "164.0.0.0/8"]
   use_public_gateways = {
     zone-1 = false
     zone-2 = false
