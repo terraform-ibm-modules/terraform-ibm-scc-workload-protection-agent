@@ -129,7 +129,6 @@ variable "network_cidrs" {
   default     = ["10.0.0.0/8", "164.0.0.0/8"]
 }
 
-
 variable "service_endpoints" {
   description = "Service endpoints to use to create endpoint gateways. Can be `public`, or `private`."
   type        = string

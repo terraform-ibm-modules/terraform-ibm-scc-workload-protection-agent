@@ -54,7 +54,7 @@ module "kp_all_inclusive" {
 # Base OCP Cluster in single zone
 ##############################################################################
 locals {
-   cluster_vpc_subnets = {
+  cluster_vpc_subnets = {
     default = [
       for subnet in module.slz_vpc.subnet_zone_list :
       {
@@ -89,7 +89,7 @@ module "ocp_base" {
   resource_group_id    = module.resource_group.resource_group_id
   region               = var.region
   force_delete_storage = true
-  vpc_id                          = module.slz_vpc.vpc_id
+  vpc_id               = module.slz_vpc.vpc_id
   vpc_subnets          = local.cluster_vpc_subnets
   worker_pools         = length(var.worker_pools) > 0 ? var.worker_pools : local.worker_pools
   ocp_version          = var.ocp_version
@@ -106,8 +106,8 @@ module "ocp_base" {
 #############################################################################
 
 module "slz_vpc" {
-  source                    = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version                   = "7.13.0"
+  source                                 = "terraform-ibm-modules/landing-zone-vpc/ibm"
+  version                                = "7.13.0"
   resource_group_id                      = module.resource_group.resource_group_id
   region                                 = var.region
   name                                   = var.vpc_name
@@ -150,7 +150,7 @@ module "scc_wp_agent" {
   cluster_name  = module.ocp_base.cluster_name
   access_key    = module.scc_wp.access_key
   region        = var.region
-  endpoint_type = "private"
+  endpoint_type = var.service_endpoints
   name          = "${var.prefix}-scc-wp-agent"
 }
 

@@ -10,6 +10,7 @@ import (
 
 // const resourceGroup = "geretain-test-resources"
 const basicExampleDir = "examples/basic"
+const secureExampleDir = "examples/secure"
 
 var ignoreUpdates = []string{
 	"module.scc_wp_agent.helm_release.scc_wp_agent",
@@ -32,7 +33,7 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 func TestRunBasicExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "scc-wp-a", basicExampleDir)
+	options := setupOptions(t, "scc-wp-a-basic", basicExampleDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -42,7 +43,29 @@ func TestRunBasicExample(t *testing.T) {
 func TestRunBasicUpgradeExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "scc-wp-a-upg", basicExampleDir)
+	options := setupOptions(t, "scc-wp-a-basic-upg", basicExampleDir)
+
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
+
+func TestRunSecureExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "scc-wp-a-secure", secureExampleDir)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunSecureUpgradeExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "scc-wp-a-secure-upg", secureExampleDir)
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
