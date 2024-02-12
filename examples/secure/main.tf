@@ -15,18 +15,16 @@ module "resource_group" {
 #############################################################################
 
 resource "ibm_resource_instance" "cos_instance" {
-  count             = var.enable_vpc_flow_logs ? 1 : 0
   name              = "${var.prefix}-vpc-logs-cos"
   resource_group_id = module.resource_group.resource_group_id
   service           = "cloud-object-storage"
-  plan              = var.cos_plan
-  location          = var.cos_location
+  plan              = "standard"
+  location          = "global"
 }
 
 resource "ibm_cos_bucket" "cos_bucket" {
-  count                = var.enable_vpc_flow_logs ? 1 : 0
   bucket_name          = "${var.prefix}-vpc-logs-cos-bucket"
-  resource_instance_id = ibm_resource_instance.cos_instance[0].id
+  resource_instance_id = ibm_resource_instance.cos_instance.id
   region_location      = var.region
   storage_class        = "standard"
 }
@@ -91,7 +89,7 @@ module "ocp_base" {
   force_delete_storage = true
   vpc_id               = module.slz_vpc.vpc_id
   vpc_subnets          = local.cluster_vpc_subnets
-  worker_pools         = length(var.worker_pools) > 0 ? var.worker_pools : local.worker_pools
+  worker_pools         = local.worker_pools
   ocp_version          = var.ocp_version
   tags                 = var.resource_tags
   kms_config = {
@@ -110,14 +108,14 @@ module "slz_vpc" {
   version                                = "7.13.0"
   resource_group_id                      = module.resource_group.resource_group_id
   region                                 = var.region
-  name                                   = var.vpc_name
+  name                                   = "wp-vpc"
   prefix                                 = var.prefix
   tags                                   = var.resource_tags
   access_tags                            = var.access_tags
-  enable_vpc_flow_logs                   = var.enable_vpc_flow_logs
-  create_authorization_policy_vpc_to_cos = var.create_authorization_policy_vpc_to_cos
-  existing_cos_instance_guid             = ibm_resource_instance.cos_instance[0].guid
-  existing_storage_bucket_name           = ibm_cos_bucket.cos_bucket[0].bucket_name
+  enable_vpc_flow_logs                   = true
+  create_authorization_policy_vpc_to_cos = true
+  existing_cos_instance_guid             = ibm_resource_instance.cos_instance.guid
+  existing_storage_bucket_name           = ibm_cos_bucket.cos_bucket.bucket_name
   address_prefixes                       = var.address_prefixes
   network_cidrs                          = var.network_cidrs
   use_public_gateways = {
@@ -150,7 +148,7 @@ module "scc_wp_agent" {
   cluster_name  = module.ocp_base.cluster_name
   access_key    = module.scc_wp.access_key
   region        = var.region
-  endpoint_type = var.service_endpoints
+  endpoint_type = "private"
   name          = "${var.prefix}-scc-wp-agent"
 }
 

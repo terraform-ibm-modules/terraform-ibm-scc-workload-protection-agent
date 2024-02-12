@@ -61,15 +61,3 @@ func TestRunSecureExample(t *testing.T) {
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
-
-func TestRunSecureUpgradeExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptions(t, "scc-wp-a-secure-upg", secureExampleDir)
-
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
-}

@@ -100,7 +100,7 @@ module "scc_wp_agent" {
   cluster_name  = module.ocp_base.cluster_name
   access_key    = module.scc_wp.access_key
   region        = var.region
-  endpoint_type = var.service_endpoints
+  endpoint_type = "public"
   name          = "${var.prefix}-scc-wp-agent"
 }
 
