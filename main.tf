@@ -32,7 +32,7 @@ resource "helm_release" "scc_wp_agent" {
   version          = "1.37.16"
   namespace        = var.namespace
   create_namespace = true
-  timeout          = 2700
+  timeout          = 600
   wait             = true
   recreate_pods    = true
   force_update     = true
@@ -127,11 +127,6 @@ resource "helm_release" "scc_wp_agent" {
 
   set {
     name  = "clusterScanner.eveEnabled"
-    value = true
-  }
-
-  set {
-    name  = "kspmCollector.apiEndpoint"
     value = true
   }
 
