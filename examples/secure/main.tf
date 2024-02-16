@@ -70,7 +70,7 @@ module "ocp_base" {
   vpc_id                  = module.slz_vpc.vpc_id
   vpc_subnets             = local.cluster_vpc_subnets
   worker_pools            = local.worker_pools
-  ocp_version             = null
+  ocp_version             = "4.14"
   tags                    = var.resource_tags
   kms_config = {
     instance_id = module.kp_all_inclusive.key_protect_guid
