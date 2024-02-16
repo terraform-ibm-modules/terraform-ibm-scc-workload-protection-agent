@@ -6,20 +6,24 @@ locals {
   api_endpoint       = var.endpoint_type == "private" ? "private.${var.region}.${local.scc_domain}" : "${var.region}.${local.scc_domain}"
   ingestion_endpoint = var.endpoint_type == "private" ? "ingest.private.${var.region}.${local.scc_domain}" : "ingest.${var.region}.${local.scc_domain}"
 
-  kspm_analyzer_image_repo              = "kspm-analyzer"
-  kspm_analyzer_image_tag_digest        = "1.39.1@sha256:1a4c2f508beabed6a17c1584729dc8b40f1f37d59bef3a8e9d40f804d37bc807" # datasource: icr.io/ibm-iac/kspm-analyzer
-  agent_kmodule_image_repo              = "agent-kmodule"
-  agent_kmodule_image_tag_digest        = "12.20.0@sha256:9b3b1fd6cbf05f5fa79098202ba9ec79c464d846643f6956c382788da7fdf4ec" # datasource: icr.io/ibm-iac/agent-kmodule
-  vuln_runtime_scanner_image_repo       = "vuln-runtime-scanner"
-  vuln_runtime_scanner_image_tag_digest = "1.6.9@sha256:b8032f3ca8b4623aa16a305272a40fc77c1856b7a783e89297489d4a82954450" # datasource: icr.io/ibm-iac/vuln-runtime-scanner
-  vuln_host_scanner_image_repo          = "vuln-host-scanner"
-  vuln_host_scanner_image_tag_digest    = "0.7.4@sha256:25ac73208456d7fb1f0291ef0e5a42dba98c7001c286e2b70e00ed79592a336d" # datasource: icr.io/ibm-iac/vuln-host-scanner
-  agent_slim_image_repo                 = "agent-slim"
-  agent_slim_image_tag_digest           = "12.20.0@sha256:79dda7a5d0f93435b29d648242da293406cc163795890c10a9aa8e25d3e32ae0" # datasource: icr.io/ibm-iac/agent-slim
-  kspm_collector_image_repo             = "kspm-collector"
-  kspm_collector_image_tag_digest       = "1.37.1@sha256:1a1abeb152a97455ecd251b78f8fb2f7e570292dd98186e50244d46f40efc09f" # datasource: icr.io/ibm-iac/kspm-collector
-  image_registry                        = "icr.io"
-  image_namespace                       = "ibm-iac"
+  kspm_analyzer_image_repo                   = "kspm-analyzer"
+  kspm_analyzer_image_tag_digest             = "1.39.1@sha256:1a4c2f508beabed6a17c1584729dc8b40f1f37d59bef3a8e9d40f804d37bc807" # datasource: icr.io/ibm-iac/kspm-analyzer
+  agent_kmodule_image_repo                   = "agent-kmodule"
+  agent_kmodule_image_tag_digest             = "12.20.0@sha256:9b3b1fd6cbf05f5fa79098202ba9ec79c464d846643f6956c382788da7fdf4ec" # datasource: icr.io/ibm-iac/agent-kmodule
+  vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
+  vuln_runtime_scanner_image_tag_digest      = "1.6.7@sha256:c7f48c12eeacce33969f69c31b9e851c86ffe2c7aaf661d4d253f1a65c40268f" # datasource: icr.io/ibm-iac/vuln-runtime-scanner
+  vuln_host_scanner_image_repo               = "vuln-host-scanner"
+  vuln_host_scanner_image_tag_digest         = "0.7.4@sha256:25ac73208456d7fb1f0291ef0e5a42dba98c7001c286e2b70e00ed79592a336d" # datasource: icr.io/ibm-iac/vuln-host-scanner
+  agent_slim_image_repo                      = "agent-slim"
+  agent_slim_image_tag_digest                = "12.20.0@sha256:79dda7a5d0f93435b29d648242da293406cc163795890c10a9aa8e25d3e32ae0" # datasource: icr.io/ibm-iac/agent-slim
+  kspm_collector_image_repo                  = "kspm-collector"
+  kspm_collector_image_tag_digest            = "1.37.1@sha256:1a1abeb152a97455ecd251b78f8fb2f7e570292dd98186e50244d46f40efc09f" # datasource: icr.io/ibm-iac/kspm-collector
+  sbom_extractor_image_repo                  = "image-sbom-extractor"
+  sbom_extractor_image_tag_digest            = "0.5.4@sha256:7a4f8dcd7df5fa6fc5caf8cd7b3c0429af7332464c8692bdfeb5ebdbd49da760" # datasource: icr.io/ibm-iac/image-sbom-extractor
+  runtime_status_integrator_image_repo       = "runtime-status-integrator"
+  runtime_status_integrator_image_tag_digest = "0.5.4@sha256:58767b42ac0c9958cbc6e3a4a5ef84e1a7a8c3d32386d0bc5d50b376ffbbcc97" # datasource: icr.io/ibm-iac/runtime-status-integrator
+  image_registry                             = "icr.io"
+  image_namespace                            = "ibm-iac"
 }
 
 resource "helm_release" "scc_wp_agent" {
@@ -28,17 +32,11 @@ resource "helm_release" "scc_wp_agent" {
   version          = "1.37.16"
   namespace        = var.namespace
   create_namespace = true
-  timeout          = 12000
+  timeout          = 600
   wait             = true
   recreate_pods    = true
   force_update     = true
   reset_values     = true
-
-  set {
-    name  = "global.sysdig.accessKey"
-    type  = "string"
-    value = var.access_key
-  }
 
   set {
     name  = "agent.collectorSettings.collectorHost"
@@ -47,29 +45,15 @@ resource "helm_release" "scc_wp_agent" {
   }
 
   set {
-    name  = "nodeAnalyzer.nodeAnalyzer.apiEndpoint"
+    name  = "agent.slim.image.repository"
     type  = "string"
-    value = local.api_endpoint
+    value = local.agent_slim_image_repo
   }
 
   set {
-    name  = "nodeAnalyzer.nodeAnalyzer.runtimeScanner.settings.eveEnabled"
-    value = true
-  }
-
-  set {
-    name  = "nodeAnalyzer.secure.vulnerabilityManagement.newEngineOnly"
-    value = true
-  }
-
-  set {
-    name  = "global.kspm.deploy"
-    value = true
-  }
-
-  set {
-    name  = "nodeAnalyzer.nodeAnalyzer.benchmarkRunner.deploy"
-    value = false
+    name  = "agent.slim.kmoduleImage.repository"
+    type  = "string"
+    value = local.agent_kmodule_image_repo
   }
 
   set {
@@ -84,20 +68,72 @@ resource "helm_release" "scc_wp_agent" {
   }
 
   set {
+    name  = "global.kspm.deploy"
+    value = true
+  }
+
+  set {
+    name  = "global.sysdig.accessKey"
+    type  = "string"
+    value = var.access_key
+  }
+  set {
+    name  = "global.sysdig.apiHost"
+    type  = "string"
+    value = local.api_endpoint
+  }
+
+  set {
+    name  = "nodeAnalyzer.secure.vulnerabilityManagement.newEngineOnly"
+    value = true
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.runtimeScanner.deploy"
+    value = false
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.benchmarkRunner.deploy"
+    value = false
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.hostScanner.deploy"
+    value = false
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.deploy"
+    value = true
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.apiEndpoint"
+    type  = "string"
+    value = local.api_endpoint
+  }
+
+  set {
     name  = "kspmCollector.apiEndpoint"
     type  = "string"
     value = local.api_endpoint
   }
 
   set {
-    name  = "agent.image.registry"
-    type  = "string"
-    value = local.image_registry
+    name  = "clusterScanner.enabled"
+    value = true
   }
 
   set {
-    name  = "nodeAnalyzer.nodeAnalyzer.deploy"
+    name  = "clusterScanner.eveEnabled"
     value = true
+  }
+
+  set {
+    name  = "agent.image.registry"
+    type  = "string"
+    value = local.image_registry
   }
 
   set {
@@ -136,21 +172,9 @@ resource "helm_release" "scc_wp_agent" {
   }
 
   set {
-    name  = "agent.slim.image.repository"
-    type  = "string"
-    value = local.agent_slim_image_repo
-  }
-
-  set {
     name  = "agent.image.tag"
     type  = "string"
     value = local.agent_slim_image_tag_digest
-  }
-
-  set {
-    name  = "agent.slim.kmoduleImage.repository"
-    type  = "string"
-    value = local.agent_kmodule_image_repo
   }
 
   set {
@@ -182,4 +206,29 @@ resource "helm_release" "scc_wp_agent" {
     type  = "string"
     value = local.vuln_host_scanner_image_repo
   }
+
+  set {
+    name  = "clusterScanner.imageSbomExtractor.image.repository"
+    type  = "string"
+    value = local.sbom_extractor_image_repo
+  }
+
+  set {
+    name  = "clusterScanner.imageSbomExtractor.image.tag"
+    type  = "string"
+    value = local.sbom_extractor_image_tag_digest
+  }
+
+  set {
+    name  = "clusterScanner.runtimeStatusIntegrator.image.repository"
+    type  = "string"
+    value = local.runtime_status_integrator_image_repo
+  }
+
+  set {
+    name  = "clusterScanner.runtimeStatusIntegrator.image.tag"
+    type  = "string"
+    value = local.runtime_status_integrator_image_tag_digest
+  }
+
 }

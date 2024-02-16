@@ -6,10 +6,12 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testschematic"
 )
 
 // const resourceGroup = "geretain-test-resources"
 const basicExampleDir = "examples/basic"
+const secureExampleDir = "examples/secure"
 
 var ignoreUpdates = []string{
 	"module.scc_wp_agent.helm_release.scc_wp_agent",
@@ -32,7 +34,7 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 func TestRunBasicExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "scc-wp-a", basicExampleDir)
+	options := setupOptions(t, "scc-wp-a-basic", basicExampleDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -42,11 +44,42 @@ func TestRunBasicExample(t *testing.T) {
 func TestRunBasicUpgradeExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "scc-wp-a-upg", basicExampleDir)
+	options := setupOptions(t, "scc-wp-a-basic-upg", basicExampleDir)
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
 	}
+}
+
+func TestSecureExampleInSchematic(t *testing.T) {
+	t.Parallel()
+
+	options := testschematic.TestSchematicOptionsDefault(&testschematic.TestSchematicOptions{
+		Testing: t,
+		Prefix:  "scc-wp-a-secure",
+		TarIncludePatterns: []string{
+			"*.tf",
+			"scripts/*.sh",
+			"examples/secure/*.tf",
+			"modules/*/*.tf",
+			"kubeconfig/README.md",
+		},
+		// only one `lite` wp instance can be provisioned for each RG. Always create a new RG.
+		// ResourceGroup: resourceGroup,
+		TemplateFolder:         secureExampleDir,
+		Tags:                   []string{"test-schematic"},
+		DeleteWorkspaceOnFail:  false,
+		WaitJobCompleteMinutes: 60,
+	})
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.Nil(t, err, "This should not have errored")
 }

@@ -24,6 +24,7 @@ A module for provisioning an [IBM Cloud Security and Compliance Center Workload 
 * [terraform-ibm-scc-workload-protection-agent](#terraform-ibm-scc-workload-protection-agent)
 * [Examples](./examples)
     * [Basic example](./examples/basic)
+    * [Secure private example](./examples/secure)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
 
@@ -42,13 +43,6 @@ https://terraform-ibm-modules.github.io/documentation/#/implementation-guideline
 
 ### Prerequisite
 [Security and Compliance Center Workload Protection Instance](https://cloud.ibm.com/docs/workload-protection?topic=workload-protection-getting-started#getting-started-step2) must be provision beforehand. Instance can be deployed with [terraform-ibm-scc-workload-protection](https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection) module.
-
-### Known limitations
-
-The SCC Workload Protection Agent module has the following limitations:
-
-- Runtime Scanner (part of a Node Analyzer) makes a call to Cloud Object Storage to pull a vulnerability database. The Cloud Object Storage endpoint is constructed based on the `api_endpoint` value (private or public). Inside private VPC only `direct` endpoint can be used for Cloud Object Storage connection, which Runtime Scanner currently doesn't support. Therefore, to make SCC WPA work inside a VPC a subnet with public access (attached public gateway) must be used.
-Work is underway to remove the requirement to pull the database from Cloud Object Storage.
 
 ### Usage
 
