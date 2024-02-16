@@ -59,19 +59,20 @@ locals {
 }
 
 module "ocp_base" {
-  source                  = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version                 = "3.17.1"
-  cluster_name            = var.prefix
-  ibmcloud_api_key        = var.ibmcloud_api_key
-  resource_group_id       = module.resource_group.resource_group_id
-  region                  = var.region
-  force_delete_storage    = true
-  disable_public_endpoint = true
-  vpc_id                  = module.slz_vpc.vpc_id
-  vpc_subnets             = local.cluster_vpc_subnets
-  worker_pools            = local.worker_pools
-  ocp_version             = "4.14"
-  tags                    = var.resource_tags
+  source                       = "terraform-ibm-modules/base-ocp-vpc/ibm"
+  version                      = "3.17.1"
+  cluster_name                 = var.prefix
+  ibmcloud_api_key             = var.ibmcloud_api_key
+  resource_group_id            = module.resource_group.resource_group_id
+  region                       = var.region
+  force_delete_storage         = true
+  disable_public_endpoint      = true
+  cluster_config_endpoint_type = "private"
+  vpc_id                       = module.slz_vpc.vpc_id
+  vpc_subnets                  = local.cluster_vpc_subnets
+  worker_pools                 = local.worker_pools
+  ocp_version                  = "4.14"
+  tags                         = var.resource_tags
   kms_config = {
     instance_id = module.kp_all_inclusive.key_protect_guid
     crk_id      = module.kp_all_inclusive.keys["ocp.${var.prefix}-cluster-key"].key_id
