@@ -11,6 +11,7 @@ provider "ibm" {
 data "ibm_container_cluster_config" "cluster_config" {
   cluster_name_id   = module.ocp_base.cluster_id
   resource_group_id = module.ocp_base.resource_group_id
+  endpoint_type     = "private"
 }
 
 # Helm provider used to deploy workload protection agent

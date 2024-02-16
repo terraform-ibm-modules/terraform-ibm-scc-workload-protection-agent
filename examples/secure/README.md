@@ -1,4 +1,4 @@
-# Secure example
+# Secure private example
 
 An end-to-end secure (private) example that will provision the following:
 - A new resource group if one is not passed in.

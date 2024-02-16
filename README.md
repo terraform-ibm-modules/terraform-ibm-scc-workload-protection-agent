@@ -24,7 +24,7 @@ A module for provisioning an [IBM Cloud Security and Compliance Center Workload 
 * [terraform-ibm-scc-workload-protection-agent](#terraform-ibm-scc-workload-protection-agent)
 * [Examples](./examples)
     * [Basic example](./examples/basic)
-    * [Secure example](./examples/secure)
+    * [Secure private example](./examples/secure)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
 
