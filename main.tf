@@ -29,7 +29,7 @@ locals {
 resource "helm_release" "scc_wp_agent" {
   name             = var.name
   chart            = "oci://icr.io/ibm-iac-charts/sysdig-deploy"
-  version          = "1.38.2"
+  version          = "1.39.2"
   namespace        = var.namespace
   create_namespace = true
   timeout          = 600
