@@ -19,9 +19,9 @@ locals {
   kspm_collector_image_repo                  = "kspm-collector"
   kspm_collector_image_tag_digest            = "1.37.1@sha256:1a1abeb152a97455ecd251b78f8fb2f7e570292dd98186e50244d46f40efc09f" # datasource: icr.io/ibm-iac/kspm-collector
   sbom_extractor_image_repo                  = "image-sbom-extractor"
-  sbom_extractor_image_tag_digest            = "0.6.0@sha256:d064f1f2c12125e676ee95df39d1a79d28d62bb6ab7daf0f55c210b583a3ca02" # datasource: icr.io/ibm-iac/image-sbom-extractor
+  sbom_extractor_image_tag_digest            = "0.6.1@sha256:e4951e311e02ee9b18ac1f09f31b56bd2750b771e623d57e4f8967a9842a225e" # datasource: icr.io/ibm-iac/image-sbom-extractor
   runtime_status_integrator_image_repo       = "runtime-status-integrator"
-  runtime_status_integrator_image_tag_digest = "0.6.0@sha256:304a76a9d3f8eb352d60ab7c2caf8911eae0483db950c5e22588bf14c2cdb293" # datasource: icr.io/ibm-iac/runtime-status-integrator
+  runtime_status_integrator_image_tag_digest = "0.6.1@sha256:fb1c3f0107b9f7bd329a86335fa7186d4a32bfedb76618c92c30cbf7fff15cde" # datasource: icr.io/ibm-iac/runtime-status-integrator
   image_registry                             = "icr.io"
   image_namespace                            = "ibm-iac"
 }
@@ -29,7 +29,7 @@ locals {
 resource "helm_release" "scc_wp_agent" {
   name             = var.name
   chart            = "oci://icr.io/ibm-iac-charts/sysdig-deploy"
-  version          = "1.39.2"
+  version          = "1.39.3"
   namespace        = var.namespace
   create_namespace = true
   timeout          = 600
