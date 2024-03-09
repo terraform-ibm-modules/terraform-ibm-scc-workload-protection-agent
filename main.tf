@@ -9,13 +9,13 @@ locals {
   kspm_analyzer_image_repo                   = "kspm-analyzer"
   kspm_analyzer_image_tag_digest             = "1.39.1@sha256:1a4c2f508beabed6a17c1584729dc8b40f1f37d59bef3a8e9d40f804d37bc807" # datasource: icr.io/ibm-iac/kspm-analyzer
   agent_kmodule_image_repo                   = "agent-kmodule"
-  agent_kmodule_image_tag_digest             = "12.20.0@sha256:9b3b1fd6cbf05f5fa79098202ba9ec79c464d846643f6956c382788da7fdf4ec" # datasource: icr.io/ibm-iac/agent-kmodule
+  agent_kmodule_image_tag_digest             = "13.0.0@sha256:8032373b10f734aa91523ce8486cd7583c06759587d42bb526202d65e7f06cbe" # datasource: icr.io/ibm-iac/agent-kmodule
   vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
   vuln_runtime_scanner_image_tag_digest      = "1.6.9@sha256:b8032f3ca8b4623aa16a305272a40fc77c1856b7a783e89297489d4a82954450" # datasource: icr.io/ibm-iac/vuln-runtime-scanner
   vuln_host_scanner_image_repo               = "vuln-host-scanner"
   vuln_host_scanner_image_tag_digest         = "0.7.5@sha256:d639fb09d7e742613a3234b1bd13f24287ddb166a0a2a0f9c2cf57ecbd0916cb" # datasource: icr.io/ibm-iac/vuln-host-scanner
   agent_slim_image_repo                      = "agent-slim"
-  agent_slim_image_tag_digest                = "12.20.0@sha256:79dda7a5d0f93435b29d648242da293406cc163795890c10a9aa8e25d3e32ae0" # datasource: icr.io/ibm-iac/agent-slim
+  agent_slim_image_tag_digest                = "13.0.0@sha256:89d809876a28ab5a89607ea37f3b8b5fdc47545043ff5fece21152ef1621377b" # datasource: icr.io/ibm-iac/agent-slim
   kspm_collector_image_repo                  = "kspm-collector"
   kspm_collector_image_tag_digest            = "1.37.1@sha256:1a1abeb152a97455ecd251b78f8fb2f7e570292dd98186e50244d46f40efc09f" # datasource: icr.io/ibm-iac/kspm-collector
   sbom_extractor_image_repo                  = "image-sbom-extractor"
