@@ -1,5 +1,5 @@
 <!-- Update the title -->
-# Security and Compliance Center Workload Protection Agent module
+# Security and Compliance Center Workload Protection Agent module 
 
 <!--
 Update status and "latest release" badges:
