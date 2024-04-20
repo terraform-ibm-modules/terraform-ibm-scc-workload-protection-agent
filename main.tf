@@ -9,13 +9,13 @@ locals {
   kspm_analyzer_image_repo                   = "kspm-analyzer"
   kspm_analyzer_image_tag_digest             = "1.42.7@sha256:6799261d79a42e7c7dcc535621b890892b91ec4543afa09cd4bf60c14dd0e9bb" # datasource: icr.io/ibm-iac/kspm-analyzer
   agent_kmodule_image_repo                   = "agent-kmodule"
-  agent_kmodule_image_tag_digest             = "13.0.4@sha256:1377e0151f0cf5e7fbba9d41d39c9a4cd0f6936ff344ecd118cb31427e8747ae" # datasource: icr.io/ibm-iac/agent-kmodule
+  agent_kmodule_image_tag_digest             = "13.1.0@sha256:faab70aead888275f44057aec76330638c8dd21623c979bbbafe5182079d3f53" # datasource: icr.io/ibm-iac/agent-kmodule
   vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
   vuln_runtime_scanner_image_tag_digest      = "1.6.11@sha256:9314d5497c25811fd8544c923992ae1ca386df668783b2425a5d4ca73b08ae37" # datasource: icr.io/ibm-iac/vuln-runtime-scanner
   vuln_host_scanner_image_repo               = "vuln-host-scanner"
   vuln_host_scanner_image_tag_digest         = "0.8.1@sha256:58fcc3a307d3b8a464658cbd95f84da0aaff2af39e764e64d81657f659d60185" # datasource: icr.io/ibm-iac/vuln-host-scanner
   agent_slim_image_repo                      = "agent-slim"
-  agent_slim_image_tag_digest                = "13.0.4@sha256:ac11b778fb733ddba294429fe8fe7211459ad865afd93d9f1f45f0c374840dbb" # datasource: icr.io/ibm-iac/agent-slim
+  agent_slim_image_tag_digest                = "13.1.0@sha256:3595ca539b62621223d916ae6089eb44d7f868398a84b620937d891b36e1b97d" # datasource: icr.io/ibm-iac/agent-slim
   kspm_collector_image_repo                  = "kspm-collector"
   kspm_collector_image_tag_digest            = "1.38.6@sha256:17cf73d24a3cf00aa4853719e708992a36f0e263ec51d148e4e7e384afcb55ac" # datasource: icr.io/ibm-iac/kspm-collector
   sbom_extractor_image_repo                  = "image-sbom-extractor"
@@ -29,7 +29,7 @@ locals {
 resource "helm_release" "scc_wp_agent" {
   name             = var.name
   chart            = "oci://icr.io/ibm-iac-charts/sysdig-deploy"
-  version          = "1.49.8"
+  version          = "1.51.0"
   namespace        = var.namespace
   create_namespace = true
   timeout          = 600
