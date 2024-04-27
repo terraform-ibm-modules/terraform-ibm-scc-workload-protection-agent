@@ -7,7 +7,7 @@ locals {
   ingestion_endpoint = var.endpoint_type == "private" ? "ingest.private.${var.region}.${local.scc_domain}" : "ingest.${var.region}.${local.scc_domain}"
 
   kspm_analyzer_image_repo                   = "kspm-analyzer"
-  kspm_analyzer_image_tag_digest             = "1.42.7@sha256:6799261d79a42e7c7dcc535621b890892b91ec4543afa09cd4bf60c14dd0e9bb" # datasource: icr.io/ibm-iac/kspm-analyzer
+  kspm_analyzer_image_tag_digest             = "1.43.0@sha256:d92eb10a7c26da8e77d0fe29bdfea70b769bee72e09c543f413aa5359d9e4464" # datasource: icr.io/ibm-iac/kspm-analyzer
   agent_kmodule_image_repo                   = "agent-kmodule"
   agent_kmodule_image_tag_digest             = "13.1.0@sha256:faab70aead888275f44057aec76330638c8dd21623c979bbbafe5182079d3f53" # datasource: icr.io/ibm-iac/agent-kmodule
   vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
@@ -17,11 +17,11 @@ locals {
   agent_slim_image_repo                      = "agent-slim"
   agent_slim_image_tag_digest                = "13.1.0@sha256:3595ca539b62621223d916ae6089eb44d7f868398a84b620937d891b36e1b97d" # datasource: icr.io/ibm-iac/agent-slim
   kspm_collector_image_repo                  = "kspm-collector"
-  kspm_collector_image_tag_digest            = "1.38.6@sha256:17cf73d24a3cf00aa4853719e708992a36f0e263ec51d148e4e7e384afcb55ac" # datasource: icr.io/ibm-iac/kspm-collector
+  kspm_collector_image_tag_digest            = "1.38.7@sha256:1ed961153538145fc255710bcc13f190ec0cb7fe0f344020a8310518358c3ecf" # datasource: icr.io/ibm-iac/kspm-collector
   sbom_extractor_image_repo                  = "image-sbom-extractor"
-  sbom_extractor_image_tag_digest            = "0.7.2@sha256:e237b2ab431512bc9c70b46f9f10fc4896d584575dcca20b69af5f2dd9fbcb5e" # datasource: icr.io/ibm-iac/image-sbom-extractor
+  sbom_extractor_image_tag_digest            = "0.7.4@sha256:7bc32acfc2b7ab535f0399146e69ce0f9d40909acd9ee1b4ebbfcce204b5d972" # datasource: icr.io/ibm-iac/image-sbom-extractor
   runtime_status_integrator_image_repo       = "runtime-status-integrator"
-  runtime_status_integrator_image_tag_digest = "0.7.2@sha256:d9132229e65003170843f05a35721294b1c9ca9f0072472c3ae632e59296b7a0" # datasource: icr.io/ibm-iac/runtime-status-integrator
+  runtime_status_integrator_image_tag_digest = "0.7.4@sha256:ad051831ecf913a900075756dd4fa4b6291e7d982e7a5579be3652d1c7f055c1" # datasource: icr.io/ibm-iac/runtime-status-integrator
   image_registry                             = "icr.io"
   image_namespace                            = "ibm-iac"
 }
@@ -29,7 +29,7 @@ locals {
 resource "helm_release" "scc_wp_agent" {
   name             = var.name
   chart            = "oci://icr.io/ibm-iac-charts/sysdig-deploy"
-  version          = "1.51.0"
+  version          = "1.51.4"
   namespace        = var.namespace
   create_namespace = true
   timeout          = 600
