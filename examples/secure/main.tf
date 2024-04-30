@@ -20,12 +20,22 @@ module "kp_all_inclusive" {
   resource_group_id         = module.resource_group.resource_group_id
   region                    = var.region
   resource_tags             = var.resource_tags
-  keys = [{
-    key_ring_name = "en-key-ring"
-    keys = [{
-      key_name = "${var.prefix}-en"
-    }]
-  }]
+  keys = [
+    {
+      key_ring_name = "ocp"
+      keys = [
+        {
+          key_name = "${var.prefix}-cluster-key"
+        },
+        {
+          key_name = "${var.prefix}-default-pool-boot-volume-encryption-key"
+        },
+        {
+          key_name = "${var.prefix}-other-pool-boot-volume-encryption-key"
+        }
+      ]
+    }
+  ]
 }
 
 ##############################################################################
