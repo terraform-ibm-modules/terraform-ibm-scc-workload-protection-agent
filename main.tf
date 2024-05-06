@@ -69,7 +69,7 @@ resource "helm_release" "scc_wp_agent" {
 
   set {
     name  = "global.kspm.deploy"
-    value = true
+    value = var.kspm_deploy
   }
 
   set {
@@ -77,10 +77,17 @@ resource "helm_release" "scc_wp_agent" {
     type  = "string"
     value = var.access_key
   }
+
   set {
     name  = "global.sysdig.apiHost"
     type  = "string"
     value = local.api_endpoint
+  }
+
+  set {
+    name  = "global.sysdig.tags.deployment"
+    type  = "string"
+    value = var.deployment_tag
   }
 
   set {
@@ -100,12 +107,12 @@ resource "helm_release" "scc_wp_agent" {
 
   set {
     name  = "nodeAnalyzer.nodeAnalyzer.hostScanner.deploy"
-    value = false
+    value = var.host_scanner_deploy
   }
 
   set {
     name  = "nodeAnalyzer.nodeAnalyzer.deploy"
-    value = true
+    value = var.node_analyzer_deploy
   }
 
   set {
@@ -122,7 +129,7 @@ resource "helm_release" "scc_wp_agent" {
 
   set {
     name  = "clusterScanner.enabled"
-    value = true
+    value = var.cluster_scanner_deploy
   }
 
   set {
