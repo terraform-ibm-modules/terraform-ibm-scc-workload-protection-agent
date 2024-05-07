@@ -118,9 +118,14 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_key"></a> [access\_key](#input\_access\_key) | Security and Compliance Workload Protection instance access key. | `string` | n/a | yes |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Cluster name to add Security and Compliance Workload Protection agent to. | `string` | n/a | yes |
+| <a name="input_cluster_scanner_deploy"></a> [cluster\_scanner\_deploy](#input\_cluster\_scanner\_deploy) | Deploy SCC Workload Protection cluster scanner component. | `bool` | `true` | no |
+| <a name="input_deployment_tag"></a> [deployment\_tag](#input\_deployment\_tag) | Sets a global tag that will be included in the components | `string` | `"terraform"` | no |
 | <a name="input_endpoint_type"></a> [endpoint\_type](#input\_endpoint\_type) | Specify the endpoint (public or private) for the IBM Cloud Security and Compliance Center Workload Protection service. | `string` | `"private"` | no |
+| <a name="input_host_scanner_deploy"></a> [host\_scanner\_deploy](#input\_host\_scanner\_deploy) | Deploy SCC Workload Protection host scanner component. If node\_analyzer\_deploy false, this component will not be deployed. | `bool` | `true` | no |
+| <a name="input_kspm_deploy"></a> [kspm\_deploy](#input\_kspm\_deploy) | Deploy SCC Workload Protection KSPM component. | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | Helm release name. | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace of the Security and Compliance Workload Protection agent. | `string` | `"ibm-scc-wp"` | no |
+| <a name="input_node_analyzer_deploy"></a> [node\_analyzer\_deploy](#input\_node\_analyzer\_deploy) | Deploy SCC Workload Protection node analyzer component. | `bool` | `true` | no |
 | <a name="input_region"></a> [region](#input\_region) | Region where Security and Compliance Workload Protection instance is created. | `string` | n/a | yes |
 
 ### Outputs
