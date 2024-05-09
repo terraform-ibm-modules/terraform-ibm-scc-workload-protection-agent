@@ -65,6 +65,6 @@ variable "kspm_deploy" {
 
 variable "deployment_tag" {
   type        = string
-  description = "Sets a global tag that will be included in the components"
+  description = "Sets a global tag that will be included in the components. It represents the mechanism from where the components have been installed (terraform, local...)."
   default     = "terraform"
 }
