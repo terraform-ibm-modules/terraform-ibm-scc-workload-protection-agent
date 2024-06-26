@@ -96,11 +96,14 @@ module "scc_wp" {
 ##############################################################################
 
 module "scc_wp_agent" {
-  source       = "../.."
-  cluster_name = module.ocp_base.cluster_name
-  access_key   = module.scc_wp.access_key
-  region       = var.region
-  name         = "${var.prefix}-scc-wp-agent"
+  source        = "../.."
+  cluster_name  = module.ocp_base.cluster_name
+  access_key    = module.scc_wp.access_key
+  region        = var.region
+  endpoint_type = "private"
+  name          = "${var.prefix}-scc-wp-agent"
 }
 
 ##############################################################################
+
+
