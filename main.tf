@@ -7,7 +7,7 @@ locals {
   ingestion_endpoint = var.endpoint_type == "private" ? "ingest.private.${var.region}.${local.scc_domain}" : "ingest.${var.region}.${local.scc_domain}"
 
   kspm_analyzer_image_repo                   = "kspm-analyzer"
-  kspm_analyzer_image_tag_digest             = "1.43.11@sha256:db62488acfadfb46b637c6ac225936f608c221257c02dc3c2c3c04e50bf9cc0d" # datasource: icr.io/ibm-iac/kspm-analyzer
+  kspm_analyzer_image_tag_digest             = "1.44.1@sha256:780047100b778d93711f4a68f68b515615814de38606b026d2ae483328dbd7b2" # datasource: icr.io/ibm-iac/kspm-analyzer
   agent_kmodule_image_repo                   = "agent-kmodule"
   agent_kmodule_image_tag_digest             = "13.3.2@sha256:96cae87322d89dc3cb22edc089d685cf3089e6098de398d5641a92b504dbd99b" # datasource: icr.io/ibm-iac/agent-kmodule
   vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
@@ -29,7 +29,7 @@ locals {
 resource "helm_release" "scc_wp_agent" {
   name             = var.name
   chart            = "oci://icr.io/ibm-iac-charts/sysdig-deploy"
-  version          = "1.61.1"
+  version          = "1.61.6"
   namespace        = var.namespace
   create_namespace = true
   timeout          = 600
