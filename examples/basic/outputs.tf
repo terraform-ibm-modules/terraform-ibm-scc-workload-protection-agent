@@ -3,6 +3,6 @@
 ########################################################################################################################
 
 output "name" {
-  value       = module.scc_wp_agent.name
+  value       = module.scc_wp_agent
   description = "Helm chart release name."
 }
