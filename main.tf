@@ -238,4 +238,148 @@ resource "helm_release" "scc_wp_agent" {
     value = local.runtime_status_integrator_image_tag_digest
   }
 
+  set {
+    name  = "agent.resources.requests.cpu"
+    type  = "string"
+    value = var.agent_requests_cpu
+  }
+
+  set {
+    name  = "agent.resources.requests.memory"
+    type  = "string"
+    value = var.agent_requests_memory
+  }
+
+  set {
+    name  = "agent.resources.limits.cpu"
+    type  = "string"
+    value = var.agent_limits_cpu
+  }
+
+  set {
+    name  = "agent.resources.limits.memory"
+    type  = "string"
+    value = var.agent_limits_memory
+  }
+
+  set {
+    name  = "kspmCollector.resources.requests.cpu"
+    type  = "string"
+    value = var.kspm_collector_requests_cpu
+  }
+
+  set {
+    name  = "kspmCollector.resources.requests.memory"
+    type  = "string"
+    value = var.kspm_collector_requests_memory
+  }
+
+  set {
+    name  = "kspmCollector.resources.limits.cpu"
+    type  = "string"
+    value = var.kspm_collector_limits_cpu
+  }
+
+  set {
+    name  = "kspmCollector.resources.limits.memory"
+    type  = "string"
+    value = var.kspm_collector_limits_memory
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.kspmAnalyzer.resources.requests.cpu"
+    type  = "string"
+    value = var.kspm_analyzer_requests_cpu
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.kspmAnalyzer.resources.requests.memory"
+    type  = "string"
+    value = var.kspm_analyzer_requests_memory
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.kspmAnalyzer.resources.limits.cpu"
+    type  = "string"
+    value = var.kspm_analyzer_limits_cpu
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.kspmAnalyzer.resources.limits.memory"
+    type  = "string"
+    value = var.kspm_analyzer_limits_memory
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.hostScanner.resources.requests.cpu"
+    type  = "string"
+    value = var.host_scanner_requests_cpu
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.hostScanner.resources.requests.memory"
+    type  = "string"
+    value = var.host_scanner_requests_memory
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.hostScanner.resources.limits.cpu"
+    type  = "string"
+    value = var.host_scanner_limits_cpu
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.hostScanner.resources.limits.memory"
+    type  = "string"
+    value = var.host_scanner_limits_memory
+  }
+
+  set {
+    name  = "clusterScanner.runtimeStatusIntegrator.resources.requests.cpu"
+    type  = "string"
+    value = var.cluster_scanner_runtimestatusintegrator_requests_cpu
+  }
+
+  set {
+    name  = "clusterScanner.runtimeStatusIntegrator.resources.requests.memory"
+    type  = "string"
+    value = var.cluster_scanner_runtimestatusintegrator_requests_memory
+  }
+
+  set {
+    name  = "clusterScanner.runtimeStatusIntegrator.resources.limits.cpu"
+    type  = "string"
+    value = var.cluster_scanner_runtimestatusintegrator_limits_cpu
+  }
+
+  set {
+    name  = "clusterScanner.runtimeStatusIntegrator.resources.limits.memory"
+    type  = "string"
+    value = var.cluster_scanner_runtimestatusintegrator_limits_memory
+  }
+
+  set {
+    name  = "clusterScanner.imageSbomExtractor.resources.requests.cpu"
+    type  = "string"
+    value = var.cluster_scanner_imagesbomextractor_requests_cpu
+  }
+
+  set {
+    name  = "clusterScanner.imageSbomExtractor.resources.requests.memory"
+    type  = "string"
+    value = var.cluster_scanner_imagesbomextractor_requests_memory
+  }
+
+  set {
+    name  = "clusterScanner.imageSbomExtractor.resources.limits.cpu"
+    type  = "string"
+    value = var.cluster_scanner_imagesbomextractor_limits_cpu
+  }
+
+  set {
+    name  = "clusterScanner.imageSbomExtractor.resources.limits.memory"
+    type  = "string"
+    value = var.cluster_scanner_imagesbomextractor_limits_memory
+  }
+
 }
