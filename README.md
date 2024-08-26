@@ -99,7 +99,7 @@ statement instead the previous block.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0, < 1.7.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.8.0 |
 
 ### Modules
@@ -117,11 +117,35 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_key"></a> [access\_key](#input\_access\_key) | Security and Compliance Workload Protection instance access key. | `string` | n/a | yes |
+| <a name="input_agent_limits_cpu"></a> [agent\_limits\_cpu](#input\_agent\_limits\_cpu) | Specifies the CPU limit for the agent. | `string` | `"1"` | no |
+| <a name="input_agent_limits_memory"></a> [agent\_limits\_memory](#input\_agent\_limits\_memory) | Specifies the memory limit for the agent. | `string` | `"1024Mi"` | no |
+| <a name="input_agent_requests_cpu"></a> [agent\_requests\_cpu](#input\_agent\_requests\_cpu) | Specifies the CPU requested to run in a node for the agent. | `string` | `"1"` | no |
+| <a name="input_agent_requests_memory"></a> [agent\_requests\_memory](#input\_agent\_requests\_memory) | Specifies the memory requested to run in a node for the agent. | `string` | `"1024Mi"` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Cluster name to add Security and Compliance Workload Protection agent to. | `string` | n/a | yes |
 | <a name="input_cluster_scanner_deploy"></a> [cluster\_scanner\_deploy](#input\_cluster\_scanner\_deploy) | Deploy SCC Workload Protection cluster scanner component. | `bool` | `true` | no |
+| <a name="input_cluster_scanner_imagesbomextractor_limits_cpu"></a> [cluster\_scanner\_imagesbomextractor\_limits\_cpu](#input\_cluster\_scanner\_imagesbomextractor\_limits\_cpu) | Specifies the CPU limit for the image SBOM Extractor that runs on the cluster scanner. | `string` | `"1"` | no |
+| <a name="input_cluster_scanner_imagesbomextractor_limits_memory"></a> [cluster\_scanner\_imagesbomextractor\_limits\_memory](#input\_cluster\_scanner\_imagesbomextractor\_limits\_memory) | Specifies the memory limit for the image SBOM Extractor that runs on the cluster scanner. | `string` | `"350Mi"` | no |
+| <a name="input_cluster_scanner_imagesbomextractor_requests_cpu"></a> [cluster\_scanner\_imagesbomextractor\_requests\_cpu](#input\_cluster\_scanner\_imagesbomextractor\_requests\_cpu) | Specifies the CPU requested to run in a node for the image SBOM Extractor that runs on the cluster scanner. | `string` | `"350m"` | no |
+| <a name="input_cluster_scanner_imagesbomextractor_requests_memory"></a> [cluster\_scanner\_imagesbomextractor\_requests\_memory](#input\_cluster\_scanner\_imagesbomextractor\_requests\_memory) | Specifies the memory requested to run in a node for the image SBOM Extractor that runs on the cluster scanner. | `string` | `"350Mi"` | no |
+| <a name="input_cluster_scanner_runtimestatusintegrator_limits_cpu"></a> [cluster\_scanner\_runtimestatusintegrator\_limits\_cpu](#input\_cluster\_scanner\_runtimestatusintegrator\_limits\_cpu) | Specifies the CPU limit for the runtime status integrator that runs on the cluster scanner. | `string` | `"1"` | no |
+| <a name="input_cluster_scanner_runtimestatusintegrator_limits_memory"></a> [cluster\_scanner\_runtimestatusintegrator\_limits\_memory](#input\_cluster\_scanner\_runtimestatusintegrator\_limits\_memory) | Specifies the memory limit for the runtime status integrator that runs on the cluster scanner. | `string` | `"350Mi"` | no |
+| <a name="input_cluster_scanner_runtimestatusintegrator_requests_cpu"></a> [cluster\_scanner\_runtimestatusintegrator\_requests\_cpu](#input\_cluster\_scanner\_runtimestatusintegrator\_requests\_cpu) | Specifies the CPU requested to run in a node for the runtime status integrator that runs on the cluster scanner. | `string` | `"350m"` | no |
+| <a name="input_cluster_scanner_runtimestatusintegrator_requests_memory"></a> [cluster\_scanner\_runtimestatusintegrator\_requests\_memory](#input\_cluster\_scanner\_runtimestatusintegrator\_requests\_memory) | Specifies the memory requested to run in a node for the runtime status integrator that runs on the cluster scanner. | `string` | `"350Mi"` | no |
 | <a name="input_deployment_tag"></a> [deployment\_tag](#input\_deployment\_tag) | Sets a global tag that will be included in the components. It represents the mechanism from where the components have been installed (terraform, local...). | `string` | `"terraform"` | no |
 | <a name="input_endpoint_type"></a> [endpoint\_type](#input\_endpoint\_type) | Specify the endpoint (public or private) for the IBM Cloud Security and Compliance Center Workload Protection service. | `string` | `"private"` | no |
 | <a name="input_host_scanner_deploy"></a> [host\_scanner\_deploy](#input\_host\_scanner\_deploy) | Deploy SCC Workload Protection host scanner component. If node\_analyzer\_deploy false, this component will not be deployed. | `bool` | `true` | no |
+| <a name="input_host_scanner_limits_cpu"></a> [host\_scanner\_limits\_cpu](#input\_host\_scanner\_limits\_cpu) | Specifies the CPU limit for the host scanner that runs on the node analyzer. | `string` | `"500m"` | no |
+| <a name="input_host_scanner_limits_memory"></a> [host\_scanner\_limits\_memory](#input\_host\_scanner\_limits\_memory) | Specifies the memory limit for the host scanner that runs on the node analyzer. | `string` | `"1Gi"` | no |
+| <a name="input_host_scanner_requests_cpu"></a> [host\_scanner\_requests\_cpu](#input\_host\_scanner\_requests\_cpu) | Specifies the CPU requested to run in a node for the host scanner that runs on the node analyzer. | `string` | `"150m"` | no |
+| <a name="input_host_scanner_requests_memory"></a> [host\_scanner\_requests\_memory](#input\_host\_scanner\_requests\_memory) | Specifies the memory requested to run in a node for the host scanner that runs on the node analyzer. | `string` | `"512Mi"` | no |
+| <a name="input_kspm_analyzer_limits_cpu"></a> [kspm\_analyzer\_limits\_cpu](#input\_kspm\_analyzer\_limits\_cpu) | Specifies the CPU limit for the kspm analyzer that runs on the node analyzer. | `string` | `"500m"` | no |
+| <a name="input_kspm_analyzer_limits_memory"></a> [kspm\_analyzer\_limits\_memory](#input\_kspm\_analyzer\_limits\_memory) | Specifies the memory limit for the kspm analyzer that runs on the node analyzer. | `string` | `"1536Mi"` | no |
+| <a name="input_kspm_analyzer_requests_cpu"></a> [kspm\_analyzer\_requests\_cpu](#input\_kspm\_analyzer\_requests\_cpu) | Specifies the CPU requested to run in a node for the kspm analyzer that runs on the node analyzer. | `string` | `"150m"` | no |
+| <a name="input_kspm_analyzer_requests_memory"></a> [kspm\_analyzer\_requests\_memory](#input\_kspm\_analyzer\_requests\_memory) | Specifies the memory requested to run in a node for the kspm analyzer that runs on the node analyzer. | `string` | `"256Mi"` | no |
+| <a name="input_kspm_collector_limits_cpu"></a> [kspm\_collector\_limits\_cpu](#input\_kspm\_collector\_limits\_cpu) | Specifies the CPU limit for the kspm collector. | `string` | `"500m"` | no |
+| <a name="input_kspm_collector_limits_memory"></a> [kspm\_collector\_limits\_memory](#input\_kspm\_collector\_limits\_memory) | Specifies the memory limit for the kspm collector. | `string` | `"1536Mi"` | no |
+| <a name="input_kspm_collector_requests_cpu"></a> [kspm\_collector\_requests\_cpu](#input\_kspm\_collector\_requests\_cpu) | Specifies the CPU requested to run in a node for the kspm collector. | `string` | `"150m"` | no |
+| <a name="input_kspm_collector_requests_memory"></a> [kspm\_collector\_requests\_memory](#input\_kspm\_collector\_requests\_memory) | Specifies the memory requested to run in a node for the kspm collector. | `string` | `"256Mi"` | no |
 | <a name="input_kspm_deploy"></a> [kspm\_deploy](#input\_kspm\_deploy) | Deploy SCC Workload Protection KSPM component. | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | Helm release name. | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace of the Security and Compliance Workload Protection agent. | `string` | `"ibm-scc-wp"` | no |

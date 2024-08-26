@@ -7,21 +7,21 @@ locals {
   ingestion_endpoint = var.endpoint_type == "private" ? "ingest.private.${var.region}.${local.scc_domain}" : "ingest.${var.region}.${local.scc_domain}"
 
   kspm_analyzer_image_repo                   = "kspm-analyzer"
-  kspm_analyzer_image_tag_digest             = "1.43.2@sha256:03b5428f75c10aa92b5fb6c1910b19af3d68e7fac56f3b3e0d65e560e7fcd6ce" # datasource: icr.io/ibm-iac/kspm-analyzer
+  kspm_analyzer_image_tag_digest             = "1.44.3@sha256:b01494d453442ce6a6d9f5a026712f63b507cc603bb8781248378127abebe9a7" # datasource: icr.io/ibm-iac/kspm-analyzer
   agent_kmodule_image_repo                   = "agent-kmodule"
-  agent_kmodule_image_tag_digest             = "13.1.1@sha256:0de222ae48e999180f2ae3b7899d573766eb99c12ebc9667c1557ff50310f787" # datasource: icr.io/ibm-iac/agent-kmodule
+  agent_kmodule_image_tag_digest             = "13.3.3@sha256:5e7ac3ee7aa4171ef0aafdd4fd64eceae6f35704f6e4b0fc9ea5d4dba3d55213" # datasource: icr.io/ibm-iac/agent-kmodule
   vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
-  vuln_runtime_scanner_image_tag_digest      = "1.6.12@sha256:8d8cc3450368b0194c68ca063131d4e95149d4b45f328cd7a19a44c5e3faaf79" # datasource: icr.io/ibm-iac/vuln-runtime-scanner
+  vuln_runtime_scanner_image_tag_digest      = "1.7.2@sha256:674cb6edaf6d9ed39f929f88d527891262ea4bef69b9ec146ade892db58eb007" # datasource: icr.io/ibm-iac/vuln-runtime-scanner
   vuln_host_scanner_image_repo               = "vuln-host-scanner"
-  vuln_host_scanner_image_tag_digest         = "0.9.0@sha256:6a9012af95bdd2aa306add51e46e569ec41847890065b9728e6560520e58786c" # datasource: icr.io/ibm-iac/vuln-host-scanner
+  vuln_host_scanner_image_tag_digest         = "0.11.0@sha256:9e44a7fd28ee6bffdbe169320e83a682e04d20bcf1de8df794feabd8961dbe0a" # datasource: icr.io/ibm-iac/vuln-host-scanner
   agent_slim_image_repo                      = "agent-slim"
-  agent_slim_image_tag_digest                = "13.1.1@sha256:5567929bedff7c17e21d2e0435d8cb4a1a6022b871ae2eca5db6999418a86515" # datasource: icr.io/ibm-iac/agent-slim
+  agent_slim_image_tag_digest                = "13.3.3@sha256:fdefd874c7f62343c3d3b56abb1ed08dcad2283bbcfd1f55c6612cbc0fe5195f" # datasource: icr.io/ibm-iac/agent-slim
   kspm_collector_image_repo                  = "kspm-collector"
-  kspm_collector_image_tag_digest            = "1.38.9@sha256:26c612fe4f2e5eb7bd28211955ee31816aa8f80564a1bb04eb4bb05d16f3495a" # datasource: icr.io/ibm-iac/kspm-collector
+  kspm_collector_image_tag_digest            = "1.39.3@sha256:c34e053605eb9c7b6c6329eb992f0966775d736ad7138cf971fa5afcf7ae5e77" # datasource: icr.io/ibm-iac/kspm-collector
   sbom_extractor_image_repo                  = "image-sbom-extractor"
-  sbom_extractor_image_tag_digest            = "0.7.5@sha256:03f60071c81d22e3c73fb85ab1defa122c36350d411f93541dbc751001e605a8" # datasource: icr.io/ibm-iac/image-sbom-extractor
+  sbom_extractor_image_tag_digest            = "0.10.0@sha256:59543aa19bcdea4973f3d70351b8e1df60c5de998eb829c143a9f9deaed10a7b" # datasource: icr.io/ibm-iac/image-sbom-extractor
   runtime_status_integrator_image_repo       = "runtime-status-integrator"
-  runtime_status_integrator_image_tag_digest = "0.7.5@sha256:d2582afaf140a06fe4b0bcc4b61895cb3175614ba7304cbf69057d45bea0791d" # datasource: icr.io/ibm-iac/runtime-status-integrator
+  runtime_status_integrator_image_tag_digest = "0.10.0@sha256:524cadd672c276c04845081c6fff4999c37f860a60117821c60d173b9d50a0ab" # datasource: icr.io/ibm-iac/runtime-status-integrator
   image_registry                             = "icr.io"
   image_namespace                            = "ibm-iac"
 }
@@ -29,7 +29,7 @@ locals {
 resource "helm_release" "scc_wp_agent" {
   name             = var.name
   chart            = "oci://icr.io/ibm-iac-charts/sysdig-deploy"
-  version          = "1.52.4"
+  version          = "1.62.2"
   namespace        = var.namespace
   create_namespace = true
   timeout          = 600
@@ -236,6 +236,150 @@ resource "helm_release" "scc_wp_agent" {
     name  = "clusterScanner.runtimeStatusIntegrator.image.tag"
     type  = "string"
     value = local.runtime_status_integrator_image_tag_digest
+  }
+
+  set {
+    name  = "agent.resources.requests.cpu"
+    type  = "string"
+    value = var.agent_requests_cpu
+  }
+
+  set {
+    name  = "agent.resources.requests.memory"
+    type  = "string"
+    value = var.agent_requests_memory
+  }
+
+  set {
+    name  = "agent.resources.limits.cpu"
+    type  = "string"
+    value = var.agent_limits_cpu
+  }
+
+  set {
+    name  = "agent.resources.limits.memory"
+    type  = "string"
+    value = var.agent_limits_memory
+  }
+
+  set {
+    name  = "kspmCollector.resources.requests.cpu"
+    type  = "string"
+    value = var.kspm_collector_requests_cpu
+  }
+
+  set {
+    name  = "kspmCollector.resources.requests.memory"
+    type  = "string"
+    value = var.kspm_collector_requests_memory
+  }
+
+  set {
+    name  = "kspmCollector.resources.limits.cpu"
+    type  = "string"
+    value = var.kspm_collector_limits_cpu
+  }
+
+  set {
+    name  = "kspmCollector.resources.limits.memory"
+    type  = "string"
+    value = var.kspm_collector_limits_memory
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.kspmAnalyzer.resources.requests.cpu"
+    type  = "string"
+    value = var.kspm_analyzer_requests_cpu
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.kspmAnalyzer.resources.requests.memory"
+    type  = "string"
+    value = var.kspm_analyzer_requests_memory
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.kspmAnalyzer.resources.limits.cpu"
+    type  = "string"
+    value = var.kspm_analyzer_limits_cpu
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.kspmAnalyzer.resources.limits.memory"
+    type  = "string"
+    value = var.kspm_analyzer_limits_memory
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.hostScanner.resources.requests.cpu"
+    type  = "string"
+    value = var.host_scanner_requests_cpu
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.hostScanner.resources.requests.memory"
+    type  = "string"
+    value = var.host_scanner_requests_memory
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.hostScanner.resources.limits.cpu"
+    type  = "string"
+    value = var.host_scanner_limits_cpu
+  }
+
+  set {
+    name  = "nodeAnalyzer.nodeAnalyzer.hostScanner.resources.limits.memory"
+    type  = "string"
+    value = var.host_scanner_limits_memory
+  }
+
+  set {
+    name  = "clusterScanner.runtimeStatusIntegrator.resources.requests.cpu"
+    type  = "string"
+    value = var.cluster_scanner_runtimestatusintegrator_requests_cpu
+  }
+
+  set {
+    name  = "clusterScanner.runtimeStatusIntegrator.resources.requests.memory"
+    type  = "string"
+    value = var.cluster_scanner_runtimestatusintegrator_requests_memory
+  }
+
+  set {
+    name  = "clusterScanner.runtimeStatusIntegrator.resources.limits.cpu"
+    type  = "string"
+    value = var.cluster_scanner_runtimestatusintegrator_limits_cpu
+  }
+
+  set {
+    name  = "clusterScanner.runtimeStatusIntegrator.resources.limits.memory"
+    type  = "string"
+    value = var.cluster_scanner_runtimestatusintegrator_limits_memory
+  }
+
+  set {
+    name  = "clusterScanner.imageSbomExtractor.resources.requests.cpu"
+    type  = "string"
+    value = var.cluster_scanner_imagesbomextractor_requests_cpu
+  }
+
+  set {
+    name  = "clusterScanner.imageSbomExtractor.resources.requests.memory"
+    type  = "string"
+    value = var.cluster_scanner_imagesbomextractor_requests_memory
+  }
+
+  set {
+    name  = "clusterScanner.imageSbomExtractor.resources.limits.cpu"
+    type  = "string"
+    value = var.cluster_scanner_imagesbomextractor_limits_cpu
+  }
+
+  set {
+    name  = "clusterScanner.imageSbomExtractor.resources.limits.memory"
+    type  = "string"
+    value = var.cluster_scanner_imagesbomextractor_limits_memory
   }
 
 }
