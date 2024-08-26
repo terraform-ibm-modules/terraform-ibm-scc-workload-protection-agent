@@ -68,3 +68,151 @@ variable "deployment_tag" {
   description = "Sets a global tag that will be included in the components. It represents the mechanism from where the components have been installed (terraform, local...)."
   default     = "terraform"
 }
+
+########################################################################################################################
+# Resource Management Variables
+########################################################################################################################
+
+variable "agent_requests_cpu" {
+  type        = string
+  description = "Specifies the CPU requested to run in a node for the agent."
+  default     = "1"
+}
+
+variable "agent_requests_memory" {
+  type        = string
+  description = "Specifies the memory requested to run in a node for the agent."
+  default     = "1024Mi"
+}
+
+variable "agent_limits_cpu" {
+  type        = string
+  description = "Specifies the CPU limit for the agent."
+  default     = "1"
+}
+
+variable "agent_limits_memory" {
+  type        = string
+  description = "Specifies the memory limit for the agent."
+  default     = "1024Mi"
+}
+
+variable "kspm_collector_requests_cpu" {
+  type        = string
+  description = "Specifies the CPU requested to run in a node for the kspm collector."
+  default     = "150m"
+}
+
+variable "kspm_collector_requests_memory" {
+  type        = string
+  description = "Specifies the memory requested to run in a node for the kspm collector."
+  default     = "256Mi"
+}
+
+variable "kspm_collector_limits_cpu" {
+  type        = string
+  description = "Specifies the CPU limit for the kspm collector."
+  default     = "500m"
+}
+
+variable "kspm_collector_limits_memory" {
+  type        = string
+  description = "Specifies the memory limit for the kspm collector."
+  default     = "1536Mi"
+}
+
+variable "kspm_analyzer_requests_cpu" {
+  type        = string
+  description = "Specifies the CPU requested to run in a node for the kspm analyzer that runs on the node analyzer."
+  default     = "150m"
+}
+
+variable "kspm_analyzer_requests_memory" {
+  type        = string
+  description = "Specifies the memory requested to run in a node for the kspm analyzer that runs on the node analyzer."
+  default     = "256Mi"
+}
+
+variable "kspm_analyzer_limits_cpu" {
+  type        = string
+  description = "Specifies the CPU limit for the kspm analyzer that runs on the node analyzer."
+  default     = "500m"
+}
+
+variable "kspm_analyzer_limits_memory" {
+  type        = string
+  description = "Specifies the memory limit for the kspm analyzer that runs on the node analyzer."
+  default     = "1536Mi"
+}
+
+variable "host_scanner_requests_cpu" {
+  type        = string
+  description = "Specifies the CPU requested to run in a node for the host scanner that runs on the node analyzer."
+  default     = "150m"
+}
+
+variable "host_scanner_requests_memory" {
+  type        = string
+  description = "Specifies the memory requested to run in a node for the host scanner that runs on the node analyzer."
+  default     = "512Mi"
+}
+
+variable "host_scanner_limits_cpu" {
+  type        = string
+  description = "Specifies the CPU limit for the host scanner that runs on the node analyzer."
+  default     = "500m"
+}
+
+variable "host_scanner_limits_memory" {
+  type        = string
+  description = "Specifies the memory limit for the host scanner that runs on the node analyzer."
+  default     = "1Gi"
+}
+
+variable "cluster_scanner_runtimestatusintegrator_requests_cpu" {
+  type        = string
+  description = "Specifies the CPU requested to run in a node for the runtime status integrator that runs on the cluster scanner."
+  default     = "350m"
+}
+
+variable "cluster_scanner_runtimestatusintegrator_requests_memory" {
+  type        = string
+  description = "Specifies the memory requested to run in a node for the runtime status integrator that runs on the cluster scanner."
+  default     = "350Mi"
+}
+
+variable "cluster_scanner_runtimestatusintegrator_limits_cpu" {
+  type        = string
+  description = "Specifies the CPU limit for the runtime status integrator that runs on the cluster scanner."
+  default     = "1"
+}
+
+variable "cluster_scanner_runtimestatusintegrator_limits_memory" {
+  type        = string
+  description = "Specifies the memory limit for the runtime status integrator that runs on the cluster scanner."
+  default     = "350Mi"
+}
+
+variable "cluster_scanner_imagesbomextractor_requests_cpu" {
+  type        = string
+  description = "Specifies the CPU requested to run in a node for the image SBOM Extractor that runs on the cluster scanner."
+  default     = "350m"
+}
+
+variable "cluster_scanner_imagesbomextractor_requests_memory" {
+  type        = string
+  description = "Specifies the memory requested to run in a node for the image SBOM Extractor that runs on the cluster scanner."
+  default     = "350Mi"
+}
+
+variable "cluster_scanner_imagesbomextractor_limits_cpu" {
+  type        = string
+  description = "Specifies the CPU limit for the image SBOM Extractor that runs on the cluster scanner."
+  default     = "1"
+}
+
+variable "cluster_scanner_imagesbomextractor_limits_memory" {
+  type        = string
+  description = "Specifies the memory limit for the image SBOM Extractor that runs on the cluster scanner."
+  default     = "350Mi"
+}
