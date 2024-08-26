@@ -4,7 +4,7 @@
 
 module "resource_group" {
   source  = "terraform-ibm-modules/resource-group/ibm"
-  version = "1.1.4"
+  version = "1.1.5"
   # if an existing resource group is not set (null) create a new one using prefix
   resource_group_name          = var.resource_group == null ? "${var.prefix}-resource-group" : null
   existing_resource_group_name = var.resource_group
@@ -65,7 +65,7 @@ locals {
 
 module "ocp_base" {
   source               = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version              = "3.15.0"
+  version              = "3.25.0"
   cluster_name         = var.prefix
   ibmcloud_api_key     = var.ibmcloud_api_key
   resource_group_id    = module.resource_group.resource_group_id
@@ -83,7 +83,7 @@ module "ocp_base" {
 
 module "scc_wp" {
   source            = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version           = "v1.1.0"
+  version           = "v1.3.0"
   name              = "${var.prefix}-scc-wp"
   region            = var.region
   resource_group_id = module.resource_group.resource_group_id
@@ -96,12 +96,11 @@ module "scc_wp" {
 ##############################################################################
 
 module "scc_wp_agent" {
-  source        = "../.."
-  cluster_name  = module.ocp_base.cluster_name
-  access_key    = module.scc_wp.access_key
-  region        = var.region
-  endpoint_type = "public"
-  name          = "${var.prefix}-scc-wp-agent"
+  source       = "../.."
+  cluster_name = module.ocp_base.cluster_name
+  access_key   = module.scc_wp.access_key
+  region       = var.region
+  name         = "${var.prefix}-scc-wp-agent"
 }
 
 ##############################################################################
