@@ -88,7 +88,7 @@ func TestSecureExampleInSchematic(t *testing.T) {
 func TestRunBasicAgentsVPCKubernetes(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "scc-wp-a-basic-k8s", basicExampleDir)
+	options := setupOptions(t, "scc-wp-a-vpc-k8s", basicExampleDir)
 	options.TerraformVars["is_openshift"] = false
 
 	output, err := options.RunTestConsistency()
@@ -100,7 +100,7 @@ func TestRunBasicAgentsVPCKubernetes(t *testing.T) {
 func TestRunBasicAgentsClassicKubernetes(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "scc-wp-a-basic-k8s", basicExampleDir)
+	options := setupOptions(t, "scc-wp-a-classic-k8s", basicExampleDir)
 	options.TerraformVars["is_openshift"] = false
 	options.TerraformVars["is_vpc_cluster"] = false
 
@@ -113,7 +113,7 @@ func TestRunBasicAgentsClassicKubernetes(t *testing.T) {
 func TestRunBasicAgentsClassicOpenShift(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "scc-wp-a-basic-k8s", basicExampleDir)
+	options := setupOptions(t, "scc-wp-a-classic-ocp", basicExampleDir)
 	options.TerraformVars["is_openshift"] = true
 	options.TerraformVars["is_vpc_cluster"] = false
 
