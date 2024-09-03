@@ -163,12 +163,19 @@ module "scc_wp" {
 
 }
 
+# Sleep to allow RBAC sync on cluster
+resource "time_sleep" "wait_operators" {
+  depends_on      = [data.ibm_container_cluster_config.cluster_config]
+  create_duration = "5s"
+}
+
 ##############################################################################
 # SCC Workload Protection Agent
 ##############################################################################
 
 module "scc_wp_agent" {
   source       = "../.."
+  depends_on   = [time_sleep.wait_operators]
   cluster_name = (!var.is_vpc_cluster ? ibm_container_cluster.cluster[0].name : (var.is_openshift ? module.ocp_base[0].cluster_name : ibm_container_vpc_cluster.cluster[0].name))
   access_key   = module.scc_wp.access_key
   region       = var.region
