@@ -36,4 +36,22 @@ variable "resource_tags" {
   default     = []
 }
 
+variable "is_openshift" {
+  type        = bool
+  description = "Defines whether this is an OpenShift or Kubernetes cluster"
+  default     = true
+}
+
+variable "is_vpc_cluster" {
+  type        = bool
+  description = "Specify true if the target cluster for the workload protection agents is a VPC cluster, false if it is classic cluster."
+  default     = true
+}
+
+variable "datacenter" {
+  type        = string
+  description = "If creating a classic cluster, the data center where the cluster is created"
+  default     = "syd01"
+}
+
 ##############################################################################
