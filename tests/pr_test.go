@@ -83,3 +83,41 @@ func TestSecureExampleInSchematic(t *testing.T) {
 	err := options.RunSchematicTest()
 	assert.Nil(t, err, "This should not have errored")
 }
+
+// TestRunBasicAgentsVPCKubernetes validates this module against an IKS VPC cluster
+func TestRunBasicAgentsVPCKubernetes(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "scc-wp-a-vpc-k8s", basicExampleDir)
+	options.TerraformVars["is_openshift"] = false
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+// TestRunBasicAgentsClassicKubernetes validates this module against an IKS Classic cluster
+func TestRunBasicAgentsClassicKubernetes(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "scc-wp-a-cla-k8s", basicExampleDir)
+	options.TerraformVars["is_openshift"] = false
+	options.TerraformVars["is_vpc_cluster"] = false
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+// TestRunBasicAgentsClassicOpenShift validates this module against a ROKS Classic cluster
+func TestRunBasicAgentsClassicOpenShift(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "scc-wp-a-cla-ocp", basicExampleDir)
+	options.TerraformVars["is_openshift"] = true
+	options.TerraformVars["is_vpc_cluster"] = false
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
