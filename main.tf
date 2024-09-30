@@ -383,4 +383,54 @@ resource "helm_release" "scc_wp_agent" {
     value = var.cluster_scanner_imagesbomextractor_limits_memory
   }
 
+  set {
+    name  = "admissionController.clusterName"
+    type  = "string"
+    value = var.cluster_name
+  }
+
+  set {
+    name  = "admissionController.enabled"
+    value = var.admission_controller_enabled
+  }
+
+  set {
+    name  = "admissionController.sysdig.url"
+    value = "https://${local.api_endpoint}"
+  }
+
+  set {
+    name  = "admissionController.scanner.enabled" # this is for disabling legacy scanning
+    value = "false"
+  }
+
+  set {
+    name  = "admissionController.features.kspmAdmissionController" # this is for disabling legacy scanning
+    value = var.admission_controller_kspm_enabled
+  }
+
+  set {
+    name  = "admissionController.webhook.image.repository"
+    type  = "string"
+    value = local.admission_controller_webhook_image_repo
+  }
+
+  set {
+    name  = "admissionController.webhook.image.tag"
+    type  = "string"
+    value = local.admission_controller_webhook_image_tag_digest
+  }
+
+  set {
+    name  = "admissionController.webhook.image.repository"
+    type  = "string"
+    value = local.admission_controller_kspm_image_repo
+  }
+
+  set {
+    name  = "admissionController.webhook.image.tag"
+    type  = "string"
+    value = local.admission_controller_kspm_image_tag_digest
+  }
+
 }

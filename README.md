@@ -117,6 +117,8 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_key"></a> [access\_key](#input\_access\_key) | Security and Compliance Workload Protection instance access key. | `string` | n/a | yes |
+| <a name="input_admission_controller_enabled"></a> [admission\_controller\_enabled](#input\_admission\_controller\_enabled) | Enables Kubernetes audit logging detections with Falco rules via Admission Controller. | `string` | `"false"` | no |
+| <a name="input_admission_controller_kspm_enabled"></a> [admission\_controller\_kspm\_enabled](#input\_admission\_controller\_kspm\_enabled) | Enables Kubernetes Security Posture Management admission controller for scanning new deployed resources for Posture validation. | `string` | `"false"` | no |
 | <a name="input_agent_limits_cpu"></a> [agent\_limits\_cpu](#input\_agent\_limits\_cpu) | Specifies the CPU limit for the agent. | `string` | `"1"` | no |
 | <a name="input_agent_limits_memory"></a> [agent\_limits\_memory](#input\_agent\_limits\_memory) | Specifies the memory limit for the agent. | `string` | `"1024Mi"` | no |
 | <a name="input_agent_requests_cpu"></a> [agent\_requests\_cpu](#input\_agent\_requests\_cpu) | Specifies the CPU requested to run in a node for the agent. | `string` | `"1"` | no |

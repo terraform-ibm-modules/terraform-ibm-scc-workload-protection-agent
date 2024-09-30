@@ -216,3 +216,15 @@ variable "cluster_scanner_imagesbomextractor_limits_memory" {
   description = "Specifies the memory limit for the image SBOM Extractor that runs on the cluster scanner."
   default     = "350Mi"
 }
+
+variable "admission_controller_enabled" {
+  type        = string
+  description = "Enables Kubernetes audit logging detections with Falco rules via Admission Controller."
+  default     = "false"
+}
+
+variable "admission_controller_kspm_enabled" {
+  type        = string
+  description = "Enables Kubernetes Security Posture Management admission controller for scanning new deployed resources for Posture validation. "
+  default     = "false"
+}
