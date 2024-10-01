@@ -73,7 +73,6 @@ module "ocp_base" {
   source                       = "terraform-ibm-modules/base-ocp-vpc/ibm"
   version                      = "3.31.1"
   cluster_name                 = var.prefix
-  ibmcloud_api_key             = var.ibmcloud_api_key
   resource_group_id            = module.resource_group.resource_group_id
   region                       = var.region
   force_delete_storage         = true
