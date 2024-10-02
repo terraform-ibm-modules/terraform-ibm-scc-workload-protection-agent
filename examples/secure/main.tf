@@ -81,13 +81,15 @@ module "ocp_base" {
   vpc_id                       = module.slz_vpc.vpc_id
   vpc_subnets                  = local.cluster_vpc_subnets
   worker_pools                 = local.worker_pools
-  ocp_version                  = "4.14"
   tags                         = var.resource_tags
   kms_config = {
     instance_id = module.kp_all_inclusive.kms_guid
     crk_id      = module.kp_all_inclusive.keys["ocp.${var.prefix}-cluster-key"].key_id
   }
   access_tags = var.access_tags
+  # workaround for the issue https://github.ibm.com/GoldenEye/issues/issues/10743
+  # when the issue is fixed on IKS so the destruction of default workers pool is correctly managed on the provider/clusters service the workaround should be removed
+  import_default_worker_pool_on_create = false
 }
 
 #############################################################################
