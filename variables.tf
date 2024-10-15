@@ -218,13 +218,23 @@ variable "cluster_scanner_imagesbomextractor_limits_memory" {
 }
 
 variable "admission_controller_enabled" {
-  type        = string
+  type        = bool
   description = "Enables Kubernetes audit logging detections with Falco rules via Admission Controller."
-  default     = "false"
+  default     = false
 }
 
 variable "admission_controller_kspm_enabled" {
+  type        = bool
+  description = "Enables Kubernetes Security Posture Management admission controller for scanning new deployed resources for Posture validation."
+  default     = false
+}
+
+variable "admission_controller_token" {
   type        = string
-  description = "Enables Kubernetes Security Posture Management admission controller for scanning new deployed resources for Posture validation. "
-  default     = "false"
+  description = "Token for Admission Controller"
+  default     = ""
+  validation {
+    condition     = var.admission_controller_enabled == true && var.admission_controller_token != ""
+    error_message = "admission_controller_token is mandatory when enabling admission_controller"
+  }
 }

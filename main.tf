@@ -6,24 +6,28 @@ locals {
   api_endpoint       = var.endpoint_type == "private" ? "private.${var.region}.${local.scc_domain}" : "${var.region}.${local.scc_domain}"
   ingestion_endpoint = var.endpoint_type == "private" ? "ingest.private.${var.region}.${local.scc_domain}" : "ingest.${var.region}.${local.scc_domain}"
 
-  kspm_analyzer_image_repo                   = "kspm-analyzer"
-  kspm_analyzer_image_tag_digest             = "1.44.10@sha256:ab65837d894d35bfe2d9d4cc0ee7be2770ad1dfe3611bcf96e8f4ae5afb7cd0a" # datasource: icr.io/ext/sysdig/kspm-analyzer
-  agent_kmodule_image_repo                   = "agent-kmodule"
-  agent_kmodule_image_tag_digest             = "13.4.1@sha256:c7cb53a773cfe78cc1fad4af344db641d77bcead2299991348361e58edcecbd8" # datasource: icr.io/ext/sysdig/agent-kmodule
-  vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
-  vuln_runtime_scanner_image_tag_digest      = "1.8.0@sha256:2cb5a33765445bfb072d1be2cd948bfdd3d1cf82f2be6c46f54388d4c88c6215" # datasource: icr.io/ext/sysdig/vuln-runtime-scanner
-  vuln_host_scanner_image_repo               = "vuln-host-scanner"
-  vuln_host_scanner_image_tag_digest         = "0.12.2@sha256:4486447ffb8fd6f0ead8cf9220c4536896fde8da4bb1c379aec7709bb584dc1d" # datasource: icr.io/ext/sysdig/vuln-host-scanner
-  agent_slim_image_repo                      = "agent-slim"
-  agent_slim_image_tag_digest                = "13.4.1@sha256:76642d9d20fb48585888e5baa6bcae7e6eebf1e3624a3665806dbb79e7c99039" # datasource: icr.io/ext/sysdig/agent-slim
-  kspm_collector_image_repo                  = "kspm-collector"
-  kspm_collector_image_tag_digest            = "1.39.4@sha256:294cf7a9cfe5fc8249019c33056a20469fb64dda7a817fa4192beef0c00fe4e4" # datasource: icr.io/ext/sysdig/kspm-collector
-  sbom_extractor_image_repo                  = "image-sbom-extractor"
-  sbom_extractor_image_tag_digest            = "0.10.0@sha256:59543aa19bcdea4973f3d70351b8e1df60c5de998eb829c143a9f9deaed10a7b" # datasource: icr.io/ext/sysdig/image-sbom-extractor
-  runtime_status_integrator_image_repo       = "runtime-status-integrator"
-  runtime_status_integrator_image_tag_digest = "0.10.0@sha256:524cadd672c276c04845081c6fff4999c37f860a60117821c60d173b9d50a0ab" # datasource: icr.io/ext/sysdig/runtime-status-integrator
-  image_registry                             = "icr.io"
-  image_namespace                            = "ext/sysdig"
+  kspm_analyzer_image_repo                      = "kspm-analyzer"
+  kspm_analyzer_image_tag_digest                = "1.44.10@sha256:ab65837d894d35bfe2d9d4cc0ee7be2770ad1dfe3611bcf96e8f4ae5afb7cd0a" # datasource: icr.io/ext/sysdig/kspm-analyzer
+  agent_kmodule_image_repo                      = "agent-kmodule"
+  agent_kmodule_image_tag_digest                = "13.4.1@sha256:c7cb53a773cfe78cc1fad4af344db641d77bcead2299991348361e58edcecbd8" # datasource: icr.io/ext/sysdig/agent-kmodule
+  vuln_runtime_scanner_image_repo               = "vuln-runtime-scanner"
+  vuln_runtime_scanner_image_tag_digest         = "1.8.0@sha256:2cb5a33765445bfb072d1be2cd948bfdd3d1cf82f2be6c46f54388d4c88c6215" # datasource: icr.io/ext/sysdig/vuln-runtime-scanner
+  vuln_host_scanner_image_repo                  = "vuln-host-scanner"
+  vuln_host_scanner_image_tag_digest            = "0.12.2@sha256:4486447ffb8fd6f0ead8cf9220c4536896fde8da4bb1c379aec7709bb584dc1d" # datasource: icr.io/ext/sysdig/vuln-host-scanner
+  agent_slim_image_repo                         = "agent-slim"
+  agent_slim_image_tag_digest                   = "13.4.1@sha256:76642d9d20fb48585888e5baa6bcae7e6eebf1e3624a3665806dbb79e7c99039" # datasource: icr.io/ext/sysdig/agent-slim
+  kspm_collector_image_repo                     = "kspm-collector"
+  kspm_collector_image_tag_digest               = "1.39.4@sha256:294cf7a9cfe5fc8249019c33056a20469fb64dda7a817fa4192beef0c00fe4e4" # datasource: icr.io/ext/sysdig/kspm-collector
+  sbom_extractor_image_repo                     = "image-sbom-extractor"
+  sbom_extractor_image_tag_digest               = "0.10.0@sha256:59543aa19bcdea4973f3d70351b8e1df60c5de998eb829c143a9f9deaed10a7b" # datasource: icr.io/ext/sysdig/image-sbom-extractor
+  runtime_status_integrator_image_repo          = "runtime-status-integrator"
+  runtime_status_integrator_image_tag_digest    = "0.10.0@sha256:524cadd672c276c04845081c6fff4999c37f860a60117821c60d173b9d50a0ab" # datasource: icr.io/ext/sysdig/runtime-status-integrator
+  admission_controller_webhook_image_repo       = "admission-controller"
+  admission_controller_webhook_image_tag_digest = "3.9.47@sha256:5f0604384cdeb43d41a70e946cd56a4c322e73637f0d99a99f641c5a17dcedc2" # datasource: icr.io/ext/sysdig/admission-controller
+  admission_controller_kspm_image_repo          = "secure-admission-controller"
+  admission_controller_kspm_image_tag_digest    = "1.27.4@sha256:b2cf1a1f8e3018ba95eac6c90d45d2e38c8746e67dd1de47798c9ceaef1bfe51" # datasource: icr.io/ext/sysdig/secure-admission-controller
+  image_registry                                = "icr.io"
+  image_namespace                               = "ext/sysdig"
 }
 
 resource "helm_release" "scc_wp_agent" {
@@ -401,11 +405,11 @@ resource "helm_release" "scc_wp_agent" {
 
   set {
     name  = "admissionController.scanner.enabled" # this is for disabling legacy scanning
-    value = "false"
+    value = false
   }
 
   set {
-    name  = "admissionController.features.kspmAdmissionController" # this is for disabling legacy scanning
+    name  = "admissionController.features.kspmAdmissionController"
     value = var.admission_controller_kspm_enabled
   }
 
@@ -422,15 +426,21 @@ resource "helm_release" "scc_wp_agent" {
   }
 
   set {
-    name  = "admissionController.webhook.image.repository"
+    name  = "admissionController.webhook.v2.image.repository"
     type  = "string"
     value = local.admission_controller_kspm_image_repo
   }
 
   set {
-    name  = "admissionController.webhook.image.tag"
+    name  = "admissionController.webhook.v2.image.tag"
     type  = "string"
     value = local.admission_controller_kspm_image_tag_digest
+  }
+
+  set {
+    name  = "global.sysdig.secureAPIToken"
+    type  = "string"
+    value = var.admission_controller_token
   }
 
 }
