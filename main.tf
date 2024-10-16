@@ -28,6 +28,9 @@ locals {
   admission_controller_kspm_image_tag_digest    = "1.27.4@sha256:b2cf1a1f8e3018ba95eac6c90d45d2e38c8746e67dd1de47798c9ceaef1bfe51" # datasource: icr.io/ext/sysdig/secure-admission-controller
   image_registry                                = "icr.io"
   image_namespace                               = "ext/sysdig"
+
+  # tflint-ignore: terraform_unused_declarations
+  validate_admission_controller_inputs = var.admission_controller_enabled && var.admission_controller_token == null ? tobool("var.admission_controller_token is mandatory when enabling Admission Controller ") : true
 }
 
 resource "helm_release" "scc_wp_agent" {

@@ -232,9 +232,5 @@ variable "admission_controller_kspm_enabled" {
 variable "admission_controller_token" {
   type        = string
   description = "Token for Admission Controller"
-  default     = ""
-  validation {
-    condition     = var.admission_controller_enabled == true && var.admission_controller_token != ""
-    error_message = "admission_controller_token is mandatory when enabling admission_controller"
-  }
+  default     = null
 }
