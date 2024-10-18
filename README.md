@@ -117,8 +117,8 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_key"></a> [access\_key](#input\_access\_key) | Security and Compliance Workload Protection instance access key. | `string` | n/a | yes |
-| <a name="input_admission_controller_enabled"></a> [admission\_controller\_enabled](#input\_admission\_controller\_enabled) | Enables Kubernetes audit logging detections with Falco rules via Admission Controller. | `bool` | `false` | no |
-| <a name="input_admission_controller_kspm_enabled"></a> [admission\_controller\_kspm\_enabled](#input\_admission\_controller\_kspm\_enabled) | Enables Kubernetes Security Posture Management admission controller for scanning new deployed resources for Posture validation. | `bool` | `false` | no |
+| <a name="input_admission_controller_enabled"></a> [admission\_controller\_enabled](#input\_admission\_controller\_enabled) | Enables Kubernetes audit logging detections with Falco rules via Admission Controller. If set to true, admission\_controller\_token is mandatory. | `bool` | `false` | no |
+| <a name="input_admission_controller_kspm_enabled"></a> [admission\_controller\_kspm\_enabled](#input\_admission\_controller\_kspm\_enabled) | Enables Kubernetes Security Posture Management admission controller for scanning new deployed resources for Posture validation. If set to true, you need to enable admission\_controller\_enabled and define admission\_controller\_token. | `bool` | `false` | no |
 | <a name="input_admission_controller_token"></a> [admission\_controller\_token](#input\_admission\_controller\_token) | Token for Admission Controller | `string` | `null` | no |
 | <a name="input_agent_limits_cpu"></a> [agent\_limits\_cpu](#input\_agent\_limits\_cpu) | Specifies the CPU limit for the agent. | `string` | `"1"` | no |
 | <a name="input_agent_limits_memory"></a> [agent\_limits\_memory](#input\_agent\_limits\_memory) | Specifies the memory limit for the agent. | `string` | `"1024Mi"` | no |
