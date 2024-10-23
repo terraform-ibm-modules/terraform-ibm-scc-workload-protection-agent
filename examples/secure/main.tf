@@ -58,6 +58,7 @@ locals {
       subnet_prefix     = "default"
       pool_name         = "default" # ibm_container_vpc_cluster automatically names standard pool "default" (See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/2849)
       machine_type      = "bx2.4x16"
+      operating_system  = "REDHAT_8_64"
       workers_per_zone  = 2
       labels            = {}
       resource_group_id = module.resource_group.resource_group_id
@@ -71,7 +72,7 @@ locals {
 
 module "ocp_base" {
   source                       = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version                      = "3.31.1"
+  version                      = "3.34.0"
   cluster_name                 = var.prefix
   resource_group_id            = module.resource_group.resource_group_id
   region                       = var.region
