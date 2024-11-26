@@ -48,6 +48,18 @@ func TestRunBasicExample(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
+func TestRunBasicClusterShieldExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "scc-wp-a-basic", basicExampleDir)
+	options.TerraformVars["cluster_shield_deploy"] = true
+	options.ImplicitDestroy = ImplicitDestroyOCP
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
 func TestRunBasicUpgradeExample(t *testing.T) {
 	t.Parallel()
 
