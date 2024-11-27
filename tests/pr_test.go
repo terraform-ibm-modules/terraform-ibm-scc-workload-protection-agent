@@ -48,18 +48,6 @@ func TestRunBasicExample(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunBasicClusterShieldExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptions(t, "scc-wp-a-basic", basicExampleDir)
-	options.TerraformVars["cluster_shield_deploy"] = true
-	options.ImplicitDestroy = ImplicitDestroyOCP
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
 func TestRunBasicUpgradeExample(t *testing.T) {
 	t.Parallel()
 
@@ -110,6 +98,9 @@ func TestRunBasicAgentsVPCKubernetes(t *testing.T) {
 
 	options := setupOptions(t, "scc-wp-a-vpc-k8s", basicExampleDir)
 	options.TerraformVars["is_openshift"] = false
+	options.TerraformVars["cluster_shield_deploy"] = true
+	options.TerraformVars["kspm_deploy"] = false
+	options.TerraformVars["cluster_scanner_deploy"] = false
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")

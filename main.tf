@@ -27,8 +27,9 @@ locals {
   image_registry                             = "icr.io"
   image_namespace                            = "ext/sysdig"
 
-  # deploy_cluster_scanner = var.cluster_scanner_deploy && !var.cluster_shield_enabled # Only enable cluster scanner if cluster shield not enabled
-  # deploy_kspm_collector  = var.kspm_deploy && !var.cluster_shield_enabled            # Only enable kspm collector if cluster shield not enabled
+  # input variable validation
+  # tflint-ignore: terraform_unused_declarations
+  validate_cluster_shield = var.cluster_shield_deploy && (var.cluster_scanner_deploy || var.kspm_deploy) ? tobool("var.kspm_deploy or var.cluster_scanner_deploy cannot be enabled if var.cluster_shield_deploy is true") : true
 }
 
 resource "helm_release" "scc_wp_agent" {
@@ -415,9 +416,9 @@ resource "helm_release" "scc_wp_agent" {
   }
 
   set {
-    name  = "clusterShield.cluster_shield.log_level.info"
+    name  = "clusterShield.cluster_shield.log_level"
     type  = "string"
-    value = "custom"
+    value = "info"
   }
 
   set {
