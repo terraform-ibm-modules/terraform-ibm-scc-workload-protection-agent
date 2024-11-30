@@ -15,7 +15,7 @@ module "resource_group" {
 
 module "kp_all_inclusive" {
   source                    = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version                   = "4.16.11"
+  version                   = "4.17.1"
   key_protect_instance_name = "${var.prefix}-kp-instance"
   resource_group_id         = module.resource_group.resource_group_id
   region                    = var.region
@@ -72,7 +72,7 @@ locals {
 
 module "ocp_base" {
   source                       = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version                      = "3.35.4"
+  version                      = "3.35.5"
   cluster_name                 = var.prefix
   resource_group_id            = module.resource_group.resource_group_id
   region                       = var.region
@@ -99,7 +99,7 @@ module "ocp_base" {
 
 module "slz_vpc" {
   source                                 = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version                                = "7.19.0"
+  version                                = "7.19.1"
   resource_group_id                      = module.resource_group.resource_group_id
   region                                 = var.region
   name                                   = "wp-vpc"
@@ -126,7 +126,7 @@ module "slz_vpc" {
 
 module "scc_wp" {
   source            = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version           = "v1.4.2"
+  version           = "v1.4.3"
   name              = "${var.prefix}-scc-wp"
   region            = var.region
   resource_group_id = module.resource_group.resource_group_id
