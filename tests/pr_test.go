@@ -23,8 +23,8 @@ const resourceGroup = "geretain-test-resources"
 // const resourceGroup = "geretain-test-resources"
 const basicExampleDir = "examples/basic"
 const secureExampleDir = "examples/secure"
-const agentFlavorDir = "solutions/agents"
-const agentsKubeconfigDir = "solutions/agents/kubeconfig"
+const agentFlavorDir = "solutions/standard"
+const agentsKubeconfigDir = "solutions/standard/kubeconfig"
 
 // Current supported SCC region
 var validRegions = []string{
