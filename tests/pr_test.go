@@ -23,8 +23,8 @@ const resourceGroup = "geretain-test-resources"
 // const resourceGroup = "geretain-test-resources"
 const basicExampleDir = "examples/basic"
 const secureExampleDir = "examples/secure"
-const agentFlavorDir = "solutions/standard"
-const agentsKubeconfigDir = "solutions/standard/kubeconfig"
+const standardFlavorDir = "solutions/standard"
+const standardKubeconfigDir = "solutions/standard/kubeconfig"
 
 // Current supported SCC region
 var validRegions = []string{
@@ -151,7 +151,7 @@ func TestRunBasicAgentsClassicOpenShift(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestAgentsInSchematics(t *testing.T) {
+func TestStandardDAInSchematics(t *testing.T) {
 	t.Parallel()
 
 	var region = validRegions[rand.Intn(len(validRegions))]
@@ -193,11 +193,11 @@ func TestAgentsInSchematics(t *testing.T) {
 			Testing: t,
 			Prefix:  "scc-wp-agents",
 			TarIncludePatterns: []string{
-				agentFlavorDir + "/*.*",
-				agentsKubeconfigDir + "/*.*",
+				standardFlavorDir + "/*.*",
+				standardKubeconfigDir + "/*.*",
 			},
 			ResourceGroup:          resourceGroup,
-			TemplateFolder:         agentFlavorDir,
+			TemplateFolder:         standardFlavorDir,
 			Tags:                   []string{"test-schematic"},
 			DeleteWorkspaceOnFail:  false,
 			WaitJobCompleteMinutes: 60,
