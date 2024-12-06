@@ -4,7 +4,7 @@ offerings:
   - name: deploy-arch-ibm-scc-wp-agent
     kind: solution
     catalog_id: 7df1e4ca-d54c-4fd0-82ce-3d13247308cd
-    offering_id: 9423f9bc-1290-4c71-a9ac-01898bfa7ccc
+    offering_id: f76f2ed3-eb98-4e3d-b147-360485fd8a36
     variations:
       - name: standard
         mark_ready: true
