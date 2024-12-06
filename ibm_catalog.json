@@ -1,7 +1,7 @@
 {
     "products": [
       {
-        "name": "deploy-arch-ibm-scc",
+        "name": "deploy-arch-ibm-scc-workload-protection-agent",
         "label": "Cloud automation for Security and Compliance Center Agents",
         "product_kind": "solution",
         "tags": [
