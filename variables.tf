@@ -69,6 +69,12 @@ variable "deployment_tag" {
   default     = "terraform"
 }
 
+variable "cluster_shield_deploy" {
+  type        = bool
+  description = "Deploy Cluster Shield component. If enabled, kspm collector and cluster scanner will not be enabled."
+  default     = false
+}
+
 ########################################################################################################################
 # Resource Management Variables
 ########################################################################################################################
