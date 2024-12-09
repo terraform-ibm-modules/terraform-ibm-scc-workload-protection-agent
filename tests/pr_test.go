@@ -193,7 +193,7 @@ func TestStandardDAInSchematics(t *testing.T) {
 			Testing: t,
 			Prefix:  "scc-wp-agents",
 			TarIncludePatterns: []string{
-				standardFlavorDir + "*.tf",
+				standardFlavorDir + "/*.tf",
 				standardFlavorDir + "/*.*",
 				standardKubeconfigDir + "/*.*",
 			},
