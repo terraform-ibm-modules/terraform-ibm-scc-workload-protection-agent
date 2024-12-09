@@ -7,15 +7,15 @@ locals {
   ingestion_endpoint = var.endpoint_type == "private" ? "ingest.private.${var.region}.${local.scc_domain}" : "ingest.${var.region}.${local.scc_domain}"
 
   kspm_analyzer_image_repo                   = "kspm-analyzer"
-  kspm_analyzer_image_tag_digest             = "1.44.16@sha256:f532e26074f106b2c3f236df58291d3a7d7040fa9cbce2fd6cca9e96a8c5a7e7" # datasource: icr.io/ext/sysdig/kspm-analyzer
+  kspm_analyzer_image_tag_digest             = "1.44.17@sha256:2daffe737a7b6a0cb767f66b2a56b6298d29cacb2ce56d5bd7a42c81f3f3bc05" # datasource: icr.io/ext/sysdig/kspm-analyzer
   agent_kmodule_image_repo                   = "agent-kmodule"
-  agent_kmodule_image_tag_digest             = "13.6.0@sha256:5ea5dbb9dd060de53fc0a89f51aae29aab66f58e1aa3b49bfd0279de010d02fa" # datasource: icr.io/ext/sysdig/agent-kmodule
+  agent_kmodule_image_tag_digest             = "13.7.0@sha256:48bb68c78bede4dff787a3ee463aa1ac6785b388dea68988ff89978601bb2726" # datasource: icr.io/ext/sysdig/agent-kmodule
   vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
   vuln_runtime_scanner_image_tag_digest      = "1.8.0@sha256:2cb5a33765445bfb072d1be2cd948bfdd3d1cf82f2be6c46f54388d4c88c6215" # datasource: icr.io/ext/sysdig/vuln-runtime-scanner
   vuln_host_scanner_image_repo               = "vuln-host-scanner"
   vuln_host_scanner_image_tag_digest         = "0.12.2@sha256:4486447ffb8fd6f0ead8cf9220c4536896fde8da4bb1c379aec7709bb584dc1d" # datasource: icr.io/ext/sysdig/vuln-host-scanner
   agent_slim_image_repo                      = "agent-slim"
-  agent_slim_image_tag_digest                = "13.6.0@sha256:c47eb9f41a899b67c033520b292749131c14c2bb734a179a18839ba26ee96270" # datasource: icr.io/ext/sysdig/agent-slim
+  agent_slim_image_tag_digest                = "13.7.0@sha256:d32a530babbdad124d8f7f48f3e0ca9821e3e9bb9f3410216757f3cb7f099a23" # datasource: icr.io/ext/sysdig/agent-slim
   kspm_collector_image_repo                  = "kspm-collector"
   kspm_collector_image_tag_digest            = "1.39.6@sha256:96323dceb19ee588d2116427096182819d4d3b6d49e61ae39f2bca1d328e0309" # datasource: icr.io/ext/sysdig/kspm-collector
   sbom_extractor_image_repo                  = "image-sbom-extractor"
@@ -30,7 +30,7 @@ resource "helm_release" "scc_wp_agent" {
   name             = var.name
   repository       = "https://charts.sysdig.com"
   chart            = "sysdig-deploy"
-  version          = "1.69.0"
+  version          = "1.71.0"
   namespace        = var.namespace
   create_namespace = true
   timeout          = 600
