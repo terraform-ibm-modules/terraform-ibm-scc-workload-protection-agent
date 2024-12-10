@@ -179,7 +179,7 @@ module "scc_wp_agent" {
   cluster_name           = (!var.is_vpc_cluster ? ibm_container_cluster.cluster[0].name : (var.is_openshift ? module.ocp_base[0].cluster_name : ibm_container_vpc_cluster.cluster[0].name))
   access_key             = module.scc_wp.access_key
   region                 = var.region
-  name                   = "${var.prefix}-scc-wp-agent"
+  name                   = var.prefix
   cluster_scanner_deploy = var.cluster_scanner_deploy
   kspm_deploy            = var.kspm_deploy
   cluster_shield_deploy  = var.cluster_shield_deploy
