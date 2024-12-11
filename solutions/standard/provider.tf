@@ -36,9 +36,15 @@ data "ibm_container_cluster" "cluster" {
   wait_till_timeout = var.wait_till_timeout
 }
 
+module "resource_group" {
+  source                       = "terraform-ibm-modules/resource-group/ibm"
+  version                      = "1.1.6"
+  existing_resource_group_name = var.cluster_resource_group_name
+}
+
 data "ibm_container_cluster_config" "cluster_config" {
   cluster_name_id   = var.is_vpc_cluster ? data.ibm_container_vpc_cluster.cluster[0].id : data.ibm_container_cluster.cluster[0].id
   config_dir        = "${path.module}/kubeconfig"
   endpoint_type     = var.cluster_endpoint_type
-  resource_group_id = var.cluster_resource_group_id
+  resource_group_id = module.resource_group.resource_group_id
 }

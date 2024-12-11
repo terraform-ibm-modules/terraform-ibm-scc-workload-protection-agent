@@ -7,6 +7,7 @@ variable "ibmcloud_api_key" {
   description = "The IBM Cloud API key to deploy resources."
   sensitive   = true
 }
+
 variable "provider_visibility" {
   description = "Set the visibility value for the IBM terraform provider. Supported values are `public`, `private`, `public-and-private`. [Learn more](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/guides/custom-service-endpoints)."
   type        = string
@@ -17,6 +18,13 @@ variable "provider_visibility" {
     error_message = "Invalid visibility option. Allowed values are 'public', 'private', or 'public-and-private'."
   }
 }
+
+variable "use_existing_resource_group" {
+  type        = bool
+  description = "Whether to use an existing resource group."
+  default     = false
+}
+
 ########################################################################################################################
 # SCC Workload Protection Agent variables
 ########################################################################################################################
@@ -38,9 +46,9 @@ variable "cluster_id" {
   description = "The cluster ID to add the Workload Protection agent to."
 }
 
-variable "cluster_resource_group_id" {
+variable "cluster_resource_group_name" {
   type        = string
-  description = "The resource group ID of the cluster."
+  description = "The resource group name of the cluster."
 }
 
 variable "access_key" {
