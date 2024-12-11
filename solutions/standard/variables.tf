@@ -19,12 +19,6 @@ variable "provider_visibility" {
   }
 }
 
-variable "use_existing_resource_group" {
-  type        = bool
-  description = "Whether to use an existing resource group."
-  default     = false
-}
-
 ########################################################################################################################
 # SCC Workload Protection Agent variables
 ########################################################################################################################
