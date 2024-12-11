@@ -99,13 +99,13 @@
                 }
               },
               {
-                "key": "cluster_resource_group_id",
+                "key": "cluster_resource_group_name",
                 "custom_config": {
                     "type": "resource_group",
                     "grouping": "deployment",
                     "original_grouping": "deployment",
                     "config_constraints": {
-                        "identifier": "rg_id"
+                        "identifier": "rg_name"
                     }
                 }
               },

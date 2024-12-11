@@ -19,7 +19,7 @@ output "workload_cluster_name" {
   description = "Name of the workload cluster."
 }
 
-output "cluster_resource_group_id" {
-  value       = module.landing_zone.cluster_data["${var.prefix}-workload-cluster"].resource_group_id
-  description = "Resource group ID of the workload cluster."
+output "cluster_resource_group_name" {
+  value       = module.landing_zone.cluster_data["${var.prefix}-workload-cluster"].resource_group_name
+  description = "Resource group name of the workload cluster."
 }
