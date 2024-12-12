@@ -15,6 +15,7 @@ module "scc_wp_agent" {
   node_analyzer_deploy   = var.node_analyzer_deploy
   host_scanner_deploy    = var.host_scanner_deploy
   cluster_scanner_deploy = var.cluster_scanner_deploy
+  cluster_shield_deploy  = var.cluster_shield_deploy
 
   agent_requests_cpu                                      = var.agent_requests_cpu
   agent_requests_memory                                   = var.agent_requests_memory

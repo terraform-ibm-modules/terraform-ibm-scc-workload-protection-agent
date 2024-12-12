@@ -155,6 +155,9 @@
                 "key": "cluster_scanner_deploy"
               },
               {
+                "key": "cluster_shield_deploy"
+              },
+              {
                 "key": "cluster_endpoint_type",
                 "options": [
                   {

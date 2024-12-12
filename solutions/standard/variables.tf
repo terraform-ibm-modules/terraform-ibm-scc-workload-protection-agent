@@ -94,6 +94,11 @@ variable "cluster_scanner_deploy" {
   default     = true
 }
 
+variable "cluster_shield_deploy" {
+  type        = bool
+  description = "Deploy Cluster Shield component. If enabled, kspm collector and cluster scanner will not be enabled."
+  default     = false
+}
 
 variable "cluster_endpoint_type" {
   type        = string

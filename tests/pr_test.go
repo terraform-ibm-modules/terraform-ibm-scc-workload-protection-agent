@@ -119,6 +119,9 @@ func TestRunBasicAgentsVPCKubernetes(t *testing.T) {
 
 	options := setupOptions(t, "scc-wp-a-vpc-k8s", basicExampleDir)
 	options.TerraformVars["is_openshift"] = false
+	options.TerraformVars["cluster_shield_deploy"] = true
+	options.TerraformVars["kspm_deploy"] = false
+	options.TerraformVars["cluster_scanner_deploy"] = false
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
