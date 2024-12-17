@@ -54,4 +54,22 @@ variable "datacenter" {
   default     = "syd01"
 }
 
+variable "cluster_scanner_deploy" {
+  type        = bool
+  description = "Deploy SCC Workload Protection cluster scanner component."
+  default     = true
+}
+
+variable "kspm_deploy" {
+  type        = bool
+  description = "Deploy SCC Workload Protection KSPM component."
+  default     = true
+}
+
+variable "cluster_shield_deploy" {
+  type        = bool
+  description = "Deploy Cluster Shield component. If enabled, kspm collector and cluster scanner will not be enabled."
+  default     = false
+}
+
 ##############################################################################

@@ -22,8 +22,14 @@ locals {
   sbom_extractor_image_tag_digest            = "0.10.0@sha256:59543aa19bcdea4973f3d70351b8e1df60c5de998eb829c143a9f9deaed10a7b" # datasource: icr.io/ext/sysdig/image-sbom-extractor
   runtime_status_integrator_image_repo       = "runtime-status-integrator"
   runtime_status_integrator_image_tag_digest = "0.10.0@sha256:524cadd672c276c04845081c6fff4999c37f860a60117821c60d173b9d50a0ab" # datasource: icr.io/ext/sysdig/runtime-status-integrator
+  cluster_shield_image_repo                  = "cluster-shield"
+  cluster_shield_image_tag_digest            = "1.5.0@sha256:d803dfe16afad5a364dfa424c78c2e724f0b55b8648b87edb078854c84a5aa29" # datasource: icr.io/ext/sysdig/cluster-shield
   image_registry                             = "icr.io"
   image_namespace                            = "ext/sysdig"
+
+  # input variable validation
+  # tflint-ignore: terraform_unused_declarations
+  validate_cluster_shield = var.cluster_shield_deploy && (var.cluster_scanner_deploy || var.kspm_deploy) ? tobool("var.kspm_deploy or var.cluster_scanner_deploy cannot be enabled if var.cluster_shield_deploy is true") : true
 }
 
 resource "helm_release" "scc_wp_agent" {
@@ -123,6 +129,11 @@ resource "helm_release" "scc_wp_agent" {
   }
 
   set {
+    name  = "kspmCollector.enabled"
+    value = var.kspm_deploy && !var.cluster_shield_deploy # Only enable kspm collector if cluster shield not enabled
+  }
+
+  set {
     name  = "kspmCollector.apiEndpoint"
     type  = "string"
     value = local.api_endpoint
@@ -130,7 +141,7 @@ resource "helm_release" "scc_wp_agent" {
 
   set {
     name  = "clusterScanner.enabled"
-    value = var.cluster_scanner_deploy
+    value = var.cluster_scanner_deploy && !var.cluster_shield_deploy # Only enable cluster scanner if cluster shield not enabled
   }
 
   set {
@@ -381,6 +392,53 @@ resource "helm_release" "scc_wp_agent" {
     name  = "clusterScanner.imageSbomExtractor.resources.limits.memory"
     type  = "string"
     value = var.cluster_scanner_imagesbomextractor_limits_memory
+  }
+
+  set {
+    name  = "clusterShield.enabled"
+    value = var.cluster_shield_deploy
+  }
+
+  set {
+    name  = "clusterShield.image.repository"
+    value = local.cluster_shield_image_repo
+  }
+
+  set {
+    name  = "clusterShield.image.tag"
+    value = local.cluster_shield_image_tag_digest
+  }
+
+  set {
+    name  = "clusterShield.cluster_shield.sysdig_endpoint.region"
+    type  = "string"
+    value = "custom"
+  }
+
+  set {
+    name  = "clusterShield.cluster_shield.log_level"
+    type  = "string"
+    value = "info"
+  }
+
+  set {
+    name  = "clusterShield.cluster_shield.features.admission_control.enabled"
+    value = true
+  }
+
+  set {
+    name  = "clusterShield.cluster_shield.features.container_vulnerability_management.enabled"
+    value = true
+  }
+
+  set {
+    name  = "clusterShield.cluster_shield.features.audit.enabled"
+    value = true
+  }
+
+  set {
+    name  = "clusterShield.cluster_shield.features.posture.enabled"
+    value = true
   }
 
 }
