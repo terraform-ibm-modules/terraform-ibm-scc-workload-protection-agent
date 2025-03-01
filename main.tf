@@ -7,23 +7,23 @@ locals {
   ingestion_endpoint = var.endpoint_type == "private" ? "ingest.private.${var.region}.${local.scc_domain}" : "ingest.${var.region}.${local.scc_domain}"
 
   kspm_analyzer_image_repo                   = "kspm-analyzer"
-  kspm_analyzer_image_tag_digest             = "1.44.19@sha256:794b80223820d5ef3a7cc23a38f8d38dc016032372ac091c982c2b6f20b35442" # datasource: icr.io/ext/sysdig/kspm-analyzer
+  kspm_analyzer_image_tag_digest             = "1.44.33@sha256:c3fd1a86d60b6460487453f1b8899b10cb18b027049b8d7a7fa914210e5318ae" # datasource: icr.io/ext/sysdig/kspm-analyzer
   agent_kmodule_image_repo                   = "agent-kmodule"
-  agent_kmodule_image_tag_digest             = "13.7.1@sha256:738639280d850c83954e3ce89a950028453c375c206683439ac309ab49095161" # datasource: icr.io/ext/sysdig/agent-kmodule
+  agent_kmodule_image_tag_digest             = "13.8.0@sha256:370b0eaa567068cdb9e735e3b956f16c8f004a12a8d9109f6925430b3c2ba2d1" # datasource: icr.io/ext/sysdig/agent-kmodule
   vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
   vuln_runtime_scanner_image_tag_digest      = "1.8.0@sha256:2cb5a33765445bfb072d1be2cd948bfdd3d1cf82f2be6c46f54388d4c88c6215" # datasource: icr.io/ext/sysdig/vuln-runtime-scanner
   vuln_host_scanner_image_repo               = "vuln-host-scanner"
-  vuln_host_scanner_image_tag_digest         = "0.12.3@sha256:4486447ffb8fd6f0ead8cf9220c4536896fde8da4bb1c379aec7709bb584dc1d" # datasource: icr.io/ext/sysdig/vuln-host-scanner
+  vuln_host_scanner_image_tag_digest         = "0.13.0@sha256:de8d854003e28bf7e2dcdb9d3f10f8b34ff0fec0c40198f573f5e4cf3fc1d53e" # datasource: icr.io/ext/sysdig/vuln-host-scanner
   agent_slim_image_repo                      = "agent-slim"
-  agent_slim_image_tag_digest                = "13.7.1@sha256:3ea3d84283bab517fb169f440400510d6e241a344fb127e167f98933aaa9183c" # datasource: icr.io/ext/sysdig/agent-slim
+  agent_slim_image_tag_digest                = "13.8.0@sha256:7faa495571c446da9700ca47160c38bc9b213de496d2348174c05d95d2dfa02e" # datasource: icr.io/ext/sysdig/agent-slim
   kspm_collector_image_repo                  = "kspm-collector"
-  kspm_collector_image_tag_digest            = "1.39.6@sha256:96323dceb19ee588d2116427096182819d4d3b6d49e61ae39f2bca1d328e0309" # datasource: icr.io/ext/sysdig/kspm-collector
+  kspm_collector_image_tag_digest            = "1.39.8@sha256:0b71ee0ccb94d3838374f99a9b57569fb25a089fc37c50bde7c51f72c2c94b82" # datasource: icr.io/ext/sysdig/kspm-collector
   sbom_extractor_image_repo                  = "image-sbom-extractor"
   sbom_extractor_image_tag_digest            = "0.10.0@sha256:59543aa19bcdea4973f3d70351b8e1df60c5de998eb829c143a9f9deaed10a7b" # datasource: icr.io/ext/sysdig/image-sbom-extractor
   runtime_status_integrator_image_repo       = "runtime-status-integrator"
   runtime_status_integrator_image_tag_digest = "0.10.0@sha256:524cadd672c276c04845081c6fff4999c37f860a60117821c60d173b9d50a0ab" # datasource: icr.io/ext/sysdig/runtime-status-integrator
   cluster_shield_image_repo                  = "cluster-shield"
-  cluster_shield_image_tag_digest            = "1.7.1@sha256:b703e76de400d77c35eb6d2f97783462218b684df512893ce6585a76a314e6ba" # datasource: icr.io/ext/sysdig/cluster-shield
+  cluster_shield_image_tag_digest            = "1.8.2@sha256:a28ee903b354b12c956992bc4d65a2e386dc5ce0cd35e143d07f9789579bde88" # datasource: icr.io/ext/sysdig/cluster-shield
   image_registry                             = "icr.io"
   image_namespace                            = "ext/sysdig"
 
