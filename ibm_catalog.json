@@ -169,6 +169,87 @@
                     "value": "private"
                   }
                 ]
+              },
+              {
+                "key": "agent_limits_cpu"
+              },
+              {
+                "key": "agent_limits_memory"
+              },
+              {
+                "key": "agent_requests_cpu"
+              },
+              {
+                "key": "agent_requests_memory"
+              },
+              {
+                "key": "cluster_scanner_imagesbomextractor_limits_cpu"
+              },
+              {
+                "key": "cluster_scanner_imagesbomextractor_limits_memory"
+              },
+              {
+                "key": "cluster_scanner_imagesbomextractor_requests_cpu"
+              },
+              {
+                "key": "cluster_scanner_imagesbomextractor_requests_memory"
+              },
+              {
+                "key": "cluster_scanner_runtimestatusintegrator_limits_cpu"
+              },
+              {
+                "key": "cluster_scanner_runtimestatusintegrator_limits_memory"
+              },
+              {
+                "key": "cluster_scanner_runtimestatusintegrator_requests_cpu"
+              },
+              {
+                "key": "cluster_scanner_runtimestatusintegrator_requests_memory"
+              },
+              {
+                "key": "host_scanner_limits_cpu"
+              },
+              {
+                "key": "host_scanner_limits_memory"
+              },
+              {
+                "key": "host_scanner_requests_cpu"
+              },
+              {
+                "key": "host_scanner_requests_memory"
+              },
+              {
+                "key": "is_vpc_cluster"
+              },
+              {
+                "key": "kspm_analyzer_limits_cpu"
+              },
+              {
+                "key": "kspm_analyzer_limits_memory"
+              },
+              {
+                "key": "kspm_analyzer_requests_cpu"
+              },
+              {
+                "key": "kspm_analyzer_requests_memory"
+              },
+              {
+                "key": "kspm_collector_limits_cpu"
+              },
+              {
+                "key": "kspm_collector_limits_memory"
+              },
+              {
+                "key": "kspm_collector_requests_cpu"
+              },
+              {
+                "key": "kspm_collector_requests_memory"
+              },
+              {
+                "key": "wait_till"
+              },
+              {
+                "key": "wait_till_timeout"
               }
             ],
             "iam_permissions": [
