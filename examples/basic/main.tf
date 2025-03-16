@@ -155,7 +155,7 @@ resource "ibm_network_vlan" "private_vlan" {
 
 module "scc_wp" {
   source            = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version           = "v1.4.3"
+  version           = "v1.5.2"
   name              = "${var.prefix}-scc-wp"
   region            = var.region
   resource_group_id = module.resource_group.resource_group_id
