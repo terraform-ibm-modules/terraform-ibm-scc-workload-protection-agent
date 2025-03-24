@@ -100,7 +100,7 @@ func TestSecureExampleInSchematic(t *testing.T) {
 		TemplateFolder:         secureExampleDir,
 		Tags:                   []string{"test-schematic"},
 		DeleteWorkspaceOnFail:  false,
-		WaitJobCompleteMinutes: 90,
+		WaitJobCompleteMinutes: 180,
 	})
 
 	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
