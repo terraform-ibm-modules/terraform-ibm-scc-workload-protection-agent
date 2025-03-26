@@ -7,15 +7,15 @@ locals {
   ingestion_endpoint = var.endpoint_type == "private" ? "ingest.private.${var.region}.${local.scc_domain}" : "ingest.${var.region}.${local.scc_domain}"
 
   kspm_analyzer_image_repo                   = "kspm-analyzer"
-  kspm_analyzer_image_tag_digest             = "1.44.38@sha256:82b96deb7264aa6df990ea1e645de662aed6e8285abbda39db689107da3e6bf4" # datasource: icr.io/ext/sysdig/kspm-analyzer
+  kspm_analyzer_image_tag_digest             = "1.44.39@sha256:8f7cda76d382d19fd19120b1930b99f33733cfc5604bcc0092b568b39892e32c" # datasource: icr.io/ext/sysdig/kspm-analyzer
   agent_kmodule_image_repo                   = "agent-kmodule"
-  agent_kmodule_image_tag_digest             = "13.8.0@sha256:370b0eaa567068cdb9e735e3b956f16c8f004a12a8d9109f6925430b3c2ba2d1" # datasource: icr.io/ext/sysdig/agent-kmodule
+  agent_kmodule_image_tag_digest             = "13.8.1@sha256:b1e7f2f1e499e89f0a2486cfe9fea29fefcdb50794bc40a1ca851c876e5d9ed9" # datasource: icr.io/ext/sysdig/agent-kmodule
   vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
   vuln_runtime_scanner_image_tag_digest      = "1.8.0@sha256:2cb5a33765445bfb072d1be2cd948bfdd3d1cf82f2be6c46f54388d4c88c6215" # datasource: icr.io/ext/sysdig/vuln-runtime-scanner
   vuln_host_scanner_image_repo               = "vuln-host-scanner"
   vuln_host_scanner_image_tag_digest         = "0.13.2@sha256:1e6355d465558c3fa0cb87e63ece03f22d7bcc859cb7a2e2a8996ec98a1f75dd" # datasource: icr.io/ext/sysdig/vuln-host-scanner
   agent_slim_image_repo                      = "agent-slim"
-  agent_slim_image_tag_digest                = "13.8.0@sha256:7faa495571c446da9700ca47160c38bc9b213de496d2348174c05d95d2dfa02e" # datasource: icr.io/ext/sysdig/agent-slim
+  agent_slim_image_tag_digest                = "13.8.1@sha256:3bd5b0d3dafc269293a133a548f3289aaafab4a69b0bb35d01e7bbfa0349b91f" # datasource: icr.io/ext/sysdig/agent-slim
   kspm_collector_image_repo                  = "kspm-collector"
   kspm_collector_image_tag_digest            = "1.39.11@sha256:962b36bdcc6885fae40394d3c874591ef24de48906ea0a96a7b9d29d032ab2a7" # datasource: icr.io/ext/sysdig/kspm-collector
   sbom_extractor_image_repo                  = "image-sbom-extractor"
