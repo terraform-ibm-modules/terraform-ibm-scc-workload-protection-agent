@@ -9,7 +9,7 @@ provider "ibm" {
 
 # Init cluster config for helm and kubernetes providers
 data "ibm_container_cluster_config" "cluster_config" {
-  cluster_name_id   = (!var.is_vpc_cluster ? ibm_container_cluster.cluster[0].name : (var.is_openshift ? module.ocp_base[0].cluster_name : ibm_container_vpc_cluster.cluster[0].name))
+  cluster_name_id   = (!var.is_vpc_cluster ? ibm_container_cluster.cluster[0].id : (var.is_openshift ? module.ocp_base[0].cluster_id : ibm_container_vpc_cluster.cluster[0].id))
   resource_group_id = module.resource_group.resource_group_id
 }
 
