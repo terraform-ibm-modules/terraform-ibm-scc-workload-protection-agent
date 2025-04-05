@@ -7,7 +7,7 @@ locals {
   ingestion_endpoint = var.endpoint_type == "private" ? "ingest.private.${var.region}.${local.scc_domain}" : "ingest.${var.region}.${local.scc_domain}"
 
   kspm_analyzer_image_repo                   = "kspm-analyzer"
-  kspm_analyzer_image_tag_digest             = "1.44.40@sha256:7683754a7aa78ba12c43449ae705c1854efaeeb982fd6e83897418e0ff67f996" # datasource: icr.io/ext/sysdig/kspm-analyzer
+  kspm_analyzer_image_tag_digest             = "1.44.42@sha256:9acec89d3e24d16a86f8192dd63cc806b86524016291f6ef01d7a3a0622fb664" # datasource: icr.io/ext/sysdig/kspm-analyzer
   agent_kmodule_image_repo                   = "agent-kmodule"
   agent_kmodule_image_tag_digest             = "13.8.1@sha256:b1e7f2f1e499e89f0a2486cfe9fea29fefcdb50794bc40a1ca851c876e5d9ed9" # datasource: icr.io/ext/sysdig/agent-kmodule
   vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
@@ -23,7 +23,7 @@ locals {
   runtime_status_integrator_image_repo       = "runtime-status-integrator"
   runtime_status_integrator_image_tag_digest = "0.10.0@sha256:524cadd672c276c04845081c6fff4999c37f860a60117821c60d173b9d50a0ab" # datasource: icr.io/ext/sysdig/runtime-status-integrator
   cluster_shield_image_repo                  = "cluster-shield"
-  cluster_shield_image_tag_digest            = "1.9.1@sha256:d8e62145eb42f30124d421aaf1870d78cf974d2fff2a0f347d7e47c1d9f75b29" # datasource: icr.io/ext/sysdig/cluster-shield
+  cluster_shield_image_tag_digest            = "1.10.0@sha256:35c2b43a096e6566c0db16ccc9348ee2f1297e2f7f655a11f50cc471ac3e09ff" # datasource: icr.io/ext/sysdig/cluster-shield
   image_registry                             = "icr.io"
   image_namespace                            = "ext/sysdig"
 
@@ -36,7 +36,7 @@ resource "helm_release" "scc_wp_agent" {
   name             = var.name
   repository       = "https://charts.sysdig.com"
   chart            = "sysdig-deploy"
-  version          = "1.78.9"
+  version          = "1.79.0"
   namespace        = var.namespace
   create_namespace = true
   timeout          = 1500
