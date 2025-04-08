@@ -3,7 +3,7 @@
 ##############################################################################
 module "resource_group" {
   source  = "terraform-ibm-modules/resource-group/ibm"
-  version = "1.1.6"
+  version = "1.2.0"
   # if an existing resource group is not set (null) create a new one using prefix
   resource_group_name          = var.resource_group == null ? "${var.prefix}-resource-group" : null
   existing_resource_group_name = var.resource_group
@@ -15,7 +15,7 @@ module "resource_group" {
 
 module "kp_all_inclusive" {
   source                    = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version                   = "4.21.2"
+  version                   = "4.21.6"
   key_protect_instance_name = "${var.prefix}-kp-instance"
   resource_group_id         = module.resource_group.resource_group_id
   region                    = var.region
@@ -72,7 +72,7 @@ locals {
 
 module "ocp_base" {
   source                       = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version                      = "3.41.5"
+  version                      = "3.44.0"
   cluster_name                 = var.prefix
   resource_group_id            = module.resource_group.resource_group_id
   region                       = var.region
@@ -96,7 +96,7 @@ module "ocp_base" {
 
 module "slz_vpc" {
   source                                 = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version                                = "7.20.2"
+  version                                = "7.22.8"
   resource_group_id                      = module.resource_group.resource_group_id
   region                                 = var.region
   name                                   = "wp-vpc"
@@ -123,7 +123,7 @@ module "slz_vpc" {
 
 module "scc_wp" {
   source            = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version           = "v1.5.2"
+  version           = "v1.5.6"
   name              = "${var.prefix}-scc-wp"
   region            = var.region
   resource_group_id = module.resource_group.resource_group_id
