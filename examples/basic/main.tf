@@ -4,7 +4,7 @@
 
 module "resource_group" {
   source  = "terraform-ibm-modules/resource-group/ibm"
-  version = "1.1.6"
+  version = "1.2.0"
   # if an existing resource group is not set (null) create a new one using prefix
   resource_group_name          = var.resource_group == null ? "${var.prefix}-resource-group" : null
   existing_resource_group_name = var.resource_group
@@ -71,7 +71,7 @@ locals {
 module "ocp_base" {
   count                = var.is_openshift && var.is_vpc_cluster ? 1 : 0
   source               = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version              = "3.41.5"
+  version              = "3.44.0"
   cluster_name         = var.prefix
   resource_group_id    = module.resource_group.resource_group_id
   region               = var.region
@@ -155,7 +155,7 @@ resource "ibm_network_vlan" "private_vlan" {
 
 module "scc_wp" {
   source            = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version           = "v1.5.2"
+  version           = "v1.5.6"
   name              = "${var.prefix}-scc-wp"
   region            = var.region
   resource_group_id = module.resource_group.resource_group_id

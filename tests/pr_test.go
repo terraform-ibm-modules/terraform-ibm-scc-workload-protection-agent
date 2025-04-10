@@ -38,12 +38,6 @@ var ignoreUpdates = []string{
 	"module.scc_wp_agent.helm_release.scc_wp_agent",
 }
 
-var ImplicitDestroyOCP = []string{
-	// workaround for the issue https://github.ibm.com/GoldenEye/issues/issues/10743
-	// when the issue is fixed on IKS, so the destruction of default workers pool is correctly managed on provider/clusters service the next two entries should be removed
-	"'module.ocp_base[0].ibm_container_vpc_worker_pool.pool[\"default\"]'",
-}
-
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:      t,
@@ -62,7 +56,6 @@ func TestRunBasicExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptions(t, "scc-wp-a-basic", basicExampleDir)
-	options.ImplicitDestroy = ImplicitDestroyOCP
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -73,7 +66,6 @@ func TestRunBasicUpgradeExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptions(t, "scc-wp-a-basic-upg", basicExampleDir)
-	options.ImplicitDestroy = ImplicitDestroyOCP
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
