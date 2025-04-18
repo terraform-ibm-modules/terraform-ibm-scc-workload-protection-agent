@@ -11,23 +11,7 @@ module "resource_group" {
 }
 
 ##############################################################################
-# SLZ ROKS Pattern
-##############################################################################
-
-module "landing_zone" {
-  source                 = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone//patterns//roks//module?ref=v7.4.4"
-  region                 = var.region
-  prefix                 = var.prefix
-  tags                   = var.resource_tags
-  add_atracker_route     = false
-  enable_transit_gateway = false
-  # GHA runtime has no access to private
-  verify_cluster_network_readiness    = false
-  use_ibm_cloud_private_api_endpoints = false
-}
-
-##############################################################################
-# Observability Instances
+# SCC WP Instances
 ##############################################################################
 
 module "scc_wp_instance" {
@@ -37,4 +21,70 @@ module "scc_wp_instance" {
   region            = var.region
   resource_group_id = module.resource_group.resource_group_id
   resource_key_name = "${var.prefix}-key"
+}
+
+##############################################################################
+# VPC + Subnet + Public Gateway
+##############################################################################
+
+resource "ibm_is_vpc" "vpc" {
+  name                      = "${var.prefix}-vpc"
+  resource_group            = module.resource_group.resource_group_id
+  address_prefix_management = "auto"
+  tags                      = var.resource_tags
+}
+
+resource "ibm_is_public_gateway" "gateway" {
+  name           = "${var.prefix}-gateway-1"
+  vpc            = ibm_is_vpc.vpc.id
+  resource_group = module.resource_group.resource_group_id
+  zone           = "${var.region}-1"
+}
+
+resource "ibm_is_subnet" "subnet_zone_1" {
+  name                     = "${var.prefix}-subnet-1"
+  vpc                      = ibm_is_vpc.vpc.id
+  resource_group           = module.resource_group.resource_group_id
+  zone                     = "${var.region}-1"
+  total_ipv4_address_count = 256
+  public_gateway           = ibm_is_public_gateway.gateway.id
+}
+
+##############################################################################
+# OCP VPC cluster (single zone)
+##############################################################################
+
+locals {
+  cluster_vpc_subnets = {
+    default = [
+      {
+        id         = ibm_is_subnet.subnet_zone_1.id
+        cidr_block = ibm_is_subnet.subnet_zone_1.ipv4_cidr_block
+        zone       = ibm_is_subnet.subnet_zone_1.zone
+      }
+    ]
+  }
+
+  worker_pools = [
+    {
+      subnet_prefix    = "default"
+      pool_name        = "default" # ibm_container_vpc_cluster automatically names default pool "default" (See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/2849)
+      machine_type     = "bx2.4x16"
+      workers_per_zone = 2 # minimum of 2 is allowed when using single zone
+      operating_system = "REDHAT_8_64"
+    }
+  ]
+}
+
+module "ocp_base" {
+  source               = "terraform-ibm-modules/base-ocp-vpc/ibm"
+  version              = "3.46.1"
+  resource_group_id    = module.resource_group.resource_group_id
+  region               = var.region
+  tags                 = var.resource_tags
+  cluster_name         = var.prefix
+  force_delete_storage = true
+  vpc_id               = ibm_is_vpc.vpc.id
+  vpc_subnets          = local.cluster_vpc_subnets
+  worker_pools         = local.worker_pools
 }
