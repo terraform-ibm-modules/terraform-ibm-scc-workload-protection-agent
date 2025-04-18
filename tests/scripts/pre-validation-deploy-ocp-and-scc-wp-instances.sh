@@ -28,9 +28,9 @@ TF_VARS_FILE="terraform.tfvars"
 
   region_var_name="region"
   cluster_id_var_name="cluster_id"
-  cluster_id_value=$(terraform output -state=terraform.tfstate -raw workload_cluster_id)
+  cluster_id_value=$(terraform output -state=terraform.tfstate -raw cluster_id)
   cluster_resource_group_id_var_name="cluster_resource_group_id"
-  cluster_resource_group_id_value=$(terraform output -state=terraform.tfstate -raw cluster_resource_group_id)
+  cluster_resource_group_id_value=$(terraform output -state=terraform.tfstate -raw resource_group_id)
   access_key_var_name="access_key"
   access_key_value=$(terraform output -state=terraform.tfstate -raw access_key)
 
