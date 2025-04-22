@@ -13,7 +13,7 @@ locals {
   vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
   vuln_runtime_scanner_image_tag_digest      = "1.8.0@sha256:2cb5a33765445bfb072d1be2cd948bfdd3d1cf82f2be6c46f54388d4c88c6215" # datasource: icr.io/ext/sysdig/vuln-runtime-scanner
   vuln_host_scanner_image_repo               = "vuln-host-scanner"
-  vuln_host_scanner_image_tag_digest         = "0.13.2@sha256:1e6355d465558c3fa0cb87e63ece03f22d7bcc859cb7a2e2a8996ec98a1f75dd" # datasource: icr.io/ext/sysdig/vuln-host-scanner
+  vuln_host_scanner_image_tag_digest         = "0.13.4@sha256:bea3d2a82f9382cc6068532f545d7ce99cd341033a79481dd765db82d57a5347" # datasource: icr.io/ext/sysdig/vuln-host-scanner
   agent_slim_image_repo                      = "agent-slim"
   agent_slim_image_tag_digest                = "13.8.1@sha256:3bd5b0d3dafc269293a133a548f3289aaafab4a69b0bb35d01e7bbfa0349b91f" # datasource: icr.io/ext/sysdig/agent-slim
   kspm_collector_image_repo                  = "kspm-collector"
