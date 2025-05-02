@@ -152,6 +152,7 @@ No modules.
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace of the Security and Compliance Workload Protection agent. | `string` | `"ibm-scc-wp"` | no |
 | <a name="input_node_analyzer_deploy"></a> [node\_analyzer\_deploy](#input\_node\_analyzer\_deploy) | Deploy SCC Workload Protection node analyzer component. | `bool` | `true` | no |
 | <a name="input_region"></a> [region](#input\_region) | Region where Security and Compliance Workload Protection instance is created. | `string` | n/a | yes |
+| <a name="input_universal_ebpf"></a> [universal\_ebpf](#input\_universal\_ebpf) | Deploy Workload Protection agent with universal\_ebpf enabled. It requires kernel version 5.8+. | `bool` | `false` | no |
 
 ### Outputs
 

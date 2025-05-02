@@ -75,6 +75,12 @@ variable "cluster_shield_deploy" {
   default     = false
 }
 
+variable "universal_ebpf" {
+  type        = bool
+  description = "Deploy Workload Protection agent with universal_ebpf enabled. It requires kernel version 5.8+."
+  default     = false
+}
+
 ########################################################################################################################
 # Resource Management Variables
 ########################################################################################################################
