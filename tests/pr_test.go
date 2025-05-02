@@ -127,6 +127,7 @@ func TestRunBasicAgentsClassicKubernetes(t *testing.T) {
 	options := setupOptions(t, "scc-wp-a-cla-k8s", basicExampleDir)
 	options.TerraformVars["is_openshift"] = false
 	options.TerraformVars["is_vpc_cluster"] = false
+	options.TerraformVars["universal_ebpf"] = true
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
