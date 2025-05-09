@@ -55,12 +55,20 @@ variable "cluster_scanner_deploy" {
   type        = bool
   description = "Deploy SCC Workload Protection cluster scanner component."
   default     = true
+  validation {
+    condition     = !var.cluster_scanner_deploy || !var.cluster_shield_deploy
+    error_message = "cluster_scanner_deploy cannot be enabled if cluster_shield_deploy is true"
+  }
 }
 
 variable "kspm_deploy" {
   type        = bool
   description = "Deploy SCC Workload Protection KSPM component."
   default     = true
+  validation {
+    condition     = !var.kspm_deploy || !var.cluster_shield_deploy
+    error_message = "kspm_deploy cannot be enabled if cluster_shield_deploy is true"
+  }
 }
 
 variable "deployment_tag" {
