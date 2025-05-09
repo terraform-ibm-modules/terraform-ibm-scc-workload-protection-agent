@@ -441,4 +441,14 @@ resource "helm_release" "scc_wp_agent" {
     value = true
   }
 
+  set {
+    name  = "agent.ebpf.enabled"
+    value = var.universal_ebpf
+  }
+
+  set {
+    name  = "agent.ebpf.kind"
+    value = "universal_ebpf"
+  }
+
 }
