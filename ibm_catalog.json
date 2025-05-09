@@ -158,6 +158,9 @@
                 "key": "cluster_shield_deploy"
               },
               {
+                "key": "universal_ebpf"
+              },
+              {
                 "key": "cluster_endpoint_type",
                 "options": [
                   {
