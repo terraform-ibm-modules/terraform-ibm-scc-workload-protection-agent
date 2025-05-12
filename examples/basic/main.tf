@@ -183,6 +183,7 @@ module "scc_wp_agent" {
   cluster_scanner_deploy = var.cluster_scanner_deploy
   kspm_deploy            = var.kspm_deploy
   cluster_shield_deploy  = var.cluster_shield_deploy
+  universal_ebpf         = true
 
 }
 
