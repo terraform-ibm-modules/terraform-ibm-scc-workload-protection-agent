@@ -40,7 +40,6 @@
           "install_type": "fullstack",
           "dependency_version_2": true,
           "working_directory": "solutions/standard",
-          "compliance": {},
           "dependencies": [
             {
               "flavors": [
