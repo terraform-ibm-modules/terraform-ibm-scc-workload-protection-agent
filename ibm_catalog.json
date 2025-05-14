@@ -1,290 +1,288 @@
 {
-    "products": [
-      {
-        "name": "deploy-arch-ibm-scc-wp-agent",
-        "label": "Cloud automation for Security and Compliance Center Workload Protection agent",
-        "product_kind": "solution",
-        "tags": [
-          "ibm_created",
-          "target_terraform",
-          "terraform",
-          "solution",
-          "security"
-        ],
-        "keywords": [
-          "SCC",
-          "security",
-          "compliance",
-          "workload-protection",
-          "IaC",
-          "infrastructure as code",
-          "terraform",
-          "solution"
-        ],
-        "short_description": "Configures Security and Compliance Center Workload Protection agents",
-        "long_description": "This architecture supports creating and configuring IBM Security and Compliance Center Workload Protection agent to an IBM Cloud Kubernentes or Openshift cluster.",
-        "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/blob/main/solutions/standard/README.md",
-        "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/main/images/scc-icon.svg",
-        "provider_name": "IBM",
-        "features": [
-          {
-            "title": "Security and Compliance Center Workload Protection Agents",
-            "description": "Creates and configures the Workload Protections components in an existing cluster to an existing IBM Cloud Security and Compliance Center Workload Protection instance."
-          }
-        ],
-        "support_details": "This product is in the community registry, as such support is handled through the originated repo. If you experience issues please open an issue in that repository [https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/issues](https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/issues). Please note this product is not supported via the IBM Cloud Support Center.",
-        "flavors": [
-          {
-            "label": "Standard",
-            "name": "standard",
-            "install_type": "fullstack",
-            "dependency_version_2": true,
-            "working_directory": "solutions/standard",
-            "compliance": {},
-            "dependencies": [
-              {
-                "flavors": [
-                  "quickstart",
-                  "standard"
-                ],
-                "id": "95fccffc-ae3b-42df-b6d9-80be5914d852-global",
-                "name": "deploy-arch-ibm-slz-ocp",
-                "version": ">=v3.0.0",
-                "optional": true
-              },
-              {
-                "flavors": [
-                  "instances"
-                ],
-                "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
-                "id": "9423f9bc-1290-4c71-a9ac-01898bfa7ccc-global",
-                "name": "deploy-arch-ibm-scc",
-                "version": ">=v1.0.0",
-                "optional": true
-              }
-            ],
-            "configuration": [
-              {
-                "key": "ibmcloud_api_key"
-              },
-              {
-                "key": "provider_visibility",
-                "options": [
-                  {
-                    "displayname": "private",
-                    "value": "private"
-                  },
-                  {
-                    "displayname": "public",
-                    "value": "public"
-                  },
-                  {
-                    "displayname": "public-and-private",
-                    "value": "public-and-private"
-                  }
-                ]
-              },
-              {
-                "key": "name"
-              },
-              {
-                "key": "namespace"
-              },
-              {
-                "key": "cluster_id",
-                "custom_config": {
-                    "type": "cluster_var",
-                    "grouping": "deployment",
-                    "original_grouping": "deployment"
-                }
-              },
-              {
-                "key": "cluster_resource_group_id",
-                "custom_config": {
-                    "type": "resource_group",
-                    "grouping": "deployment",
-                    "original_grouping": "deployment",
-                    "config_constraints": {
-                        "identifier": "rg_id"
-                    }
-                }
-              },
-              {
-                "key": "access_key"
-              },
-              {
-                "key": "region",
-                "type": "string",
-                "custom_config": {
-                    "type": "region",
-                    "grouping": "deployment",
-                    "original_grouping": "deployment",
-                    "config_constraints": {
-                        "showKinds": [
-                            "region"
-                        ]
-                    }
-                }
-              },
-              {
-                "key": "endpoint_type",
-                "options": [
-                  {
-                    "displayname": "Public",
-                    "value": "public"
-                  },
-                  {
-                    "displayname": "Private",
-                    "value": "private"
-                  }
-                ]
-              },
-              {
-                "key": "deployment_tag"
-              },
-              {
-                "key": "kspm_deploy"
-              },
-              {
-                "key": "node_analyzer_deploy"
-              },
-              {
-                "key": "host_scanner_deploy"
-              },
-              {
-                "key": "cluster_scanner_deploy"
-              },
-              {
-                "key": "cluster_shield_deploy"
-              },
-              {
-                "key": "universal_ebpf"
-              },
-              {
-                "key": "cluster_endpoint_type",
-                "options": [
-                  {
-                    "displayname": "Public",
-                    "value": "public"
-                  },
-                  {
-                    "displayname": "Private",
-                    "value": "private"
-                  }
-                ]
-              },
-              {
-                "key": "agent_limits_cpu"
-              },
-              {
-                "key": "agent_limits_memory"
-              },
-              {
-                "key": "agent_requests_cpu"
-              },
-              {
-                "key": "agent_requests_memory"
-              },
-              {
-                "key": "cluster_scanner_imagesbomextractor_limits_cpu"
-              },
-              {
-                "key": "cluster_scanner_imagesbomextractor_limits_memory"
-              },
-              {
-                "key": "cluster_scanner_imagesbomextractor_requests_cpu"
-              },
-              {
-                "key": "cluster_scanner_imagesbomextractor_requests_memory"
-              },
-              {
-                "key": "cluster_scanner_runtimestatusintegrator_limits_cpu"
-              },
-              {
-                "key": "cluster_scanner_runtimestatusintegrator_limits_memory"
-              },
-              {
-                "key": "cluster_scanner_runtimestatusintegrator_requests_cpu"
-              },
-              {
-                "key": "cluster_scanner_runtimestatusintegrator_requests_memory"
-              },
-              {
-                "key": "host_scanner_limits_cpu"
-              },
-              {
-                "key": "host_scanner_limits_memory"
-              },
-              {
-                "key": "host_scanner_requests_cpu"
-              },
-              {
-                "key": "host_scanner_requests_memory"
-              },
-              {
-                "key": "is_vpc_cluster"
-              },
-              {
-                "key": "kspm_analyzer_limits_cpu"
-              },
-              {
-                "key": "kspm_analyzer_limits_memory"
-              },
-              {
-                "key": "kspm_analyzer_requests_cpu"
-              },
-              {
-                "key": "kspm_analyzer_requests_memory"
-              },
-              {
-                "key": "kspm_collector_limits_cpu"
-              },
-              {
-                "key": "kspm_collector_limits_memory"
-              },
-              {
-                "key": "kspm_collector_requests_cpu"
-              },
-              {
-                "key": "kspm_collector_requests_memory"
-              },
-              {
-                "key": "wait_till"
-              },
-              {
-                "key": "wait_till_timeout"
-              }
-            ],
-            "iam_permissions": [
-              {
-                "service_name": "containers-kubernetes",
-                "role_crns": [
-                  "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                  "crn:v1:bluemix:public:iam::::role:Editor"
-                ]
-              }
-            ],
-            "architecture": {
-              "descriptions": "This architecture supports creating and configuring Security and Compliance Center Workload Protection agents.",
-              "features": [
-                {
-                  "title": "Security and Compliance Center Workload Protection agent",
-                  "description": "Creates and configures a Security and Compliance Center Workload Protection agent."
-                }
+  "products": [
+    {
+      "name": "deploy-arch-ibm-scc-wp-agent",
+      "label": "Cloud automation for Security and Compliance Center Workload Protection agent",
+      "product_kind": "solution",
+      "tags": [
+        "ibm_created",
+        "target_terraform",
+        "terraform",
+        "solution",
+        "security"
+      ],
+      "keywords": [
+        "SCC",
+        "security",
+        "compliance",
+        "workload-protection",
+        "IaC",
+        "infrastructure as code",
+        "terraform",
+        "solution"
+      ],
+      "short_description": "Configures Security and Compliance Center Workload Protection agents",
+      "long_description": "This architecture supports creating and configuring IBM Security and Compliance Center Workload Protection agent to an IBM Cloud Kubernentes or Openshift cluster.",
+      "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/blob/main/solutions/standard/README.md",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/main/images/scc-icon.svg",
+      "provider_name": "IBM",
+      "features": [
+        {
+          "title": "Security and Compliance Center Workload Protection Agents",
+          "description": "Creates and configures the Workload Protections components in an existing cluster to an existing IBM Cloud Security and Compliance Center Workload Protection instance."
+        }
+      ],
+      "support_details": "This product is in the community registry, as such support is handled through the originated repo. If you experience issues please open an issue in that repository [https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/issues](https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/issues). Please note this product is not supported via the IBM Cloud Support Center.",
+      "flavors": [
+        {
+          "label": "Standard",
+          "name": "standard",
+          "install_type": "fullstack",
+          "dependency_version_2": true,
+          "working_directory": "solutions/standard",
+          "dependencies": [
+            {
+              "flavors": [
+                "quickstart",
+                "standard"
               ],
-              "diagrams": [
+              "id": "95fccffc-ae3b-42df-b6d9-80be5914d852-global",
+              "name": "deploy-arch-ibm-slz-ocp",
+              "version": ">=v3.0.0",
+              "optional": true
+            },
+            {
+              "flavors": [
+                "instances"
+              ],
+              "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
+              "id": "9423f9bc-1290-4c71-a9ac-01898bfa7ccc-global",
+              "name": "deploy-arch-ibm-scc",
+              "version": ">=v1.0.0",
+              "optional": true
+            }
+          ],
+          "configuration": [
+            {
+              "key": "ibmcloud_api_key"
+            },
+            {
+              "key": "provider_visibility",
+              "options": [
                 {
-                  "diagram": {
-                    "caption": "Security and Compliance Center Workload Protection agent",
-                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/main/reference-architecture/scc-wp-agent.svg",
-                    "type": "image/svg+xml"
-                  },
-                  "description": "This architecture supports creating and configuring Security and Compliance Center Workload Protection agent resources."
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                },
+                {
+                  "displayname": "public-and-private",
+                  "value": "public-and-private"
                 }
               ]
+            },
+            {
+              "key": "name"
+            },
+            {
+              "key": "namespace"
+            },
+            {
+              "key": "cluster_id",
+              "custom_config": {
+                "type": "cluster_var",
+                "grouping": "deployment",
+                "original_grouping": "deployment"
+              }
+            },
+            {
+              "key": "cluster_resource_group_id",
+              "custom_config": {
+                "type": "resource_group",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "identifier": "rg_id"
+                }
+              }
+            },
+            {
+              "key": "access_key"
+            },
+            {
+              "key": "region",
+              "type": "string",
+              "custom_config": {
+                "type": "region",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "showKinds": [
+                    "region"
+                  ]
+                }
+              }
+            },
+            {
+              "key": "endpoint_type",
+              "options": [
+                {
+                  "displayname": "Public",
+                  "value": "public"
+                },
+                {
+                  "displayname": "Private",
+                  "value": "private"
+                }
+              ]
+            },
+            {
+              "key": "deployment_tag"
+            },
+            {
+              "key": "kspm_deploy"
+            },
+            {
+              "key": "node_analyzer_deploy"
+            },
+            {
+              "key": "host_scanner_deploy"
+            },
+            {
+              "key": "cluster_scanner_deploy"
+            },
+            {
+              "key": "cluster_shield_deploy"
+            },
+            {
+              "key": "universal_ebpf"
+            },
+            {
+              "key": "cluster_endpoint_type",
+              "options": [
+                {
+                  "displayname": "Public",
+                  "value": "public"
+                },
+                {
+                  "displayname": "Private",
+                  "value": "private"
+                }
+              ]
+            },
+            {
+              "key": "agent_limits_cpu"
+            },
+            {
+              "key": "agent_limits_memory"
+            },
+            {
+              "key": "agent_requests_cpu"
+            },
+            {
+              "key": "agent_requests_memory"
+            },
+            {
+              "key": "cluster_scanner_imagesbomextractor_limits_cpu"
+            },
+            {
+              "key": "cluster_scanner_imagesbomextractor_limits_memory"
+            },
+            {
+              "key": "cluster_scanner_imagesbomextractor_requests_cpu"
+            },
+            {
+              "key": "cluster_scanner_imagesbomextractor_requests_memory"
+            },
+            {
+              "key": "cluster_scanner_runtimestatusintegrator_limits_cpu"
+            },
+            {
+              "key": "cluster_scanner_runtimestatusintegrator_limits_memory"
+            },
+            {
+              "key": "cluster_scanner_runtimestatusintegrator_requests_cpu"
+            },
+            {
+              "key": "cluster_scanner_runtimestatusintegrator_requests_memory"
+            },
+            {
+              "key": "host_scanner_limits_cpu"
+            },
+            {
+              "key": "host_scanner_limits_memory"
+            },
+            {
+              "key": "host_scanner_requests_cpu"
+            },
+            {
+              "key": "host_scanner_requests_memory"
+            },
+            {
+              "key": "is_vpc_cluster"
+            },
+            {
+              "key": "kspm_analyzer_limits_cpu"
+            },
+            {
+              "key": "kspm_analyzer_limits_memory"
+            },
+            {
+              "key": "kspm_analyzer_requests_cpu"
+            },
+            {
+              "key": "kspm_analyzer_requests_memory"
+            },
+            {
+              "key": "kspm_collector_limits_cpu"
+            },
+            {
+              "key": "kspm_collector_limits_memory"
+            },
+            {
+              "key": "kspm_collector_requests_cpu"
+            },
+            {
+              "key": "kspm_collector_requests_memory"
+            },
+            {
+              "key": "wait_till"
+            },
+            {
+              "key": "wait_till_timeout"
             }
+          ],
+          "iam_permissions": [
+            {
+              "service_name": "containers-kubernetes",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ]
+            }
+          ],
+          "architecture": {
+            "features": [
+              {
+                "title": "Security and Compliance Center Workload Protection agent",
+                "description": "Creates and configures a Security and Compliance Center Workload Protection agent."
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "Security and Compliance Center Workload Protection agent",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/main/reference-architecture/scc-wp-agent.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "This architecture supports creating and configuring Security and Compliance Center Workload Protection agent resources."
+              }
+            ]
           }
-        ]
-      }
-    ]
-  }
+        }
+      ]
+    }
+  ]
+}
