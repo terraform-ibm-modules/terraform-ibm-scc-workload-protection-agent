@@ -71,7 +71,7 @@ locals {
 module "ocp_base" {
   count                = var.is_openshift && var.is_vpc_cluster ? 1 : 0
   source               = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version              = "3.46.15"
+  version              = "3.46.16"
   cluster_name         = var.prefix
   resource_group_id    = module.resource_group.resource_group_id
   region               = var.region
@@ -183,6 +183,7 @@ module "scc_wp_agent" {
   cluster_scanner_deploy = var.cluster_scanner_deploy
   kspm_deploy            = var.kspm_deploy
   cluster_shield_deploy  = var.cluster_shield_deploy
+  universal_ebpf         = true
 
 }
 

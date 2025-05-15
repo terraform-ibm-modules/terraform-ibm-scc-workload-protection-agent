@@ -7,13 +7,13 @@ locals {
   ingestion_endpoint = var.endpoint_type == "private" ? "ingest.private.${var.region}.${local.scc_domain}" : "ingest.${var.region}.${local.scc_domain}"
 
   kspm_analyzer_image_repo                   = "kspm-analyzer"
-  kspm_analyzer_image_tag_digest             = "1.44.42@sha256:9acec89d3e24d16a86f8192dd63cc806b86524016291f6ef01d7a3a0622fb664" # datasource: icr.io/ext/sysdig/kspm-analyzer
+  kspm_analyzer_image_tag_digest             = "1.44.43@sha256:a6a9e5766b931f216c47a010371d953f2c8cac33b90dcec56f4d96379ce7833b" # datasource: icr.io/ext/sysdig/kspm-analyzer
   agent_kmodule_image_repo                   = "agent-kmodule"
   agent_kmodule_image_tag_digest             = "13.9.1@sha256:0eef614a5988f6979d487f949b3cb1212f8253433057894b5583bf01bf378fb3" # datasource: icr.io/ext/sysdig/agent-kmodule
   vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
   vuln_runtime_scanner_image_tag_digest      = "1.8.0@sha256:2cb5a33765445bfb072d1be2cd948bfdd3d1cf82f2be6c46f54388d4c88c6215" # datasource: icr.io/ext/sysdig/vuln-runtime-scanner
   vuln_host_scanner_image_repo               = "vuln-host-scanner"
-  vuln_host_scanner_image_tag_digest         = "0.13.4@sha256:bea3d2a82f9382cc6068532f545d7ce99cd341033a79481dd765db82d57a5347" # datasource: icr.io/ext/sysdig/vuln-host-scanner
+  vuln_host_scanner_image_tag_digest         = "0.13.6@sha256:80f441dd09e1810c8613b45554ba73c4c577f6139851029a194b3158b352a49f" # datasource: icr.io/ext/sysdig/vuln-host-scanner
   agent_slim_image_repo                      = "agent-slim"
   agent_slim_image_tag_digest                = "13.9.1@sha256:14860d181a8b712c4150bb59e3ba0ff4be08959e2c45376b32c8eb7ff70461f9" # datasource: icr.io/ext/sysdig/agent-slim
   kspm_collector_image_repo                  = "kspm-collector"
@@ -435,6 +435,16 @@ resource "helm_release" "scc_wp_agent" {
   set {
     name  = "clusterShield.cluster_shield.features.posture.enabled"
     value = true
+  }
+
+  set {
+    name  = "agent.ebpf.enabled"
+    value = var.universal_ebpf
+  }
+
+  set {
+    name  = "agent.ebpf.kind"
+    value = "universal_ebpf"
   }
 
 }
