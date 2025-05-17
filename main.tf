@@ -26,10 +26,6 @@ locals {
   cluster_shield_image_tag_digest            = "1.11.0@sha256:43577a450f2859c04391e8b45b0a5ef9cff0713e8412e1aa1f8696fd5668d20b" # datasource: icr.io/ext/sysdig/cluster-shield
   image_registry                             = "icr.io"
   image_namespace                            = "ext/sysdig"
-
-  # input variable validation
-  # tflint-ignore: terraform_unused_declarations
-  validate_cluster_shield = var.cluster_shield_deploy && (var.cluster_scanner_deploy || var.kspm_deploy) ? tobool("var.kspm_deploy or var.cluster_scanner_deploy cannot be enabled if var.cluster_shield_deploy is true") : true
 }
 
 resource "helm_release" "scc_wp_agent" {
