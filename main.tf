@@ -23,7 +23,7 @@ locals {
   runtime_status_integrator_image_repo       = "runtime-status-integrator"
   runtime_status_integrator_image_tag_digest = "0.10.0@sha256:524cadd672c276c04845081c6fff4999c37f860a60117821c60d173b9d50a0ab" # datasource: icr.io/ext/sysdig/runtime-status-integrator
   cluster_shield_image_repo                  = "cluster-shield"
-  cluster_shield_image_tag_digest            = "1.11.0@sha256:43577a450f2859c04391e8b45b0a5ef9cff0713e8412e1aa1f8696fd5668d20b" # datasource: icr.io/ext/sysdig/cluster-shield
+  cluster_shield_image_tag_digest            = "1.12.0@sha256:0fec7d7d0e9a2ed84eba27328ccfddb4268f60e0617b8586852717f03300d6d4" # datasource: icr.io/ext/sysdig/cluster-shield
   image_registry                             = "icr.io"
   image_namespace                            = "ext/sysdig"
 }
