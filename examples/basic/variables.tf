@@ -78,4 +78,10 @@ variable "scc_workload_protection_trusted_profile_name" {
   default     = "workload-protection-trusted-profile"
 }
 
+variable "app_config_crn" {
+  description = "The CRN of an existing App Config instance to use with the SCC Workload Protection instance. Required if `cspm_enabled` is true. NOTE: Ensure the App Config instance has configuration aggregator enabled."
+  type        = string
+  default     = null
+}
+
 ##############################################################################

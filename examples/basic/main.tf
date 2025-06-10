@@ -160,7 +160,7 @@ module "scc_wp" {
   region                                       = var.region
   resource_group_id                            = module.resource_group.resource_group_id
   resource_key_tags                            = var.resource_tags
-  app_config_crn                               = "crn:v1:bluemix:public:apprapp:us-south:a/abac0df06b644a9cabc6e44f55b3880e:9fc73a77-f319-4086-a08d-43e00672f981::"
+  app_config_crn                               = var.app_config_crn
   scc_workload_protection_trusted_profile_name = var.scc_workload_protection_trusted_profile_name
 }
 
