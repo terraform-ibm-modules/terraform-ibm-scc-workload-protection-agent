@@ -90,8 +90,6 @@ func TestRunBasicUpgradeExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptions(t, "scc-wp-a-basic-upg", basicExampleDir)
-	options.TerraformVars["app_config_crn"] = permanentResources["app_config_crn"]
-	options.TerraformVars["cspm_enabled"] = true
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
