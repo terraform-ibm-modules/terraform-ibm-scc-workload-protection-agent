@@ -48,4 +48,10 @@ variable "app_config_crn" {
   default     = null
 }
 
+variable "scc_workload_protection_trusted_profile_name" {
+  description = "The name to give the trusted profile that is created by this module if `cspm_enabled` is `true. Must begin with a letter."
+  type        = string
+  default     = "wp-trusted-profile-secure"
+}
+
 ##############################################################################

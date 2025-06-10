@@ -75,19 +75,7 @@ variable "cluster_shield_deploy" {
 variable "scc_workload_protection_trusted_profile_name" {
   description = "The name to give the trusted profile that is created by this module if `cspm_enabled` is `true. Must begin with a letter."
   type        = string
-  default     = "workload-protection-trusted-profile"
-}
-
-variable "app_config_crn" {
-  description = "The CRN of an existing App Config instance to use with the SCC Workload Protection instance. Required if `cspm_enabled` is true. NOTE: Ensure the App Config instance has configuration aggregator enabled."
-  type        = string
-  default     = null
-}
-
-variable "cspm_enabled" {
-  description = "Enable Cloud Security Posture Management (CSPM) for the Workload Protection instance. This will create a trusted profile associated with the SCC Workload Protection instance that has viewer / reader access to the App Config service and viewer access to the Enterprise service. [Learn more](https://cloud.ibm.com/docs/workload-protection?topic=workload-protection-about)."
-  type        = bool
-  default     = false
+  default     = "wp-trusted-profile-basic"
 }
 
 ##############################################################################

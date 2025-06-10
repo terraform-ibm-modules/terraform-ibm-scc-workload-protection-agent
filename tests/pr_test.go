@@ -123,6 +123,7 @@ func TestSecureExampleInSchematic(t *testing.T) {
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "app_config_crn", Value: permanentResources["app_config_crn"], DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
@@ -139,8 +140,6 @@ func TestRunBasicAgentsVPCKubernetes(t *testing.T) {
 	options.TerraformVars["kspm_deploy"] = false
 	options.TerraformVars["cluster_scanner_deploy"] = false
 	options.TerraformVars["scc_workload_protection_trusted_profile_name"] = fmt.Sprintf("tf-%s", options.Prefix)
-	options.TerraformVars["app_config_crn"] = permanentResources["app_config_crn"]
-	options.TerraformVars["cspm_enabled"] = true
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -155,8 +154,6 @@ func TestRunBasicAgentsClassicKubernetes(t *testing.T) {
 	options.TerraformVars["is_openshift"] = false
 	options.TerraformVars["is_vpc_cluster"] = false
 	options.TerraformVars["scc_workload_protection_trusted_profile_name"] = fmt.Sprintf("tf-%s", options.Prefix)
-	options.TerraformVars["app_config_crn"] = permanentResources["app_config_crn"]
-	options.TerraformVars["cspm_enabled"] = true
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -171,8 +168,6 @@ func TestRunBasicAgentsClassicOpenShift(t *testing.T) {
 	options.TerraformVars["is_openshift"] = true
 	options.TerraformVars["is_vpc_cluster"] = false
 	options.TerraformVars["scc_workload_protection_trusted_profile_name"] = fmt.Sprintf("tf-%s", options.Prefix)
-	options.TerraformVars["app_config_crn"] = permanentResources["app_config_crn"]
-	options.TerraformVars["cspm_enabled"] = true
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
