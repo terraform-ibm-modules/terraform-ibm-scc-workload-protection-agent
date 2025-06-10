@@ -35,15 +35,4 @@ variable "app_config_crn" {
   description = "The CRN of an existing App Config instance to use with the SCC Workload Protection instance. Required if `cspm_enabled` is true. NOTE: Ensure the App Config instance has configuration aggregator enabled."
   type        = string
   default     = null
-  validation {
-    condition     = var.cspm_enabled ? var.app_config_crn != null : true
-    error_message = "Cannot be `null` if CSPM is enabled."
-  }
-  validation {
-    condition = anytrue([
-      can(regex("^crn:(.*:){3}apprapp:(.*:){2}[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}::$", var.app_config_crn)),
-      var.app_config_crn == null,
-    ])
-    error_message = "The provided CRN is not a valid App Config CRN."
-  }
 }
