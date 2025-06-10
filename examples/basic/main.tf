@@ -162,6 +162,7 @@ module "scc_wp" {
   resource_key_tags                            = var.resource_tags
   app_config_crn                               = var.app_config_crn
   scc_workload_protection_trusted_profile_name = var.scc_workload_protection_trusted_profile_name
+  cspm_enabled                                 = var.cspm_enabled
 }
 
 # Sleep to allow RBAC sync on cluster
