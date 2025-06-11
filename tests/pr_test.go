@@ -79,7 +79,6 @@ func TestRunBasicExample(t *testing.T) {
 
 	options := setupOptions(t, "scc-wp-a-basic", basicExampleDir)
 	options.TerraformVars["scc_workload_protection_trusted_profile_name"] = fmt.Sprintf("tf-%s", options.Prefix)
-	options.TerraformVars["app_config_crn"] = permanentResources["app_config_crn"]
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
