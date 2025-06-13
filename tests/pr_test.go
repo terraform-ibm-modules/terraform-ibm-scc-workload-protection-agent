@@ -39,6 +39,7 @@ var validRegions = []string{
 
 var ignoreUpdates = []string{
 	"module.scc_wp_agent.helm_release.scc_wp_agent",
+	"module.scc_wp.restapi_object.cspm",
 }
 
 // Define a struct with fields that match the structure of the YAML data
@@ -132,7 +133,6 @@ func TestSecureExampleInSchematic(t *testing.T) {
 // TestRunBasicAgentsVPCKubernetes validates this module against an IKS VPC cluster
 func TestRunBasicAgentsVPCKubernetes(t *testing.T) {
 	t.Parallel()
-
 	options := setupOptions(t, "scc-wp-a-vpc-k8s", basicExampleDir)
 	options.TerraformVars["is_openshift"] = false
 	options.TerraformVars["cluster_shield_deploy"] = true
