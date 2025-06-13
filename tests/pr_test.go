@@ -39,7 +39,7 @@ var validRegions = []string{
 
 var ignoreUpdates = []string{
 	"module.scc_wp_agent.helm_release.scc_wp_agent",
-	"module.scc_wp.restapi_object.cspm",
+	"module.scc_wp.restapi_object.cspm", // workaround for https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection/issues/243
 }
 
 // Define a struct with fields that match the structure of the YAML data
@@ -117,6 +117,10 @@ func TestSecureExampleInSchematic(t *testing.T) {
 		Tags:                   []string{"test-schematic"},
 		DeleteWorkspaceOnFail:  false,
 		WaitJobCompleteMinutes: 180,
+		// workaround for https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection/issues/243
+		IgnoreAdds: testhelper.Exemptions{
+			List: []string{"module.scc_wp.restapi_object.cspm"},
+		},
 	})
 
 	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
@@ -225,7 +229,11 @@ func TestStandardDAInSchematics(t *testing.T) {
 			Tags:                   []string{"test-schematic"},
 			DeleteWorkspaceOnFail:  false,
 			WaitJobCompleteMinutes: 60,
-			Region:                 region,
+			// workaround for https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection/issues/243
+			IgnoreAdds: testhelper.Exemptions{
+				List: []string{"module.scc_wp.restapi_object.cspm"},
+			},
+			Region: region,
 		})
 
 		options.TerraformVars = []testschematic.TestSchematicTerraformVar{

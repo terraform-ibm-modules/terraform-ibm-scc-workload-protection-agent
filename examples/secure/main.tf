@@ -123,7 +123,7 @@ module "slz_vpc" {
 
 module "scc_wp" {
   source                                       = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version                                      = "v1.8.2"
+  version                                      = "v1.9.3"
   name                                         = "${var.prefix}-scc-wp"
   region                                       = var.region
   resource_group_id                            = module.resource_group.resource_group_id

@@ -16,7 +16,7 @@ module "resource_group" {
 
 module "scc_wp_instance" {
   source            = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version           = "v1.8.2"
+  version           = "1.9.3"
   name              = "${var.prefix}-scc-wp-instance"
   region            = var.region
   resource_group_id = module.resource_group.resource_group_id
