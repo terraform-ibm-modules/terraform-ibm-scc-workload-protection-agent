@@ -7,7 +7,7 @@ locals {
   ingestion_endpoint = var.endpoint_type == "private" ? "ingest.private.${var.region}.${local.scc_domain}" : "ingest.${var.region}.${local.scc_domain}"
 
   kspm_analyzer_image_repo                   = "kspm-analyzer"
-  kspm_analyzer_image_tag_digest             = "1.44.46@sha256:51192831525cfea8d91681b4d7ae72ffbcf378b1f02a785e347cb6dd75578b69" # datasource: icr.io/ext/sysdig/kspm-analyzer
+  kspm_analyzer_image_tag_digest             = "1.44.47@sha256:939b8699ac904a6c9cb531b66a4d7bc11007443a438ef2fe53940257fea63850" # datasource: icr.io/ext/sysdig/kspm-analyzer
   agent_kmodule_image_repo                   = "agent-kmodule"
   agent_kmodule_image_tag_digest             = "13.9.2@sha256:a6b301f24557c5e14ab5abe62577340e7ab33ce11f33cfcd4797296d1603184a" # datasource: icr.io/ext/sysdig/agent-kmodule
   vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
