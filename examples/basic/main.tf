@@ -154,13 +154,14 @@ resource "ibm_network_vlan" "private_vlan" {
 ##############################################################################
 
 module "scc_wp" {
-  source            = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version           = "v1.5.12"
-  name              = "${var.prefix}-scc-wp"
-  region            = var.region
-  resource_group_id = module.resource_group.resource_group_id
-  resource_key_tags = var.resource_tags
-
+  source                                       = "terraform-ibm-modules/scc-workload-protection/ibm"
+  version                                      = "v1.9.3"
+  name                                         = "${var.prefix}-scc-wp"
+  region                                       = var.region
+  resource_group_id                            = module.resource_group.resource_group_id
+  resource_key_tags                            = var.resource_tags
+  scc_workload_protection_trusted_profile_name = var.scc_workload_protection_trusted_profile_name
+  cspm_enabled                                 = false
 }
 
 # Sleep to allow RBAC sync on cluster

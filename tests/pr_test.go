@@ -3,6 +3,7 @@ package test
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"strings"
 	"testing"
@@ -13,6 +14,8 @@ import (
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testschematic"
 	"golang.org/x/exp/rand"
@@ -38,6 +41,29 @@ var ignoreUpdates = []string{
 	"module.scc_wp_agent.helm_release.scc_wp_agent",
 }
 
+var ignoreAdds = []string{
+	"module.scc_wp.restapi_object.cspm", // workaround for https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection/issues/243
+}
+
+// Define a struct with fields that match the structure of the YAML data
+const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
+
+var permanentResources map[string]interface{}
+var sharedInfoSvc *cloudinfo.CloudInfoService
+
+// TestMain will be run before any parallel tests, used to read data from yaml for use with tests
+func TestMain(m *testing.M) {
+	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
+
+	var err error
+	permanentResources, err = common.LoadMapFromYaml(yamlLocation)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	os.Exit(m.Run())
+}
+
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:      t,
@@ -48,6 +74,9 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
 		},
+		IgnoreAdds: testhelper.Exemptions{
+			List: ignoreAdds,
+		},
 	})
 	return options
 }
@@ -56,6 +85,7 @@ func TestRunBasicExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptions(t, "scc-wp-a-basic", basicExampleDir)
+	options.TerraformVars["scc_workload_protection_trusted_profile_name"] = fmt.Sprintf("tf-%s", options.Prefix)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -93,12 +123,17 @@ func TestSecureExampleInSchematic(t *testing.T) {
 		Tags:                   []string{"test-schematic"},
 		DeleteWorkspaceOnFail:  false,
 		WaitJobCompleteMinutes: 180,
+		// workaround for https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection/issues/243
+		IgnoreAdds: testhelper.Exemptions{
+			List: []string{"module.scc_wp.restapi_object.cspm"},
+		},
 	})
 
 	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "app_config_crn", Value: permanentResources["app_config_crn"], DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
@@ -108,12 +143,12 @@ func TestSecureExampleInSchematic(t *testing.T) {
 // TestRunBasicAgentsVPCKubernetes validates this module against an IKS VPC cluster
 func TestRunBasicAgentsVPCKubernetes(t *testing.T) {
 	t.Parallel()
-
 	options := setupOptions(t, "scc-wp-a-vpc-k8s", basicExampleDir)
 	options.TerraformVars["is_openshift"] = false
 	options.TerraformVars["cluster_shield_deploy"] = true
 	options.TerraformVars["kspm_deploy"] = false
 	options.TerraformVars["cluster_scanner_deploy"] = false
+	options.TerraformVars["scc_workload_protection_trusted_profile_name"] = fmt.Sprintf("tf-%s", options.Prefix)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -127,6 +162,7 @@ func TestRunBasicAgentsClassicKubernetes(t *testing.T) {
 	options := setupOptions(t, "scc-wp-a-cla-k8s", basicExampleDir)
 	options.TerraformVars["is_openshift"] = false
 	options.TerraformVars["is_vpc_cluster"] = false
+	options.TerraformVars["scc_workload_protection_trusted_profile_name"] = fmt.Sprintf("tf-%s", options.Prefix)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -140,6 +176,7 @@ func TestRunBasicAgentsClassicOpenShift(t *testing.T) {
 	options := setupOptions(t, "scc-wp-a-cla-ocp", basicExampleDir)
 	options.TerraformVars["is_openshift"] = true
 	options.TerraformVars["is_vpc_cluster"] = false
+	options.TerraformVars["scc_workload_protection_trusted_profile_name"] = fmt.Sprintf("tf-%s", options.Prefix)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -169,8 +206,9 @@ func TestStandardDAInSchematics(t *testing.T) {
 	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: tempTerraformDir,
 		Vars: map[string]interface{}{
-			"prefix": prefix,
-			"region": region,
+			"prefix":         prefix,
+			"region":         region,
+			"app_config_crn": permanentResources["app_config_crn"],
 		},
 		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
 		// This is the same as setting the -upgrade=true flag with terraform.
@@ -197,7 +235,11 @@ func TestStandardDAInSchematics(t *testing.T) {
 			Tags:                   []string{"test-schematic"},
 			DeleteWorkspaceOnFail:  false,
 			WaitJobCompleteMinutes: 60,
-			Region:                 region,
+			// workaround for https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection/issues/243
+			IgnoreAdds: testhelper.Exemptions{
+				List: []string{"module.scc_wp.restapi_object.cspm"},
+			},
+			Region: region,
 		})
 
 		options.TerraformVars = []testschematic.TestSchematicTerraformVar{
