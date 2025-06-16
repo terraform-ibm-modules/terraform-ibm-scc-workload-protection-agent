@@ -42,4 +42,16 @@ variable "access_tags" {
   default     = []
 }
 
+variable "app_config_crn" {
+  description = "The CRN of an existing App Config instance to use with the SCC Workload Protection instance. Required if `cspm_enabled` is true. NOTE: Ensure the App Config instance has configuration aggregator enabled."
+  type        = string
+  default     = null
+}
+
+variable "scc_workload_protection_trusted_profile_name" {
+  description = "The name to give the trusted profile that is created by this module if `cspm_enabled` is `true. Must begin with a letter."
+  type        = string
+  default     = "wp-trusted-profile-secure"
+}
+
 ##############################################################################
