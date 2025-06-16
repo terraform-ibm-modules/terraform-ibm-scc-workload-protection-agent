@@ -39,6 +39,9 @@ var validRegions = []string{
 
 var ignoreUpdates = []string{
 	"module.scc_wp_agent.helm_release.scc_wp_agent",
+}
+
+var ignoreAdds = []string{
 	"module.scc_wp.restapi_object.cspm", // workaround for https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection/issues/243
 }
 
@@ -70,6 +73,9 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		// ResourceGroup: resourceGroup,
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
+		},
+		IgnoreAdds: testhelper.Exemptions{
+			List: ignoreAdds,
 		},
 	})
 	return options
