@@ -26,7 +26,7 @@ const resourceGroup = "geretain-test-resources"
 // const resourceGroup = "geretain-test-resources"
 const basicExampleDir = "examples/basic"
 const secureExampleDir = "examples/secure"
-const standardFlavorDir = "solutions/standard"
+const fullyConfigurableFlavorDir = "solutions/fully-configurable"
 const standardKubeconfigDir = "solutions/standard/kubeconfig"
 
 // Current supported SCC region
@@ -183,7 +183,7 @@ func TestRunBasicAgentsClassicOpenShift(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestStandardDAInSchematics(t *testing.T) {
+func TestFullyConfigurableDAInSchematics(t *testing.T) {
 	t.Parallel()
 
 	var region = validRegions[rand.Intn(len(validRegions))]
@@ -227,11 +227,11 @@ func TestStandardDAInSchematics(t *testing.T) {
 			Prefix:  "scc-wp-agents",
 			TarIncludePatterns: []string{
 				"*.tf",
-				standardFlavorDir + "/*.*",
+				fullyConfigurableFlavorDir + "/*.*",
 				standardKubeconfigDir + "/*.*",
 			},
 			ResourceGroup:          resourceGroup,
-			TemplateFolder:         standardFlavorDir,
+			TemplateFolder:         fullyConfigurableFlavorDir,
 			Tags:                   []string{"test-schematic"},
 			DeleteWorkspaceOnFail:  false,
 			WaitJobCompleteMinutes: 60,
@@ -245,8 +245,8 @@ func TestStandardDAInSchematics(t *testing.T) {
 		options.TerraformVars = []testschematic.TestSchematicTerraformVar{
 			{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
 			{Name: "access_key", Value: terraform.Output(t, existingTerraformOptions, "access_key"), DataType: "string"},
-			{Name: "cluster_id", Value: terraform.Output(t, existingTerraformOptions, "cluster_id"), DataType: "string"},
-			{Name: "cluster_resource_group_id", Value: terraform.Output(t, existingTerraformOptions, "resource_group_id"), DataType: "string"},
+			{Name: "existing_cluster_id", Value: terraform.Output(t, existingTerraformOptions, "cluster_id"), DataType: "string"},
+			{Name: "existing_cluster_resource_group_id", Value: terraform.Output(t, existingTerraformOptions, "resource_group_id"), DataType: "string"},
 			{Name: "region", Value: region, DataType: "string"},
 			{Name: "endpoint_type", Value: "private", DataType: "string"},
 			{Name: "name", Value: options.Prefix, DataType: "string"},

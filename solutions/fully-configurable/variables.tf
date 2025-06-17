@@ -33,12 +33,12 @@ variable "namespace" {
   default     = "ibm-scc-wp"
 }
 
-variable "cluster_id" {
+variable "existing_cluster_id" {
   type        = string
   description = "The cluster ID to add the Workload Protection agent to."
 }
 
-variable "cluster_resource_group_id" {
+variable "existing_cluster_resource_group_id" {
   type        = string
   description = "The resource group ID of the cluster."
 }
@@ -52,6 +52,7 @@ variable "access_key" {
 variable "region" {
   type        = string
   description = "The region where the Workload Protection instance is created."
+  default     = "us-south"
 }
 
 variable "endpoint_type" {
