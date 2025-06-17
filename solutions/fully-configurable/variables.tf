@@ -52,7 +52,6 @@ variable "access_key" {
 variable "region" {
   type        = string
   description = "The region where the Workload Protection instance is created."
-  default     = "us-south"
 }
 
 variable "endpoint_type" {

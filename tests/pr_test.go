@@ -27,7 +27,7 @@ const resourceGroup = "geretain-test-resources"
 const basicExampleDir = "examples/basic"
 const secureExampleDir = "examples/secure"
 const fullyConfigurableFlavorDir = "solutions/fully-configurable"
-const standardKubeconfigDir = "solutions/standard/kubeconfig"
+const fullyConfigurableKubeconfigDir = "solutions/fully-configurable/kubeconfig"
 
 // Current supported SCC region
 var validRegions = []string{
@@ -193,7 +193,7 @@ func TestFullyConfigurableDAInSchematics(t *testing.T) {
 	// ------------------------------------------------------------------------------------------------------
 
 	prefix := fmt.Sprintf("slz-%s", strings.ToLower(random.UniqueId()))
-	realTerraformDir := "./resources/existing-resources/standard"
+	realTerraformDir := "./resources/existing-resources/fully-configurable"
 	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(realTerraformDir, fmt.Sprintf(prefix+"-%s", strings.ToLower(random.UniqueId())))
 
 	// Verify ibmcloud_api_key variable is set
@@ -228,7 +228,7 @@ func TestFullyConfigurableDAInSchematics(t *testing.T) {
 			TarIncludePatterns: []string{
 				"*.tf",
 				fullyConfigurableFlavorDir + "/*.*",
-				standardKubeconfigDir + "/*.*",
+				fullyConfigurableKubeconfigDir + "/*.*",
 			},
 			ResourceGroup:          resourceGroup,
 			TemplateFolder:         fullyConfigurableFlavorDir,
