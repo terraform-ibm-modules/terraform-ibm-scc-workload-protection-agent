@@ -33,12 +33,12 @@ variable "namespace" {
   default     = "ibm-scc-wp"
 }
 
-variable "existing_cluster_id" {
+variable "existing_cluster" {
   type        = string
   description = "The cluster ID to add the Workload Protection agent to."
 }
 
-variable "existing_cluster_resource_group_id" {
+variable "cluster_resource_group" {
   type        = string
   description = "The resource group ID of the cluster."
 }

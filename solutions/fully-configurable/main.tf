@@ -5,7 +5,7 @@
 module "scc_wp_agent" {
   source                 = "../.."
   access_key             = var.access_key
-  cluster_name           = var.is_vpc_cluster ? data.ibm_container_vpc_cluster.cluster[0].name : data.ibm_container_cluster.cluster[0].name
+  cluster_name           = var.existing_cluster
   region                 = var.scc_workload_protection_instance_region
   endpoint_type          = var.scc_workload_protection_instance_endpoint_type
   name                   = var.name

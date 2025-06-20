@@ -67,8 +67,7 @@
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "existing_cluster_id",
-              "displayname": "existing_cluster",
+              "key": "existing_cluster",
               "required": true,
               "custom_config": {
                 "type": "cluster_var",
@@ -77,7 +76,7 @@
               }
             },
             {
-              "key": "existing_cluster_resource_group_id",
+              "key": "cluster_resource_group",
               "required": true,
               "custom_config": {
                 "type": "resource_group",
