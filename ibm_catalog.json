@@ -44,7 +44,7 @@
             {
               "flavors": [
                 "quickstart",
-                "fully-configurable"
+                "standard"
               ],
               "id": "95fccffc-ae3b-42df-b6d9-80be5914d852-global",
               "name": "deploy-arch-ibm-slz-ocp",
@@ -68,6 +68,7 @@
             },
             {
               "key": "existing_cluster_id",
+              "displayname": "existing_cluster",
               "required": true,
               "custom_config": {
                 "type": "cluster_var",
@@ -88,7 +89,7 @@
               }
             },
             {
-              "key": "region",
+              "key": "scc_workload_protection_instance_region",
               "type": "string",
               "custom_config": {
                 "type": "region",
@@ -164,6 +165,7 @@
             },
             {
               "key": "provider_visibility",
+              "hidden": true,
               "options": [
                 {
                   "displayname": "private",
@@ -180,7 +182,7 @@
               ]
             },
             {
-              "key": "endpoint_type",
+              "key": "scc_workload_protection_instance_endpoint_type",
               "options": [
                 {
                   "displayname": "Public",
