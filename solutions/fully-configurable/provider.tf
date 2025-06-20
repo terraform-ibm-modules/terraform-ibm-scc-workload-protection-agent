@@ -4,7 +4,7 @@
 
 provider "ibm" {
   ibmcloud_api_key = var.ibmcloud_api_key
-  region           = var.region
+  region           = var.scc_workload_protection_instance_region
   visibility       = var.provider_visibility
 }
 
