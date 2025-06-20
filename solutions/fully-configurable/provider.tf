@@ -4,7 +4,7 @@
 
 provider "ibm" {
   ibmcloud_api_key = var.ibmcloud_api_key
-  region           = var.region
+  region           = var.scc_workload_protection_instance_region
   visibility       = var.provider_visibility
 }
 
@@ -24,21 +24,25 @@ provider "helm" {
 
 data "ibm_container_vpc_cluster" "cluster" {
   count             = var.is_vpc_cluster ? 1 : 0
-  name              = var.cluster_id
+  name              = var.existing_cluster
   wait_till         = var.wait_till
   wait_till_timeout = var.wait_till_timeout
 }
 
 data "ibm_container_cluster" "cluster" {
   count             = var.is_vpc_cluster ? 0 : 1
-  name              = var.cluster_id
+  name              = var.existing_cluster
   wait_till         = var.wait_till
   wait_till_timeout = var.wait_till_timeout
+}
+
+data "ibm_resource_group" "resource_group" {
+  name = var.cluster_resource_group
 }
 
 data "ibm_container_cluster_config" "cluster_config" {
   cluster_name_id   = var.is_vpc_cluster ? data.ibm_container_vpc_cluster.cluster[0].id : data.ibm_container_cluster.cluster[0].id
   config_dir        = "${path.module}/kubeconfig"
   endpoint_type     = var.cluster_endpoint_type
-  resource_group_id = var.cluster_resource_group_id
+  resource_group_id = data.ibm_resource_group.resource_group.id
 }
