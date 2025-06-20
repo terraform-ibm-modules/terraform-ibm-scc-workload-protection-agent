@@ -243,6 +243,7 @@ func TestFullyConfigurableDAInSchematics(t *testing.T) {
 		})
 
 		options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+			{Name: "prefix", Value: options.Prefix, DataType: "string"},
 			{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
 			{Name: "access_key", Value: terraform.Output(t, existingTerraformOptions, "access_key"), DataType: "string"},
 			{Name: "existing_cluster", Value: terraform.Output(t, existingTerraformOptions, "cluster_name"), DataType: "string"},
