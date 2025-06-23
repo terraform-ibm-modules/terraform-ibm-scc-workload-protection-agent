@@ -75,8 +75,8 @@
                   "version_input": "scc_workload_protection_instance_region"
                 },
                 {
-                  "value": "private",
-                  "version_input": "scc_workload_protection_instance_endpoint_type"
+                  "version_input": "scc_workload_protection_instance_endpoint_type",
+                  "value": "private"
                 }
               ],
               "version": "v1.10.0",
