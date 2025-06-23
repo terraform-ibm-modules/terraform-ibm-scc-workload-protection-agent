@@ -246,7 +246,7 @@ func TestFullyConfigurableDAInSchematics(t *testing.T) {
 			{Name: "prefix", Value: options.Prefix, DataType: "string"},
 			{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
 			{Name: "access_key", Value: terraform.Output(t, existingTerraformOptions, "access_key"), DataType: "string"},
-			{Name: "existing_cluster_id", Value: terraform.Output(t, existingTerraformOptions, "cluster_name"), DataType: "string"},
+			{Name: "existing_cluster_id", Value: terraform.Output(t, existingTerraformOptions, "cluster_id"), DataType: "string"},
 			{Name: "existing_cluster_resource_group_id", Value: terraform.Output(t, existingTerraformOptions, "resource_group_id"), DataType: "string"},
 			{Name: "scc_workload_protection_instance_region", Value: region, DataType: "string"},
 			{Name: "scc_workload_protection_instance_endpoint_type", Value: "private", DataType: "string"},
