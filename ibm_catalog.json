@@ -37,6 +37,7 @@
         {
           "label": "Fully configurable",
           "name": "fully-configurable",
+          "index": 1,
           "install_type": "fullstack",
           "dependency_version_2": true,
           "working_directory": "solutions/fully-configurable",
@@ -78,6 +79,7 @@
             },
             {
               "key": "existing_cluster_resource_group_id",
+              "displayname": "cluster_resource_group",
               "required": true,
               "custom_config": {
                 "type": "resource_group",
@@ -322,8 +324,8 @@
           "architecture": {
             "features": [
               {
-                "title": "Security and Compliance Center Workload Protection agent",
-                "description": "Creates and configures a Security and Compliance Center Workload Protection agent."
+                "title": "Creates and configures a Security and Compliance Center Workload Protection agent",
+                "description": "Configured to use IBM secure by default standards, but can be edited to fit your use case."
               }
             ],
             "diagrams": [

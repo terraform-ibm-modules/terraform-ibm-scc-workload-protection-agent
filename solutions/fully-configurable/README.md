@@ -1,10 +1,3 @@
-# Security and Compliance Center Workload Protection Agent solution
+# Cloud automation for Security and Compliance Center Workload Protection Agent (Fully configurable)
 
-This solution supports installing and configuring [IBM Cloud Security and Compliance Center Workload Protection agent](https://cloud.ibm.com/docs/workload-protection?topic=workload-protection-getting-started). It uses [sysdig-deploy charts](https://github.com/sysdiglabs/charts/tree/master/charts/sysdig-deploy) which deploys the following components into your cluster:
-- Agent
-- Node Analyzer
-- KSPM Collector
-
-This solution will deploy and configure the Workload Protections components in an existing cluster to an existing IBM Cloud Security and Compliance Center Workload Protection instance.
-
-![scc-wp-agent](../../reference-architecture/scc-wp-agent.svg)
+:exclamation: **Important:** This solution is not intended to be called by other modules because it contains a provider configuration and is not compatible with the `for_each`, `count`, and `depends_on` arguments. For more information, see [Providers Within Modules](https://developer.hashicorp.com/terraform/language/modules/develop/providers).
