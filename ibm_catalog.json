@@ -44,22 +44,32 @@
           "dependencies": [
             {
               "flavors": [
-                "quickstart",
-                "standard"
+                "fully-configurable"
               ],
-              "id": "95fccffc-ae3b-42df-b6d9-80be5914d852-global",
-              "name": "deploy-arch-ibm-slz-ocp",
+              "id": "1728a4fd-f561-4cf9-82ef-2b1eeb5da1a8",
+              "name": "deploy-arch-ibm-ocp-vpc",
+              "catalog_id": "f64499c8-eb50-4985-bf91-29f9e605a433",
               "input_mapping": [
                 {
                   "dependency_input": "region",
-                  "version_input": "scc_workload_protection_instance_region"
+                  "version_input": "scc_workload_protection_instance_region",
+                  "reference_version": true
                 },
                 {
                   "dependency_input": "prefix",
-                  "value": "scc-wpa"
+                  "value": "scc-wpa",
+                  "reference_version": true
+                },
+                {
+                  "dependency_output": "cluster_id",
+                  "version_input": "existing_cluster_id"
+                },
+                {
+                  "dependency_output": "resource_group_id",
+                  "version_input": "existing_cluster_resource_group_id"
                 }
               ],
-              "version": "v8.2.0",
+              "version": "v3.50.0",
               "optional": true
             },
             {
@@ -67,16 +77,16 @@
                 "fully-configurable"
               ],
               "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
-              "id": "9423f9bc-1290-4c71-a9ac-01898bfa7ccc-global",
-              "name": "deploy-arch-ibm-scc",
+              "id": "4322cf44-2289-49aa-a719-dd79e39b14dc-global",
+              "name": "deploy-arch-ibm-scc-workload-protection",
               "input_mapping": [
                 {
                   "dependency_input": "region",
                   "version_input": "scc_workload_protection_instance_region"
                 },
                 {
-                  "version_input": "scc_workload_protection_instance_endpoint_type",
-                  "value": "private"
+                  "dependency_output": "scc_workload_protection_access_key",
+                  "version_input": "access_key"
                 }
               ],
               "version": "v1.10.0",
