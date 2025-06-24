@@ -52,12 +52,12 @@
               "input_mapping": [
                 {
                   "dependency_input": "region",
-                  "version_input": "scc_workload_protection_instance_region",
+                  "version_input": "vpc_cluster_region",
                   "reference_version": true
                 },
                 {
                   "dependency_input": "prefix",
-                  "value": "scc-wpa",
+                  "version_input": "prefix",
                   "reference_version": true
                 },
                 {
@@ -188,6 +188,30 @@
             {
               "key": "access_key",
               "required": true
+            },
+            {
+              "key": "vpc_cluster_region",
+              "required": true,
+              "type": "string",
+              "custom_config": {
+                "config_constraints": {
+                  "generationType": "2"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "vpc_region"
+              },
+              "description": "Region in which the VPC cluster will be deployed. [Learn More](https://terraform-ibm-modules.github.io/documentation/#/region).",
+              "virtual": true,
+              "default_value": "us-south"
+            },
+            {
+              "key": "prefix",
+              "required": true,
+              "type": "string",
+              "description": "The prefix to be added to VPC cluster resources.",
+              "virtual": true,
+              "default_value": ""
             },
             {
               "key": "name"
