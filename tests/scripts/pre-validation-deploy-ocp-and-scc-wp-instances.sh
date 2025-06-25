@@ -2,13 +2,13 @@
 
 ############################################################################################################
 ## This script is used by the catalog pipeline to deploy the SLZ ROKS and SCC workload protection instances,
-## which are the prerequisites for the SCC workload protection standard fullstack.
+## which are the prerequisites for the SCC workload protection fully configurable fullstack.
 ############################################################################################################
 
 set -e
 
-DA_DIR="solutions/standard"
-TERRAFORM_SOURCE_DIR="tests/resources/existing-resources/standard"
+DA_DIR="solutions/fully-configurable"
+TERRAFORM_SOURCE_DIR="tests/resources/existing-resources/fully-configurable"
 JSON_FILE="${DA_DIR}/catalogValidationValues.json"
 REGION="us-south"
 TF_VARS_FILE="terraform.tfvars"

@@ -22,8 +22,8 @@
         "solution"
       ],
       "short_description": "Configures Security and Compliance Center Workload Protection agents",
-      "long_description": "This architecture supports creating and configuring IBM Security and Compliance Center Workload Protection agent to an IBM Cloud Kubernentes or Openshift cluster.",
-      "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/blob/main/solutions/standard/README.md",
+      "long_description": "This architecture supports creating and configuring IBM Security and Compliance Center Workload Protection agent to an IBM Cloud Kubernentes or Openshift cluster. This Terraform-based automation is part of a broader suite of IBM-maintained Infrastructure as Code (IaC) asset collection, each following the naming pattern \"Cloud automation for *servicename*\" and focusing on single IBM Cloud service. These single-service deployable architectures can be used on their own to streamline and automate service deployments through an [IaC approach](https://cloud.ibm.com/docs/secure-enterprise?topic=secure-enterprise-understanding-projects), or assembled together into a broader [automated IaC stack](https://cloud.ibm.com/docs/secure-enterprise?topic=secure-enterprise-config-stack) to automate the deployment of an end-to-end solution architecture.",
+      "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/blob/main/solutions/fully-configurable/README.md",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/main/images/scc-icon.svg",
       "provider_name": "IBM",
       "features": [
@@ -35,30 +35,61 @@
       "support_details": "This product is in the community registry, as such support is handled through the originated repo. If you experience issues please open an issue in that repository [https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/issues](https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection-agent/issues). Please note this product is not supported via the IBM Cloud Support Center.",
       "flavors": [
         {
-          "label": "Standard",
-          "name": "standard",
+          "label": "Fully configurable",
+          "name": "fully-configurable",
+          "index": 1,
           "install_type": "fullstack",
           "dependency_version_2": true,
-          "working_directory": "solutions/standard",
+          "working_directory": "solutions/fully-configurable",
           "dependencies": [
             {
               "flavors": [
-                "quickstart",
-                "standard"
+                "fully-configurable"
               ],
-              "id": "95fccffc-ae3b-42df-b6d9-80be5914d852-global",
-              "name": "deploy-arch-ibm-slz-ocp",
-              "version": ">=v3.0.0",
+              "id": "1728a4fd-f561-4cf9-82ef-2b1eeb5da1a8",
+              "name": "deploy-arch-ibm-ocp-vpc",
+              "catalog_id": "f64499c8-eb50-4985-bf91-29f9e605a433",
+              "input_mapping": [
+                {
+                  "dependency_input": "region",
+                  "version_input": "vpc_cluster_region",
+                  "reference_version": true
+                },
+                {
+                  "dependency_input": "prefix",
+                  "version_input": "prefix",
+                  "reference_version": true
+                },
+                {
+                  "dependency_output": "cluster_id",
+                  "version_input": "existing_cluster_id"
+                },
+                {
+                  "dependency_output": "resource_group_id",
+                  "version_input": "existing_cluster_resource_group_id"
+                }
+              ],
+              "version": "v3.50.0",
               "optional": true
             },
             {
               "flavors": [
-                "instances"
+                "fully-configurable"
               ],
               "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
-              "id": "9423f9bc-1290-4c71-a9ac-01898bfa7ccc-global",
-              "name": "deploy-arch-ibm-scc",
-              "version": ">=v1.0.0",
+              "id": "4322cf44-2289-49aa-a719-dd79e39b14dc-global",
+              "name": "deploy-arch-ibm-scc-workload-protection",
+              "input_mapping": [
+                {
+                  "dependency_input": "region",
+                  "version_input": "scc_workload_protection_instance_region"
+                },
+                {
+                  "dependency_output": "scc_workload_protection_access_key",
+                  "version_input": "access_key"
+                }
+              ],
+              "version": "v1.10.0",
               "optional": true
             }
           ],
@@ -67,7 +98,130 @@
               "key": "ibmcloud_api_key"
             },
             {
+              "key": "existing_cluster_id",
+              "displayname": "existing_cluster",
+              "required": true,
+              "custom_config": {
+                "type": "cluster_var",
+                "grouping": "deployment",
+                "original_grouping": "deployment"
+              }
+            },
+            {
+              "key": "existing_cluster_resource_group_id",
+              "displayname": "cluster_resource_group",
+              "required": true,
+              "custom_config": {
+                "type": "resource_group",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "identifier": "rg_id"
+                }
+              }
+            },
+            {
+              "key": "scc_workload_protection_instance_region",
+              "type": "string",
+              "custom_config": {
+                "type": "region",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "showKinds": [
+                    "region"
+                  ]
+                }
+              },
+              "required": true,
+              "options": [
+                {
+                  "displayname": "Chennai (che01)",
+                  "value": "che01"
+                },
+                {
+                  "displayname": "Dallas (us-south)",
+                  "value": "us-south"
+                },
+                {
+                  "displayname": "Frankfurt (eu-de)",
+                  "value": "eu-de"
+                },
+                {
+                  "displayname": "London (eu-gb)",
+                  "value": "eu-gb"
+                },
+                {
+                  "displayname": "Madrid (eu-es)",
+                  "value": "eu-es"
+                },
+                {
+                  "displayname": "Osaka (jp-osa)",
+                  "value": "jp-osa"
+                },
+                {
+                  "displayname": "Paris (par01)",
+                  "value": "par01"
+                },
+                {
+                  "displayname": "Sao Paulo (br-sao)",
+                  "value": "br-sao"
+                },
+                {
+                  "displayname": "Sydney (au-syd)",
+                  "value": "au-syd"
+                },
+                {
+                  "displayname": "Toronto (ca-tor)",
+                  "value": "ca-tor"
+                },
+                {
+                  "displayname": "Tokyo (jp-tok)",
+                  "value": "jp-tok"
+                },
+                {
+                  "displayname": "Washington (us-east)",
+                  "value": "us-east"
+                }
+              ]
+            },
+            {
+              "key": "access_key",
+              "required": true
+            },
+            {
+              "key": "vpc_cluster_region",
+              "required": true,
+              "type": "string",
+              "custom_config": {
+                "config_constraints": {
+                  "generationType": "2"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "vpc_region"
+              },
+              "description": "Region in which the VPC cluster will be deployed. [Learn More](https://terraform-ibm-modules.github.io/documentation/#/region).",
+              "virtual": true,
+              "default_value": "us-south"
+            },
+            {
+              "key": "prefix",
+              "required": true,
+              "type": "string",
+              "description": "The prefix to be added to all resources created by this solution. To skip using a prefix, set this value to null or an empty string. The prefix must begin with a lowercase letter and may contain only lowercase letters, digits, and hyphens '-'. It should not exceed 16 characters, must not end with a hyphen('-'), and can not contain consecutive hyphens ('--'). Example: prod-0205-cos. [Learn more](https://terraform-ibm-modules.github.io/documentation/#/prefix.md).",
+              "virtual": true,
+              "default_value": "__NOT_SET__"
+            },
+            {
+              "key": "name"
+            },
+            {
+              "key": "namespace"
+            },
+            {
               "key": "provider_visibility",
+              "hidden": true,
               "options": [
                 {
                   "displayname": "private",
@@ -84,49 +238,7 @@
               ]
             },
             {
-              "key": "name"
-            },
-            {
-              "key": "namespace"
-            },
-            {
-              "key": "cluster_id",
-              "custom_config": {
-                "type": "cluster_var",
-                "grouping": "deployment",
-                "original_grouping": "deployment"
-              }
-            },
-            {
-              "key": "cluster_resource_group_id",
-              "custom_config": {
-                "type": "resource_group",
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "config_constraints": {
-                  "identifier": "rg_id"
-                }
-              }
-            },
-            {
-              "key": "access_key"
-            },
-            {
-              "key": "region",
-              "type": "string",
-              "custom_config": {
-                "type": "region",
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "config_constraints": {
-                  "showKinds": [
-                    "region"
-                  ]
-                }
-              }
-            },
-            {
-              "key": "endpoint_type",
+              "key": "scc_workload_protection_instance_endpoint_type",
               "options": [
                 {
                   "displayname": "Public",
@@ -266,8 +378,8 @@
           "architecture": {
             "features": [
               {
-                "title": "Security and Compliance Center Workload Protection agent",
-                "description": "Creates and configures a Security and Compliance Center Workload Protection agent."
+                "title": "Creates and configures a Security and Compliance Center Workload Protection agent",
+                "description": "Configured to use IBM secure by default standards, but can be edited to fit your use case."
               }
             ],
             "diagrams": [

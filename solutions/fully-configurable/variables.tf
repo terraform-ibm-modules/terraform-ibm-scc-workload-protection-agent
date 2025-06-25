@@ -33,12 +33,12 @@ variable "namespace" {
   default     = "ibm-scc-wp"
 }
 
-variable "cluster_id" {
+variable "existing_cluster_id" {
   type        = string
   description = "The cluster ID to add the Workload Protection agent to."
 }
 
-variable "cluster_resource_group_id" {
+variable "existing_cluster_resource_group_id" {
   type        = string
   description = "The resource group ID of the cluster."
 }
@@ -49,18 +49,18 @@ variable "access_key" {
   sensitive   = true
 }
 
-variable "region" {
+variable "scc_workload_protection_instance_region" {
   type        = string
   description = "The region where the Workload Protection instance is created."
 }
 
-variable "endpoint_type" {
+variable "scc_workload_protection_instance_endpoint_type" {
   type        = string
   description = "The endpoint for the Workload Protection service. Possible values: `public`, `private.`"
   default     = "private"
   validation {
     error_message = "The specified endpoint_type can be private or public only."
-    condition     = contains(["private", "public"], var.endpoint_type)
+    condition     = contains(["private", "public"], var.scc_workload_protection_instance_endpoint_type)
   }
 }
 
