@@ -15,14 +15,13 @@ module "resource_group" {
 ##############################################################################
 
 module "scc_wp_instance" {
-  source                                       = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version                                      = "1.9.3"
-  name                                         = "${var.prefix}-scc-wp-instance"
-  region                                       = var.region
-  resource_group_id                            = module.resource_group.resource_group_id
-  resource_key_name                            = "${var.prefix}-key"
-  app_config_crn                               = var.app_config_crn
-  scc_workload_protection_trusted_profile_name = "${var.prefix}-scc-wp-tp"
+  source            = "terraform-ibm-modules/scc-workload-protection/ibm"
+  version           = "1.9.3"
+  name              = "${var.prefix}-scc-wp-instance"
+  region            = var.region
+  resource_group_id = module.resource_group.resource_group_id
+  resource_key_name = "${var.prefix}-key"
+  app_config_crn    = var.app_config_crn
 }
 
 ##############################################################################
