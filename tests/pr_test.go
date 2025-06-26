@@ -22,8 +22,6 @@ import (
 )
 
 const resourceGroup = "geretain-test-resources"
-
-// const resourceGroup = "geretain-test-resources"
 const basicExampleDir = "examples/basic"
 const secureExampleDir = "examples/secure"
 const fullyConfigurableFlavorDir = "solutions/fully-configurable"
@@ -85,7 +83,6 @@ func TestRunBasicExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptions(t, "scc-wp-a-basic", basicExampleDir)
-	options.TerraformVars["scc_workload_protection_trusted_profile_name"] = fmt.Sprintf("tf-%s", options.Prefix)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -133,7 +130,6 @@ func TestSecureExampleInSchematic(t *testing.T) {
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
-		{Name: "cspm_enabled", Value: false, DataType: "bool"},
 	}
 
 	err := options.RunSchematicTest()
@@ -148,7 +144,6 @@ func TestRunBasicAgentsVPCKubernetes(t *testing.T) {
 	options.TerraformVars["cluster_shield_deploy"] = true
 	options.TerraformVars["kspm_deploy"] = false
 	options.TerraformVars["cluster_scanner_deploy"] = false
-	options.TerraformVars["scc_workload_protection_trusted_profile_name"] = fmt.Sprintf("tf-%s", options.Prefix)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -162,7 +157,6 @@ func TestRunBasicAgentsClassicKubernetes(t *testing.T) {
 	options := setupOptions(t, "scc-wp-a-cla-k8s", basicExampleDir)
 	options.TerraformVars["is_openshift"] = false
 	options.TerraformVars["is_vpc_cluster"] = false
-	options.TerraformVars["scc_workload_protection_trusted_profile_name"] = fmt.Sprintf("tf-%s", options.Prefix)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -176,7 +170,6 @@ func TestRunBasicAgentsClassicOpenShift(t *testing.T) {
 	options := setupOptions(t, "scc-wp-a-cla-ocp", basicExampleDir)
 	options.TerraformVars["is_openshift"] = true
 	options.TerraformVars["is_vpc_cluster"] = false
-	options.TerraformVars["scc_workload_protection_trusted_profile_name"] = fmt.Sprintf("tf-%s", options.Prefix)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")

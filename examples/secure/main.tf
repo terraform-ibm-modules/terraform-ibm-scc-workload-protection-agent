@@ -122,14 +122,13 @@ module "slz_vpc" {
 ##############################################################################
 
 module "scc_wp" {
-  source                                       = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version                                      = "v1.9.3"
-  name                                         = "${var.prefix}-scc-wp"
-  region                                       = var.region
-  resource_group_id                            = module.resource_group.resource_group_id
-  resource_key_tags                            = var.resource_tags
-  app_config_crn                               = var.app_config_crn
-  scc_workload_protection_trusted_profile_name = var.scc_workload_protection_trusted_profile_name
+  source            = "terraform-ibm-modules/scc-workload-protection/ibm"
+  version           = "v1.9.3"
+  name              = "${var.prefix}-scc-wp"
+  region            = var.region
+  resource_group_id = module.resource_group.resource_group_id
+  resource_key_tags = var.resource_tags
+  cspm_enabled      = false
 }
 
 ##############################################################################
