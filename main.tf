@@ -7,13 +7,13 @@ locals {
   ingestion_endpoint = var.endpoint_type == "private" ? "ingest.private.${var.region}.${local.scc_domain}" : "ingest.${var.region}.${local.scc_domain}"
 
   kspm_analyzer_image_repo                   = "kspm-analyzer"
-  kspm_analyzer_image_tag_digest             = "1.44.46@sha256:51192831525cfea8d91681b4d7ae72ffbcf378b1f02a785e347cb6dd75578b69" # datasource: icr.io/ext/sysdig/kspm-analyzer
+  kspm_analyzer_image_tag_digest             = "1.44.47@sha256:939b8699ac904a6c9cb531b66a4d7bc11007443a438ef2fe53940257fea63850" # datasource: icr.io/ext/sysdig/kspm-analyzer
   agent_kmodule_image_repo                   = "agent-kmodule"
   agent_kmodule_image_tag_digest             = "14.0.1@sha256:9b1e900e2cd47cabe31b36f6ed41705b33e849de0639b29b326fb73e67ed8b68" # datasource: icr.io/ext/sysdig/agent-kmodule
   vuln_runtime_scanner_image_repo            = "vuln-runtime-scanner"
   vuln_runtime_scanner_image_tag_digest      = "1.8.0@sha256:2cb5a33765445bfb072d1be2cd948bfdd3d1cf82f2be6c46f54388d4c88c6215" # datasource: icr.io/ext/sysdig/vuln-runtime-scanner
   vuln_host_scanner_image_repo               = "vuln-host-scanner"
-  vuln_host_scanner_image_tag_digest         = "0.13.6@sha256:80f441dd09e1810c8613b45554ba73c4c577f6139851029a194b3158b352a49f" # datasource: icr.io/ext/sysdig/vuln-host-scanner
+  vuln_host_scanner_image_tag_digest         = "0.13.7@sha256:e5cf28635c2096cedc5d1272c56e81cafc92cd424466dc2ef5e50e28daee6ba4" # datasource: icr.io/ext/sysdig/vuln-host-scanner
   agent_slim_image_repo                      = "agent-slim"
   agent_slim_image_tag_digest                = "14.0.1@sha256:b1f5bf4677632c715e9a5cde9af8d36dd66f5e79c80aadfd4b74dc5cc310a570" # datasource: icr.io/ext/sysdig/agent-slim
   kspm_collector_image_repo                  = "kspm-collector"
@@ -23,7 +23,7 @@ locals {
   runtime_status_integrator_image_repo       = "runtime-status-integrator"
   runtime_status_integrator_image_tag_digest = "0.10.0@sha256:524cadd672c276c04845081c6fff4999c37f860a60117821c60d173b9d50a0ab" # datasource: icr.io/ext/sysdig/runtime-status-integrator
   cluster_shield_image_repo                  = "cluster-shield"
-  cluster_shield_image_tag_digest            = "1.12.1@sha256:d0ec1615db9ce17dde952d88fb3d0863143b324d165cf1767cd2609c76bf1f77" # datasource: icr.io/ext/sysdig/cluster-shield
+  cluster_shield_image_tag_digest            = "1.13.0@sha256:0c8ee65a473e51b2a2c7bddf4e89008299cf203c50cd80fd97503cb121c1230a" # datasource: icr.io/ext/sysdig/cluster-shield
   image_registry                             = "icr.io"
   image_namespace                            = "ext/sysdig"
 }
