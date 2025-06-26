@@ -133,7 +133,7 @@ func TestSecureExampleInSchematic(t *testing.T) {
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
-		{Name: "app_config_crn", Value: permanentResources["app_config_crn"], DataType: "string"},
+		{Name: "cspm_enabled", Value: false, DataType: "bool"},
 	}
 
 	err := options.RunSchematicTest()
@@ -206,9 +206,8 @@ func TestFullyConfigurableDAInSchematics(t *testing.T) {
 	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: tempTerraformDir,
 		Vars: map[string]interface{}{
-			"prefix":         prefix,
-			"region":         region,
-			"app_config_crn": permanentResources["app_config_crn"],
+			"prefix": prefix,
+			"region": region,
 		},
 		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
 		// This is the same as setting the -upgrade=true flag with terraform.
