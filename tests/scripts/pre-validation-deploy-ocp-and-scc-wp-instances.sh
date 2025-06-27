@@ -26,10 +26,10 @@ TF_VARS_FILE="terraform.tfvars"
   } >> ${TF_VARS_FILE}
   terraform apply -input=false -auto-approve -var-file=${TF_VARS_FILE} || exit 1
 
-  region_var_name="region"
-  cluster_id_var_name="cluster_id"
+  region_var_name="scc_workload_protection_instance_region"
+  cluster_id_var_name="existing_cluster_id"
   cluster_id_value=$(terraform output -state=terraform.tfstate -raw cluster_id)
-  cluster_resource_group_id_var_name="cluster_resource_group_id"
+  cluster_resource_group_id_var_name="existing_cluster_resource_group_id"
   cluster_resource_group_id_value=$(terraform output -state=terraform.tfstate -raw resource_group_id)
   access_key_var_name="access_key"
   access_key_value=$(terraform output -state=terraform.tfstate -raw access_key)
