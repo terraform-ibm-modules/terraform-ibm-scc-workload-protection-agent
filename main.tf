@@ -32,7 +32,7 @@ resource "helm_release" "scc_wp_agent" {
   name             = var.name
   repository       = "https://charts.sysdig.com"
   chart            = "sysdig-deploy"
-  version          = "1.84.1"
+  version          = "1.89.1"
   namespace        = var.namespace
   create_namespace = true
   timeout          = 1500
