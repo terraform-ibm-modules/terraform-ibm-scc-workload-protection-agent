@@ -17,7 +17,7 @@ locals {
   agent_slim_image_repo                      = "agent-slim"
   agent_slim_image_tag_digest                = "14.0.1@sha256:b1f5bf4677632c715e9a5cde9af8d36dd66f5e79c80aadfd4b74dc5cc310a570" # datasource: icr.io/ext/sysdig/agent-slim
   kspm_collector_image_repo                  = "kspm-collector"
-  kspm_collector_image_tag_digest            = "1.39.12@sha256:b8f77e72f159fc9110ec11a710cab40cd32b7ab5cf5130edf019499af841de65" # datasource: icr.io/ext/sysdig/kspm-collector
+  kspm_collector_image_tag_digest            = "1.39.13@sha256:e82363090d38a0040a311edb6db8433dfb0bf050a4c6007385901a674aadec2a" # datasource: icr.io/ext/sysdig/kspm-collector
   sbom_extractor_image_repo                  = "image-sbom-extractor"
   sbom_extractor_image_tag_digest            = "0.10.0@sha256:59543aa19bcdea4973f3d70351b8e1df60c5de998eb829c143a9f9deaed10a7b" # datasource: icr.io/ext/sysdig/image-sbom-extractor
   runtime_status_integrator_image_repo       = "runtime-status-integrator"
