@@ -1,6 +1,12 @@
 <!-- Update the title -->
 # Security and Compliance Center Workload Protection Agent module
 
+---
+
+:warning: **Deprecated**: This module has been deprecated in favour of the [terraform-ibm-monitoring-agent](https://github.com/terraform-ibm-modules/terraform-ibm-monitoring-agent) module which now supports all of the Cloud Security and Compliance Center Workload Protection agent functionality. You should only ever use a single agent for collecting both security and metrics data in a given cluster. Running multiple instances of the agent will cause conflicts, hence the merging of the two modules into one.
+
+---
+
 <!--
 Update status and "latest release" badges:
   1. For the status options, see https://github.ibm.com/GoldenEye/documentation/blob/master/status.md
